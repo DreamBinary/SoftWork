@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <script src="calculator.js"></script>
+    <script src="background.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div class="background">
+    <div id="particles-js"></div>
+</div>
+<div class="container">
+    <input class="output" type="text" id="display" placeholder="0" readonly>
+    <div class="btns">
+        <button onclick="clr()" class="sp">C</button>
+        <button onclick="del()" class="sp">DEL</button>
+        <button onclick="insert('%')" class="sp">%</button>
+        <button onclick="insert('/')" class="sp">÷</button>
+        <button onclick="insert('7')">7</button>
+        <button onclick="insert('8')">8</button>
+        <button onclick="insert('9')">9</button>
+        <button onclick="insert('×')" class="sp">×</button>
+        <button onclick="insert('4')">4</button>
+        <button onclick="insert('5')">5</button>
+        <button onclick="insert('6')">6</button>
+        <button onclick="insert('-')" class="sp">-</button>
+        <button onclick="insert('1')">1</button>
+        <button onclick="insert('2')">2</button>
+        <button onclick="insert('3')">3</button>
+        <button onclick="insert('+')" class="sp">+</button>
+        <button onclick="insert('0')">0</button>
+        <button onclick="insert('.')">.</button>
+        <button onclick="calculate()" class="sp equal">=</button>
+    </div>
+</div>
+</body>
+</html>
