@@ -1,57 +1,149 @@
-window.onload = function () {
-    //获取画布对象
-    var canvas = document.getElementById("canvas");
-    //获取画布的上下文
-    var context = canvas.getContext("2d");
-    //获取浏览器屏幕的宽度和高度
-    var W = window.innerWidth;
-    var H = window.innerHeight;
-    //设置canvas的宽度和高度
-    canvas.width = W;
-    canvas.height = H;
-    //每个文字的字体大小
-    var fontSize = 16;
-    //计算列
-    var colunms = Math.floor(W / fontSize);
-    //记录每列文字的y轴坐标
-    var drops = [];
-    //给每一个文字初始化一个起始点的位置
-    for (var i = 0; i < colunms; i++) {
-        drops.push(0);
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+let cw = canvas.width = window.innerWidth,
+    cx = cw / 2;
+let ch = canvas.height = window.innerHeight,
+    cy = ch / 2;
+
+ctx.fillStyle = "#000";
+const linesNum = 16;
+const linesRy = [];
+let requestId = null;
+
+function Line(flag) {
+    this.flag = flag;
+    this.a = {};
+    this.b = {};
+    if (flag === "v") {
+        this.a.y = 0;
+        this.b.y = ch;
+        this.a.x = randomIntFromInterval(0, ch);
+        this.b.x = randomIntFromInterval(0, ch);
+    } else if (flag === "h") {
+        this.a.x = 0;
+        this.b.x = cw;
+        this.a.y = randomIntFromInterval(0, cw);
+        this.b.y = randomIntFromInterval(0, cw);
+    }
+    this.va = randomIntFromInterval(25, 100) / 100;
+    this.vb = randomIntFromInterval(25, 100) / 100;
+
+    this.draw = function () {
+        ctx.strokeStyle = "#ccc";
+        ctx.beginPath();
+        ctx.moveTo(this.a.x, this.a.y);
+        ctx.lineTo(this.b.x, this.b.y);
+        ctx.stroke();
     }
 
-    //运动的文字
-    var str = "javascript html5 canvas";
-    //4:fillText(str,x,y);原理就是去更改y的坐标位置
-    //绘画的函数
-    function draw() {
-        context.fillStyle = "rgba(0,0,0,0.05)";
-        context.fillRect(0, 0, W, H);
-        //给字体设置样式
-        context.font = "700 " + fontSize + "px  微软雅黑";
-        //给字体添加颜色
-        context.fillStyle = "#00cc33";//可以rgb,hsl, 标准色，十六进制颜色
-        //写入画布中
-        for (var i = 0; i < colunms; i++) {
-            var index = Math.floor(Math.random() * str.length);
-            var x = i * fontSize;
-            var y = drops[i] * fontSize;
-            context.fillText(str[index], x, y);
-            //如果要改变时间，肯定就是改变每次他的起点
-            if (y >= canvas.height && Math.random() > 0.99) {
-                drops[i] = 0;
-            }
-            drops[i]++;
+    this.update = function () {
+        if (this.flag === "v") {
+            this.a.x += this.va;
+            this.b.x += this.vb;
+        } else if (flag === "h") {
+            this.a.y += this.va;
+            this.b.y += this.vb;
         }
-    };
 
-    function randColor() {
-        var r = Math.floor(Math.random() * 256);
-        var g = Math.floor(Math.random() * 256);
-        var b = Math.floor(Math.random() * 256);
-        return "rgb(" + r + "," + g + "," + b + ")";
+        this.edges();
     }
 
-    draw();
-    setInterval(draw, 30);
-};
+    this.edges = function () {
+        if (this.flag === "v") {
+            if (this.a.x < 0 || this.a.x > cw) {
+                this.va *= -1;
+            }
+            if (this.b.x < 0 || this.b.x > cw) {
+                this.vb *= -1;
+            }
+        } else if (flag === "h") {
+            if (this.a.y < 0 || this.a.y > ch) {
+                this.va *= -1;
+            }
+            if (this.b.y < 0 || this.b.y > ch) {
+                this.vb *= -1;
+            }
+        }
+    }
+
+}
+
+for (let i = 0; i < linesNum; i++) {
+    const flag = i % 2 === 0 ? "h" : "v";
+    const l = new Line(flag);
+    linesRy.push(l);
+}
+
+function Draw() {
+    let l;
+    let i;
+    requestId = window.requestAnimationFrame(Draw);
+    ctx.clearRect(0, 0, cw, ch);
+
+    for (i = 0; i < linesRy.length; i++) {
+        l = linesRy[i];
+        l.draw();
+        l.update();
+    }
+    for (i = 0; i < linesRy.length; i++) {
+        l = linesRy[i];
+        for (let j = i + 1; j < linesRy.length; j++) {
+            Intersect2lines(l, linesRy[j]);
+        }
+    }
+}
+
+function Init() {
+    linesRy.length = 0;
+    for (let i = 0; i < linesNum; i++) {
+        const flag = i % 2 === 0 ? "h" : "v";
+        const l = new Line(flag);
+        linesRy.push(l);
+    }
+
+    if (requestId) {
+        window.cancelAnimationFrame(requestId);
+        requestId = null;
+    }
+
+    cw = canvas.width = window.innerWidth;
+    cx = cw / 2;
+    ch = canvas.height = window.innerHeight;
+    cy = ch / 2;
+
+    Draw();
+}
+
+setTimeout(function () {
+    Init();
+
+    addEventListener('resize', Init, false);
+}, 15);
+
+function Intersect2lines(l1, l2) {
+    const p1 = l1.a,
+        p2 = l1.b,
+        p3 = l2.a,
+        p4 = l2.b;
+    const denominator = (p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
+    const ua = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denominator;
+    const ub = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denominator;
+    const x = p1.x + ua * (p2.x - p1.x);
+    const y = p1.y + ua * (p2.y - p1.y);
+    if (ua > 0 && ub > 0) {
+        markPoint({
+            x: x,
+            y: y
+        })
+    }
+}
+
+function markPoint(p) {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 2, 0, 2 * Math.PI);
+    ctx.fill();
+}
+
+function randomIntFromInterval(mn, mx) {
+    return ~~(Math.random() * (mx - mn + 1) + mn);
+}

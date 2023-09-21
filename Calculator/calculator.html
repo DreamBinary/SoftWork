@@ -4,17 +4,14 @@
     <meta charset="UTF-8">
     <title>Calculator</title>
     <script src="calculator.js"></script>
-    <script src="background.js"></script>
     <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
+
 <canvas id="canvas"></canvas>
-<div class="background">
-    <div id="particles-js"></div>
-</div>
+
 <div class="container">
-    <input class="output" type="text" id="display" placeholder="0" readonly>
+    <label for="display"></label><input class="output" type="text" id="display" placeholder="0" onkeydown="onKeyDown()">
     <div class="btns">
         <button onclick="clr()" class="sp">C</button>
         <button onclick="del()" class="sp">DEL</button>
@@ -37,5 +34,7 @@
         <button onclick="calculate()" class="sp equal">=</button>
     </div>
 </div>
+
+<script src="background.js"></script>
 </body>
 </html>

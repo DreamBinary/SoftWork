@@ -1,7 +1,7 @@
 :root {
 
-    --main-color: #005DD9;
-
+    --main-color: #5a94f5;
+    --accent-color: #2775f1;
 }
 
 * {
@@ -20,18 +20,19 @@ body {
 
 }
 
-
-#canvas {
+canvas {
+    background-color: #eee;
+    display: block;
+    margin: 0 auto;
     width: 100%;
     height: 100%;
-    background: #111;
     position: absolute;
     z-index: -1;
 }
 
 .container {
     position: relative;
-    background: white;
+    background: rgba(255, 255, 255, 0.8);
     z-index: 1;
     width: 285px;
     padding: 30px;
@@ -41,24 +42,16 @@ body {
 
 .output {
     border: solid 2px var(--main-color);
+    outline: none;
     font-size: 40px;
     height: 60px;
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
     text-align: end;
+    color: var(--accent-color);
     margin-bottom: 20px;
-}
-
-.output input {
-    height: 100%;
-    width: 100%;
-    border: none;
-    outline: none;
-    font-size: 50px;
-    padding-right: 20px;
-    padding-left: 20px;
-    color: var(--main-color);
+    padding-inline-end: 5px;
 }
 
 .output input::placeholder {
