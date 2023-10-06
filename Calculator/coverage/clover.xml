@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1695468489900" clover="3.2.0">
-  <project timestamp="1695468489900" name="All files">
+<coverage generated="1695619090631" clover="3.2.0">
+  <project timestamp="1695619090631" name="All files">
     <metrics statements="150" coveredstatements="150" conditionals="49" coveredconditionals="49" methods="18" coveredmethods="18" elements="217" coveredelements="217" complexity="0" loc="150" ncloc="150" packages="1" files="1" classes="1"/>
     <file name="index.js" path="D:\MyFront\SoftWork\Calculator\src\index.js">
       <metrics statements="150" coveredstatements="150" conditionals="49" coveredconditionals="49" methods="18" coveredmethods="18"/>
