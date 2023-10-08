@@ -10,20 +10,74 @@
 
 <body>
 <canvas id="canvas"></canvas>
-<div class="calculator">
-    <div class="output">
-        <div class="operation">
-            <div class="value"></div>
+<div>
+    <button id="pageBtn" onclick="togglePage()"></button>
+    <div class="calculator" style="display: none;">
+        <div class="output">
+            <div class="operation">
+                <div class="value"></div>
+            </div>
+            <div class="result">
+                <div class="value">0</div>
+            </div>
         </div>
-        <div class="result">
-            <div class="value">0</div>
-        </div>
+
+        <div class="input"></div>
     </div>
 
-    <div class="input">
+    <div class="rate">
+        <button id="rateType" class="rateItemName" onclick="toggleRateType()"></button>
+        <div class="rateColumn" id="getRateColumn">
+            <div class="rateRow">
+                <div class="rateItemName">金额</div>
+                <div class="rateItemValue">
+                    <label for="getMoneyInput"></label><input type="number" id="getMoneyInput" value="0">
+                </div>
+            </div>
+            <div class="rateRow">
+                <div class="rateItemName">时长</div>
+                <div class="rateItemValue">
+                    <label for="getTimeInput"></label><input type="number" id="getTimeInput" value="0">
+                </div>
+            </div>
+            <div class="rateRow">
+                <div class="rateItemName"> 利息</div>
+                <div class="rateItemValue">
+                    <div id="rateResult">0</div>
+                </div>
+            </div>
+            <div class="rateRow">
+                <button id="rateGet" class="rateItemName" onclick="getInterest()">确定</button>
+            </div>
+        </div>
+
+
+        <div class="rateColumn" id="setRateColumn">
+            <div class="rateRow">
+                <div class="rateItemName">时长</div>
+                <div class="rateItemValue">
+                    <input type="number" id="setTimeInput" value="0">
+                </div>
+            </div>
+            <div class="rateRow">
+                <div class="rateItemName">利率</div>
+                <div class="rateItemValue">
+                    <input type="number" id="setRateInput" value="0">
+                </div>
+            </div>
+            <div class="rateRow">
+                <div class="rateItemName">&nbspTip&nbsp</div>
+                <div class="rateItemValue" id="setTip">this is a tip
+                </div>
+            </div>
+            <div class="rateRow">
+                <button id="setRate" onclick="setRate()">确定修改</button>
+            </div>
+        </div>
+
     </div>
 </div>
-
+<script src="net.js"></script>
 <script src="index.js"></script>
 <script src="background.js"></script>
 </body>

@@ -146,8 +146,3 @@ setTimeout(function () {
     Init();
     addEventListener('resize', Init, false);
 }, 15);
-
-module.exports = setTimeout(function () {
-    Init();
-    addEventListener('resize', Init, false);
-}, 15);

@@ -3,6 +3,7 @@
     --main-color: #5a94f5;
     --accent-color: #2775f1;
     --output-bg: #f2f2f2;
+    --bg-color: rgba(255, 255, 255, 0.8);
 }
 
 * {
@@ -30,12 +31,16 @@ canvas {
     z-index: -1;
 }
 
-.calculator {
-    background: rgba(255, 255, 255, 0.8);
+button {
+
+}
+
+.calculator, .rate {
+    background: var(--bg-color);
     z-index: 1;
     padding: 30px;
     width: 560px;
-    border-radius: 10px;
+    border-radius: 0 10px 10px 10px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2)
 }
 
@@ -143,4 +148,78 @@ canvas {
 .active-angle {
     background-color: var(--main-color) !important;
     color: #FFF !important;
+}
+
+#pageBtn {
+    background-color: var(--bg-color);
+    border-radius: 10px 10px 0 0;
+    border: none;
+    color: var(--accent-color);
+    padding: 15px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.rate button {
+    background-color: white;
+    color: var(--accent-color);
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    border: solid 1px rgb(128, 128, 128, 0.2);
+}
+
+
+.rate {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+
+.rateRow {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 16px;
+    padding: 5px 0;
+}
+
+#rateType {
+    grid-column: span 2;
+    margin-bottom: 8px;
+}
+
+#getRateColumn {
+    border-right: solid 2px rgb(128, 128, 128, 0.8);
+    padding-right: 10px;
+}
+
+#setRateColumn {
+    padding-left: 10px;
+}
+
+#setTip {
+    color: rgb(128, 128, 128);
+}
+
+.rateItemName {
+    margin-right: 15px;
+    color: var(--accent-color);
+}
+
+.rateItemValue {
+    flex: 1;
+}
+
+.rateItemValue input {
+    display: flex;
+    /*justify-content: space-between;*/
+    /*align-items: center;*/
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: solid 1px rgb(128, 128, 128, 0.5);
 }

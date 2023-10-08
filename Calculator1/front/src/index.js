@@ -1,3 +1,4 @@
+
 const POWER = "POWER(", FACTORIAL = "FACTORIAL("
 
 const OPERATORS = ["+", "-", "*", "/"]
@@ -312,10 +313,72 @@ function factorial(number) {
     return result
 }
 
-createCalculatorButton()
-
-module.exports = {
-    calculator_buttons,
-    createCalculatorButton,
-    calculator
+const PAGE_TYPE = {
+    CALCULATOR: "> 计算器 <",
+    RATE: "> 利率 <"
 }
+
+function togglePage() {
+    let calc = document.querySelector(".calculator");
+    let rate = document.querySelector(".rate");
+    let pageBtn = document.getElementById("pageBtn");
+    if (calc.style.display === "none") {
+        calc.style.display = "block";
+        rate.style.display = "none";
+        pageBtn.innerHTML = PAGE_TYPE.CALCULATOR;
+    } else {
+        calc.style.display = "none";
+        rate.style.display = "flex";
+        pageBtn.innerHTML = PAGE_TYPE.RATE;
+    }
+}
+
+const RATE_TYPE = {
+    DEPOSIT: "存款",
+    LOAN: "贷款"
+}
+
+
+function toggleRateType() {
+    let rateType = document.getElementById("rateType");
+    if (rateType.innerHTML === RATE_TYPE.DEPOSIT) {
+        rateType.innerHTML = RATE_TYPE.LOAN;
+    } else {
+        rateType.innerHTML = RATE_TYPE.DEPOSIT;
+    }
+}
+
+function getInterest() {
+    let rate
+    let rateType = document.getElementById("rateType");
+    let time = document.getElementById("getTimeInput").value;
+    if (rateType.innerHTML === RATE_TYPE.DEPOSIT) {
+        rate = get_deposit_rate(time)
+    } else {
+        rate = get_loan_rate(time)
+    }
+    console.log(rate)
+    let money = document.getElementById("getMoneyInput").value;
+    document.getElementById("rateResult").innerHTML = rate * money;
+}
+
+function setRate() {
+    let time = document.getElementById("setTimeInput").value;
+    let rate = document.getElementById("setRateInput").value;
+    let tipElement = document.getElementById("setTip");
+
+    if (rateType.innerHTML === RATE_TYPE.DEPOSIT) {
+
+    } else {
+        // TODO
+    }
+
+    // TODO
+
+
+}
+
+
+createCalculatorButton()
+document.getElementById("rateType").innerHTML = RATE_TYPE.DEPOSIT;
+document.getElementById("pageBtn").innerHTML = PAGE_TYPE.CALCULATOR;
