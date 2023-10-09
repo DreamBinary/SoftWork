@@ -5,7 +5,7 @@ import json
 import datetime
 
 app = Flask(__name__)
-CORS(app)
+CORS(app) # 解决跨域问题
 db = pymysql.connect(host="localhost", port=3306, user="root", password="mysqlcxq", db="calculator", charset="utf8")
 cur = db.cursor()
 
@@ -67,7 +67,7 @@ def set_loans_rate():
 
 @app.route("/get_history")
 def get_history():
-    history_sql = "select * from history order by time desc"
+    history_sql = "select pro, ans from history order by time desc limit 10"
     cur.execute(history_sql)
     history = cur.fetchall()
     data = json.dumps({"data": history})

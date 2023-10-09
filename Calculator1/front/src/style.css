@@ -6,6 +6,7 @@
     --bg-color: rgba(255, 255, 255, 0.8);
 }
 
+
 * {
     padding: 0;
     margin: 0;
@@ -58,16 +59,21 @@ button {
     font-size: 1.9em;
     font-weight: normal;
     position: relative;
-    overflow: hidden;
+    overflow: clip;
     border-bottom: solid 1px rgb(135, 135, 135, 0.2);
 }
 
 .operation .value {
+    height: 50px;
     position: absolute;
-    bottom: 5px;
     right: 10px;
+    top: 25%;
     white-space: nowrap;
-    overflow: hidden;
+    overflow: scroll;
+}
+
+.operation .value::-webkit-scrollbar {
+    display: none;
 }
 
 .result {

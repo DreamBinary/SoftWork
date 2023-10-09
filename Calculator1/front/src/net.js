@@ -3,12 +3,14 @@ const URL = {
     get_deposit_rate: baseUrl + "get_deposit_rate",
     get_loan_rate: baseUrl + "get_loan_rate",
     set_deposit_rate: baseUrl + "set_deposit_rate",
-    set_loan_rate: baseUrl + "set_loan_rate"
+    set_loan_rate: baseUrl + "set_loan_rate",
+    get_history: baseUrl + "get_history",
+    save_history: baseUrl + "save_history",
 }
 
 let xhr = new XMLHttpRequest();
 
-function get_fun(url, params, callback) {
+function getFun(url, params, callback) {
     let new_url = url;
     if (params) {
         new_url += "?";
@@ -23,14 +25,16 @@ function get_fun(url, params, callback) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                let json = JSON.parse(xhr.responseText);
-                callback(json["data"]);
+                if (callback) {
+                    let json = JSON.parse(xhr.responseText);
+                    callback(json["data"]);
+                }
             }
         }
     }
 }
 
-function post_fun(url, params, callback) {
+function postFun(url, params, callback) {
 
     let form = new FormData();
     // params -> map
@@ -42,26 +46,35 @@ function post_fun(url, params, callback) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                let json = JSON.parse(xhr.responseText);
-                callback(json["data"]);
+                if (callback) {
+                    let json = JSON.parse(xhr.responseText);
+                    callback(json["data"]);
+                }
             }
         }
     }
 }
 
-function get_deposit_rate(time, callback) {
-    return get_fun(URL.get_deposit_rate, {"time": time}, callback);
+function getDepositRate(time, callback) {
+    return getFun(URL.get_deposit_rate, {"time": time}, callback);
 }
 
-function get_loan_rate(time, callback) {
-    return get_fun(URL.get_loan_rate, {"time": time});
+function getLoanRate(time, callback) {
+    return getFun(URL.get_loan_rate, {"time": time}, callback);
 }
 
-function set_deposit_rate(time, rate, callback) {
-    return post_fun(URL.set_deposit_rate, {"time": time, "rate": rate}, callback);
+function setDepositRate(time, rate, callback) {
+    return postFun(URL.set_deposit_rate, {"time": time, "rate": rate}, callback);
 }
 
-function set_loan_rate(time, rate, callback) {
-    return post_fun(URL.set_loan_rate, {"time": time, "rate": rate}, callback);
+function setLoanRate(time, rate, callback) {
+    return postFun(URL.set_loan_rate, {"time": time, "rate": rate}, callback);
 }
 
+function getHistoryNet(callback) {
+    return getFun(URL.get_history, null, callback);
+}
+
+function saveHistoryNet(pro, ans, callback) {
+    return postFun(URL.save_history, {"pro": pro, "ans": ans}, callback);
+}

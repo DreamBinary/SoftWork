@@ -6,8 +6,6 @@ let data = {
     operation: [], formula: [],
 }
 
-let ans = 0
-
 let calculator_buttons = [
     {
         name: "square-root", symbol: "√", formula: "Math.sqrt(", type: "math_function"  // 0
@@ -70,7 +68,7 @@ let calculator_buttons = [
     }, {
         name: "subtraction", symbol: "-", formula: "-", type: "operator" // 29
     }, {
-        name: "ANS", symbol: "ANS", formula: "ans", type: "number" // 30
+        name: "ANS", symbol: "ANS", formula: "ans", type: "key" // 30
     }, {
         name: "exp", symbol: "exp", formula: "Math.exp", type: "math_function" // 31
     }, {
@@ -152,7 +150,9 @@ function calculator(button) {
             data.formula.push(formula)
         }
     } else if (button.type === 'key') {
-        if (button.name === 'clear') {
+        if (button.name === 'ANS') {
+            getHistory()
+        } else if (button.name === 'clear') {
             data.operation = []
             data.formula = []
             updateOutputResult(0)
@@ -313,7 +313,7 @@ function togglePage() {
         pageBtn.innerHTML = PAGE_TYPE.CALCULATOR;
     } else {
         calc.style.display = "none";
-        rate.style.display = "flex";
+        rate.style.display = "block"
         pageBtn.innerHTML = PAGE_TYPE.RATE;
     }
 }
@@ -339,18 +339,16 @@ function getInterest() {
     let money = document.getElementById("getMoneyInput").value;
     let resultElement = document.getElementById("rateResult");
     if (rateType.innerHTML === RATE_TYPE.DEPOSIT) {
-        get_deposit_rate(time, (data) => {
+        getDepositRate(time, (data) => {
             console.log(data)
-            resultElement.innerHTML = data * money;
+            resultElement.innerHTML = data * money / 100;
         })
     } else {
-        get_loan_rate(time, (data) => {
+        getLoanRate(time, (data) => {
             console.log(data)
-            resultElement.innerHTML = data * money;
+            resultElement.innerHTML = data * money / 100;
         })
     }
-
-
 }
 
 function setRate() {
@@ -360,7 +358,7 @@ function setRate() {
     let tipElement = document.getElementById("setTip");
 
     if (rateType.innerHTML === RATE_TYPE.DEPOSIT) {
-        set_deposit_rate(time, rate, (data) => {
+        setDepositRate(time, rate, (data) => {
             console.log(data)
             if (data > 0) {
                 tipElement.innerHTML = "设置成功";
@@ -369,7 +367,7 @@ function setRate() {
             }
         })
     } else {
-        set_loan_rate(time, rate, (data) => {
+        setLoanRate(time, rate, (data) => {
             console.log(data)
             if (data > 0) {
                 tipElement.innerHTML = "设置成功";
@@ -381,15 +379,23 @@ function setRate() {
 }
 
 function saveHistory(pro, ans) {
-
-
+    saveHistoryNet(pro, ans, (data) => {
+        console.log(data)
+    })
 }
 
 function getHistory() {
-
+    getHistoryNet((data) => {
+        let operation = document.querySelector('.operation .value')
+        let result = document.querySelector('.result .value')
+        data.forEach((element, index) => {
+            operation.innerHTML += `<p>${element[0]} = ${element[1]}</p>`
+        })
+        result.innerHTML = data[0][1]
+    })
 }
 
 
 createCalculatorButton()
 document.getElementById("rateType").innerHTML = RATE_TYPE.DEPOSIT;
-document.getElementById("pageBtn").innerHTML = PAGE_TYPE.CALCULATOR;
+document.getElementById("pageBtn").innerHTML = PAGE_TYPE.RATE;
