@@ -5,7 +5,7 @@ import json
 import datetime
 
 app = Flask(__name__)
-CORS(app) # 解决跨域问题
+CORS(app)  # 解决跨域问题
 db = pymysql.connect(host="localhost", port=3306, user="root", password="mysqlcxq", db="calculator", charset="utf8")
 cur = db.cursor()
 
