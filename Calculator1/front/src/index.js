@@ -1,4 +1,3 @@
-
 const POWER = "POWER(", FACTORIAL = "FACTORIAL("
 
 const OPERATORS = ["+", "-", "*", "/"]
@@ -186,6 +185,7 @@ function calculator(button) {
             if (!r.test(result)) {
                 result = parseFloat(result.toFixed(2));
             }
+            saveHistory(data.formula.join(''), result)
         } catch (error) {
             result = "Error"
             updateOutputResult(result)
@@ -227,7 +227,6 @@ function factorialNumGetter(formula, FACTORIAL_SEARCH_RESULT) {
             number.unshift(formula[prev_idx])
             prev_idx--;
         }
-
         let number_str = number.join('')
         const factorial = "factorial(", close_paren = ')'
         let times = factorial_sequence + 1
@@ -236,7 +235,6 @@ function factorialNumGetter(formula, FACTORIAL_SEARCH_RESULT) {
         numbers.push({
             toReplace: toReplace, replacement: replacement
         })
-
         factorial_sequence = 0
     })
     return numbers
@@ -247,48 +245,35 @@ function powerBaseGetter(formula, POWER_SEARCH_RESULT) {
 
     POWER_SEARCH_RESULT.forEach(power_index => {
         let base = []
-
         let paren_count = 0
-
         let prev_idx = power_index - 1
-
         while (prev_idx >= 0) {
-
             if (formula[prev_idx] === '(') {
                 paren_count -= 1
             }
             if (formula[prev_idx] === ')') {
                 paren_count += 1
             }
-
             let is_operator = false
-
             OPERATORS.forEach(OPERATOR => {
                 if (formula[prev_idx] === OPERATOR) {
                     is_operator = true
                 }
             })
-
             let is_power = formula[prev_idx] === POWER
-
             if ((is_operator && paren_count === 0) || is_power) {
                 break;
             }
-
             base.unshift(formula[prev_idx])
-
             prev_idx--;
         }
-
         powers_base.push(base.join(''))
     })
-
     return powers_base
 }
 
 function search(array, keyword) {
     let search_res = []
-
     array.forEach((element, index) => {
         if (element === keyword) {
             search_res.push(index)
@@ -349,32 +334,58 @@ function toggleRateType() {
 }
 
 function getInterest() {
-    let rate
     let rateType = document.getElementById("rateType");
     let time = document.getElementById("getTimeInput").value;
-    if (rateType.innerHTML === RATE_TYPE.DEPOSIT) {
-        rate = get_deposit_rate(time)
-    } else {
-        rate = get_loan_rate(time)
-    }
-    console.log(rate)
     let money = document.getElementById("getMoneyInput").value;
-    document.getElementById("rateResult").innerHTML = rate * money;
+    let resultElement = document.getElementById("rateResult");
+    if (rateType.innerHTML === RATE_TYPE.DEPOSIT) {
+        get_deposit_rate(time, (data) => {
+            console.log(data)
+            resultElement.innerHTML = data * money;
+        })
+    } else {
+        get_loan_rate(time, (data) => {
+            console.log(data)
+            resultElement.innerHTML = data * money;
+        })
+    }
+
+
 }
 
 function setRate() {
+    let rateType = document.getElementById("rateType");
     let time = document.getElementById("setTimeInput").value;
     let rate = document.getElementById("setRateInput").value;
     let tipElement = document.getElementById("setTip");
 
     if (rateType.innerHTML === RATE_TYPE.DEPOSIT) {
-
+        set_deposit_rate(time, rate, (data) => {
+            console.log(data)
+            if (data > 0) {
+                tipElement.innerHTML = "设置成功";
+            } else {
+                tipElement.innerHTML = "没有该时长的存款利率";
+            }
+        })
     } else {
-        // TODO
+        set_loan_rate(time, rate, (data) => {
+            console.log(data)
+            if (data > 0) {
+                tipElement.innerHTML = "设置成功";
+            } else {
+                tipElement.innerHTML = "没有该时长的贷款利率";
+            }
+        })
     }
+}
 
-    // TODO
+function saveHistory(pro, ans) {
 
+
+}
+
+function getHistory() {
 
 }
 

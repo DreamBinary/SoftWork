@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="202772b3-5cd5-478d-a015-f0ecdfc6d826" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Calculator1/front/src/background.js" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/front/src/background.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Calculator1/front/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/front/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Calculator1/back/calculator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/back/calculator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Calculator1/front/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/front/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Calculator1/front/src/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/front/src/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Calculator1/front/src/net.js" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/front/src/net.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +69,8 @@
       <workItem from="1696752152468" duration="4435000" />
       <workItem from="1696763115937" duration="585000" />
       <workItem from="1696764588318" duration="14000" />
-      <workItem from="1696764935611" duration="11557000" />
+      <workItem from="1696764935611" duration="11608000" />
+      <workItem from="1696809634022" duration="2799000" />
     </task>
     <servers />
   </component>
