@@ -6,12 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="202772b3-5cd5-478d-a015-f0ecdfc6d826" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Calculator1/back/calculator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/back/calculator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Calculator1/back/sql.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/back/sql.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Calculator1/front/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/front/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Calculator1/front/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/front/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Calculator1/front/src/net.js" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/front/src/net.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Calculator1/front/src/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/front/src/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Calculator1/102101142_calculator_frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/102101142_calculator_frontend/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Calculator1/102101142_calculator_frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/102101142_calculator_frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Calculator1/102101142_calculator_frontend/src/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Calculator1/102101142_calculator_frontend/src/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +74,8 @@
       <workItem from="1696818100908" duration="609000" />
       <workItem from="1696821062081" duration="2527000" />
       <workItem from="1696825739341" duration="659000" />
+      <workItem from="1696949377490" duration="601000" />
+      <workItem from="1696990133760" duration="731000" />
     </task>
     <servers />
   </component>

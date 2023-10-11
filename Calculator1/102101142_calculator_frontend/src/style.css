@@ -178,13 +178,10 @@ button {
     border-radius: 5px;
     border: solid 1px rgb(128, 128, 128, 0.2);
 }
-
-
 .rate {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
-
 
 .rateRow {
     display: flex;
@@ -200,11 +197,13 @@ button {
 }
 
 #getRateColumn {
+    grid-column: span 1;
     border-right: solid 2px rgb(128, 128, 128, 0.8);
     padding-right: 10px;
 }
 
 #setRateColumn {
+    grid-column: span 1;
     padding-left: 10px;
 }
 
@@ -222,7 +221,7 @@ button {
 }
 
 .rateItemValue input {
-    display: flex;
+    /*display: flex;*/
     /*justify-content: space-between;*/
     /*align-items: center;*/
     padding: 5px 10px;

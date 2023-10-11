@@ -313,7 +313,7 @@ function togglePage() {
         pageBtn.innerHTML = PAGE_TYPE.CALCULATOR;
     } else {
         calc.style.display = "none";
-        rate.style.display = "block"
+        rate.style.display = "grid";
         pageBtn.innerHTML = PAGE_TYPE.RATE;
     }
 }
@@ -398,4 +398,4 @@ function getHistory() {
 
 createCalculatorButton()
 document.getElementById("rateType").innerHTML = RATE_TYPE.DEPOSIT;
-document.getElementById("pageBtn").innerHTML = PAGE_TYPE.RATE;
+document.getElementById("pageBtn").innerHTML = PAGE_TYPE.CALCULATOR;
