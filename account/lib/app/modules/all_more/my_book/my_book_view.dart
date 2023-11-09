@@ -233,9 +233,9 @@ class _MMyBookPageState extends State<_MMyBookPage> {
     ];
 
     List<DateTime> dates = [
-      DateTime(2023, 1, 1),
-      DateTime(2023, 2, 3),
-      DateTime(2023, 3, 13),
+      DateTime(2023, 11, 1),
+      DateTime(2023, 11, 3),
+      DateTime(2023, 11, 10),
     ];
 
     var currentIndex = 0;
