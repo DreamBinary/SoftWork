@@ -2,36 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../data/entity/consume.dart';
-import '../../data/net/api_consume.dart';
 import 'home_state.dart';
 
 class HomeLogic extends GetxController {
   final HomeState state = HomeState();
 
-  Future<List<Map<String, List<ConsumeData>>>> getRecord(
+  Future<List<Map<String, List<ConsumeData>>>?> getRecord(
       {required String start, String? end, bool isMonth = false}) async {
-    if (isMonth) {
-      // if (state.start == null ||
-      //     state.start != start ||
-      //     state.isMonth != isMonth) {
-        state.start = start;
-        state.isMonth = isMonth;
-        state.record = await ApiConsume.getRecordMap(
-            date: "${start.split(" ")[0]}-01 00:00:00");
-      // }
-    } else {
-      // if (state.start == null ||
-      //     state.start != start ||
-      //     state.end != end ||
-      //     state.isMonth != isMonth) {
-        state.start = start;
-        state.isMonth = isMonth;
-        state.record = await ApiConsume.getRangeRecordMap(
-            start: "${start.split(" ")[0]} 00:00:00",
-            end: "${end?.split(" ")[0]} 23:59:59");
-      }
-    // }
-    return state.record!;
+    return null;
   }
 
   clear() {
@@ -45,58 +23,12 @@ class HomeLogic extends GetxController {
 
   Future<double> _getOut(
       {required String start, String? end, bool isMonth = false}) async {
-    if (isMonth) {
-      // if (state.start == null ||
-      //     state.start != start ||
-      //     state.isMonth != isMonth) {
-        state.start = start;
-        state.isMonth = isMonth;
-        state.outM = (await ApiConsume.getOut(
-                type: "month", date: "${start.split(" ")[0]}-01 00:00:00"))?.abs() ??
-            0.0;
-      // }
-    } else {
-      // if (state.start == null ||
-      //     state.start != start ||
-      //     state.end != end ||
-      //     state.isMonth != isMonth) {
-        state.start = start;
-        state.isMonth = isMonth;
-        state.outM = (await ApiConsume.getRangeOut(
-                start: "${start.split(" ")[0]} 00:00:00",
-                end: "${end?.split(" ")[0]} 23:59:59"))?.abs() ??
-            0.0;
-      // }
-    }
-    return state.outM;
+    return 0.0;
   }
 
   Future<double> _getIn(
       {required String start, String? end, bool isMonth = false}) async {
-    if (isMonth) {
-      // if (state.start == null ||
-      //     state.start != start ||
-      //     state.isMonth != isMonth) {
-        state.start = start;
-        state.isMonth = isMonth;
-        state.inM = (await ApiConsume.getIn(
-                type: "month", date: "${start.split(" ")[0]}-01 00:00:00"))?.abs() ??
-            0.0;
-      // }
-    } else {
-      // if (state.start == null ||
-      //     state.start != start ||
-      //     state.end != end ||
-      //     state.isMonth != isMonth) {
-        state.start = start;
-        state.isMonth = isMonth;
-        state.inM = (await ApiConsume.getRangeIn(
-                start: "${start.split(" ")[0]} 00:00:00",
-                end: "${end?.split(" ")[0]} 23:59:59"))?.abs() ??
-            0.0;
-      }
-    // }
-    return state.inM;
+    return 0.0;
   }
 
   Future<List<double>> getOutIn(

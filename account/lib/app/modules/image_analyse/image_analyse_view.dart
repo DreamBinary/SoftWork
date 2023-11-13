@@ -48,7 +48,6 @@ class _ImageAnalysePageState extends State<ImageAnalysePage> {
                 return MyDatePicker(
                   isSingleMonth: true,
                   changeTime: (start_, end_, isMonth_) {
-                    logic.clear();
                     setState(
                       () {
                         date = "$start_-01";
@@ -96,7 +95,7 @@ class _ImageAnalysePageState extends State<ImageAnalysePage> {
                 height: 200.h,
                 padding: EdgeInsets.only(right: 15.w),
                 child: FutureBuilder(
-                    future: logic.getTypeAll(date),
+                    future: Future.delayed(const Duration(seconds: 1)),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         List<double> percentage =
@@ -142,7 +141,7 @@ class _ImageAnalysePageState extends State<ImageAnalysePage> {
                 // future: Future.delayed(const Duration(seconds: 5), () {
                 //   return data;
                 // }),
-                future: logic.getThirtyOutList(date),
+                future: Future.delayed(const Duration(seconds: 1)),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return MyLineChart(data: snapshot.data!);
@@ -194,7 +193,7 @@ class _PiePartState extends State<_PiePart> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         FutureBuilder(
-            future: logic.getTypeTop4(widget.date),
+            future: Future.delayed(const Duration(seconds: 1)),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<double> percentage =
@@ -230,7 +229,7 @@ class _PiePartState extends State<_PiePart> {
               }
             }),
         FutureBuilder(
-          future: logic.getOutIn(date: widget.date),
+          future: Future.delayed(const Duration(seconds: 1)),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               List<double> outIn = snapshot.data as List<double>;

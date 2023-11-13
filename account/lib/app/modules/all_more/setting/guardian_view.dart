@@ -1,7 +1,6 @@
 import 'package:account/app/component/mydialog.dart';
 import 'package:account/app/component/myshimmer.dart';
 import 'package:account/app/component/mytopbar.dart';
-import 'package:account/app/data/net/api_guardian.dart';
 import 'package:account/app/theme/app_text_theme.dart';
 import 'package:account/app/utils/toast.dart';
 import 'package:account/res/assets_res.dart';
@@ -47,7 +46,7 @@ class GuardianPage extends StatelessWidget {
                       height: 150.h,
                       child: SelectionArea(
                         child: FutureBuilder(
-                          future: ApiGuardian.getCode(),
+                          future: Future.delayed(const Duration(seconds: 1)),
                           builder: (_, snapshot) {
                             if (snapshot.hasData) {
                               String code = snapshot.data ?? "6rhhc6zc";

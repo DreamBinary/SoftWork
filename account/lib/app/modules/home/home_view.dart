@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:account/app/component/croping_page.dart';
 import 'package:account/app/component/refresh_indicator.dart';
 import 'package:account/app/routes/app_pages.dart';
 import 'package:account/app/utils/floating_util.dart';
@@ -8,7 +7,6 @@ import 'package:account/app/component/mybottombar.dart';
 import 'package:account/app/component/mycard.dart';
 import 'package:account/app/component/mydatepicker.dart';
 import 'package:account/app/component/myshowbottomsheet.dart';
-import 'package:account/app/data/net/api_img.dart';
 import 'package:account/app/modules/home/home_logic.dart';
 import 'package:account/app/theme/app_colors.dart';
 import 'package:account/app/utils/camera_util.dart';
@@ -78,9 +76,10 @@ class _MHomePageState extends State<_MHomePage> {
       (filePath) async {
         FloatingUtil.end();
         await Future.delayed(const Duration(milliseconds: 100));
-        var urls = await ApiImg.upImg(imgPaths: [filePath]);
-        Get.to(CroppingPage(
-            fileName: urls[0].split('/').last, isScreenShot: true));
+        // TODO
+        // var urls = await ApiImg.upImg(imgPaths: [filePath]);
+        // Get.to(CroppingPage(
+        //     fileName: urls[0].split('/').last, isScreenShot: true));
         screenListener.dispose();
       },
     );
@@ -357,7 +356,8 @@ class _MHomePageState extends State<_MHomePage> {
                 return;
               }
               List<String> urls = await CameraUtil.upImg(image);
-              Get.to(CroppingPage(fileName: urls[0].split('/').last));
+              // TODO
+              // Get.to(CroppingPage(fileName: urls[0].split('/').last));
             },
           ),
           SizedBox(height: 10.h),
@@ -369,7 +369,8 @@ class _MHomePageState extends State<_MHomePage> {
                 return;
               }
               List<String> urls = await CameraUtil.upImg(image);
-              Get.to(CroppingPage(fileName: urls[0].split('/').last));
+              // TODO
+              // Get.to(CroppingPage(fileName: urls[0].split('/').last));
             },
           ),
           SizedBox(height: 20.h),
@@ -407,140 +408,10 @@ class _SHomePage extends StatefulWidget {
 
 class _SHomePageState extends State<_SHomePage>
     with SingleTickerProviderStateMixin {
-  int _currentIndex = 0;
-
-  List<String> bookImgPath = [
-    AssetsRes.BOOK0,
-    AssetsRes.BOOK1,
-    AssetsRes.BOOK2
-  ];
-
-  List<String> bookName = ["我的日常", "家人们", "舍友们"];
-  List<String> bookName2 = ["我\n的\n日\n常", "家\n人\n们", "舍\n友\n们"];
-  late List<Color> colors = AppColors.randomColor(num: bookName.length);
-
-  int _bookIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.whiteBg,
-      body: SafeArea(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: _Tab(
-                    title: bookName[_bookIndex],
-                    indicateColor: _currentIndex == 0
-                        ? AppColors.color_list[0]
-                        : AppColors.color_list[1],
-                    onTap: () {
-                      setState(() {
-                        _currentIndex = 0;
-                      });
-                    },
-                    isSelect: _currentIndex == 0,
-                  ),
-                ),
-                Expanded(
-                  child: _Tab(
-                    title: "选择账本",
-                    indicateColor: _currentIndex == 1
-                        ? AppColors.color_list[0]
-                        : AppColors.color_list[1],
-                    onTap: () {
-                      setState(() {
-                        _currentIndex = 1;
-                      });
-                    },
-                    isSelect: _currentIndex == 1,
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: _currentIndex == 0
-                  ? const _SOnePage()
-                  : SingleChildScrollView(
-                      child: Container(
-                        width: double.maxFinite,
-                        padding: EdgeInsets.only(top: 10.h),
-                        child: Column(
-                          children: List.generate(
-                            bookName.length + 1,
-                            (index) {
-                              if (index == bookName.length) {
-                                return SizedBox(height: 40.h);
-                              } else {
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _bookIndex = index;
-                                      _currentIndex = 0;
-                                    });
-                                  },
-                                  child: Align(
-                                    alignment: index % 2 == 0
-                                        ? Alignment.centerLeft
-                                        : Alignment.centerRight,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 15, horizontal: 40),
-                                      child: MyCard(
-                                        colors[index],
-                                        width: 200.w,
-                                        height: 200.h,
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                              width: 125.w,
-                                              height: double.infinity,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                image: DecorationImage(
-                                                  image: AssetImage(
-                                                      bookImgPath[index]),
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(width: 10.w),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Text(
-                                                  bookName2[index],
-                                                  style: AppTS.big32.copyWith(
-                                                      color:
-                                                          AppColors.textColor(
-                                                              colors[index])),
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        ).paddingAll(10),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-            ),
-          ],
-        ),
-      ),
-    );
+    return Container();
   }
 }
 
@@ -773,83 +644,6 @@ class _DayRecordState extends State<DayRecord> {
   }
 }
 
-// class _STwoPage extends StatefulWidget {
-//   final Function(int index) onSelect;
-//
-//   const _STwoPage({required this.onSelect, Key? key}) : super(key: key);
-//
-//   @override
-//   State<_STwoPage> createState() => _STwoPageState();
-// }
-
-// class _STwoPageState extends State<_STwoPage> {
-//   List<String> bookImgPath = [
-//     AssetsRes.BOOK0,
-//     AssetsRes.BOOK1,
-//     AssetsRes.BOOK2
-//   ];
-//
-//   List<String> bookName = ["我\n的\n日\n常", "家\n人\n们", "舍\n友\n们"];
-//
-//   late List<Color> colors = AppColors.randomColor(num: bookName.length);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return SingleChildScrollView(
-//       child: Container(
-//         color: AppColors.color_list[1],
-//         width: double.maxFinite,
-//         padding: EdgeInsets.only(top: 10.h),
-//         child: Column(
-//           children: List.generate(
-//               bookName.length,
-//               (index) => GestureDetector(
-//                     onTap: () {
-//                       widget.onSelect(index);
-//                     },
-//                     child: Padding(
-//                       padding: const EdgeInsets.all(15),
-//                       child: MyCard(
-//                         colors[index],
-//                         width: 200.w,
-//                         height: 200.h,
-//                         child: Row(
-//                           children: [
-//                             Container(
-//                               width: 125.w,
-//                               height: double.infinity,
-//                               decoration: BoxDecoration(
-//                                 borderRadius: BorderRadius.circular(10),
-//                                 image: DecorationImage(
-//                                   image: AssetImage(bookImgPath[index]),
-//                                   fit: BoxFit.cover,
-//                                 ),
-//                               ),
-//                             ),
-//                             SizedBox(width: 10.w),
-//                             Column(
-//                               crossAxisAlignment: CrossAxisAlignment.start,
-//                               mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                               children: [
-//                                 Text(
-//                                   bookName[index],
-//                                   style: AppTS.big32.copyWith(
-//                                       color:
-//                                           AppColors.textColor(colors[index])),
-//                                 ),
-//                               ],
-//                             )
-//                           ],
-//                         ).paddingAll(10),
-//                       ),
-//                     ),
-//                   )),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class _SOnePage extends StatefulWidget {
   const _SOnePage({Key? key}) : super(key: key);
 
@@ -1035,74 +829,6 @@ class _Tab extends StatelessWidget {
     );
   }
 }
-// class _Tab extends StatelessWidget {
-//   final String title;
-//   final Color colorBg;
-//   final Color indicateColor;
-//   final bool isSelect;
-//   final GestureTapCallback? onTap;
-//
-//   const _Tab({
-//     required this.title,
-//     required this.colorBg,
-//     required this.indicateColor,
-//     required this.isSelect,
-//     this.onTap,
-//     Key? key,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: onTap,
-//       child: Container(
-//         height: 45,
-//         color: isSelect ? indicateColor : colorBg,
-//         child: Row(
-//           children: [
-//             Expanded(
-//                 child: Container(
-//               decoration: BoxDecoration(
-//                 color: colorBg,
-//                 borderRadius: const BorderRadius.only(
-//                   bottomRight: Radius.circular(15),
-//                 ),
-//               ),
-//             )),
-//             Expanded(
-//               flex: 5,
-//               child: Container(
-//                 color: colorBg,
-//                 child: Container(
-//                   decoration: BoxDecoration(
-//                     color: indicateColor,
-//                     borderRadius: const BorderRadius.vertical(
-//                       top: Radius.circular(15),
-//                     ),
-//                   ),
-//                   alignment: Alignment.center,
-//                   child: Text(title,
-//                       style: AppTS.big
-//                           .copyWith(color: AppColors.textColor(colorBg))),
-//                 ),
-//               ),
-//             ),
-//             Expanded(
-//               child: Container(
-//                 decoration: BoxDecoration(
-//                   color: colorBg,
-//                   borderRadius: const BorderRadius.only(
-//                     bottomLeft: Radius.circular(15),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class _ShimmerItem extends StatelessWidget {
   const _ShimmerItem({Key? key}) : super(key: key);

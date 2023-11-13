@@ -11,8 +11,6 @@ import '../../../component/mycard.dart';
 import '../../../component/version_ctrl.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_text_theme.dart';
-import '../report_view.dart';
-import 'more_logic.dart';
 
 class MorePage extends StatelessWidget {
   const MorePage({super.key});
@@ -125,7 +123,7 @@ class _SMorePage extends StatelessWidget {
                               child: MyCard(
                                 AppColors.color_list[0],
                                 onPressed: () {
-                                  Get.to(const ReportPage());
+
                                 },
                                 child: Text(
                                   "报告",
@@ -262,7 +260,7 @@ class _MMorePage extends StatelessWidget {
                               child: MyCard(
                                 AppColors.color_list[3],
                                 onPressed: () {
-                                  Get.to(const ReportPage());
+
                                 },
                                 child: Text(
                                   "报告",

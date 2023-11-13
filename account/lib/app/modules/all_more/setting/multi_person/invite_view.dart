@@ -10,8 +10,6 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:share_plus/share_plus.dart';
-
-import '../../../../data/net/api_guardian.dart';
 import '../../../../utils/toast.dart';
 
 class InvitePage extends StatelessWidget {
@@ -113,10 +111,10 @@ class InvitePage extends StatelessWidget {
                                 ],
                               )),
                           FutureBuilder(
-                            future: ApiGuardian.getCode(),
+                            future: Future.delayed(const Duration(seconds: 1)),
                             builder: (_, snapshot) {
                               if (snapshot.hasData) {
-                                String code = snapshot.data ?? "&AJ9L0HW";
+                                String code = "&AJ9L0HW";
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [

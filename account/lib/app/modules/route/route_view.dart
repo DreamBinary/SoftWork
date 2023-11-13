@@ -15,7 +15,6 @@ import '../../component/croping_page.dart';
 import '../../component/myshowbottomsheet.dart';
 import '../../component/picchoicebtn.dart';
 import '../../component/sound_page.dart';
-import '../../data/net/api_img.dart';
 import '../../routes/app_pages.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_string.dart';
@@ -34,7 +33,7 @@ class RoutePage extends StatelessWidget {
     if (VersionCtrl.of(context)?.version != 0) {
       return const _SRoutePage();
     }
-    return const _MRoutePage();
+    return const  _MRoutePage();
   }
 }
 
@@ -148,9 +147,10 @@ class _SRoutePageState extends State<_SRoutePage>
         // print(filePath);
         FloatingUtil.end();
         await Future.delayed(const Duration(milliseconds: 100));
-        var urls = await ApiImg.upImg(imgPaths: [filePath]);
-        Get.to(CroppingPage(
-            fileName: urls[0].split('/').last, isScreenShot: true));
+        // TODO
+        // var urls = await ApiImg.upImg(imgPaths: [filePath]);
+        // Get.to(CroppingPage(
+        //     fileName: urls[0].split('/').last, isScreenShot: true));
         screenListener.dispose();
       },
     );
@@ -268,8 +268,9 @@ class _SRoutePageState extends State<_SRoutePage>
               if (image == null) {
                 return;
               }
-              List<String> urls = await CameraUtil.upImg(image);
-              Get.to(CroppingPage(fileName: urls[0].split('/').last));
+              // TODO
+              // List<String> urls = await CameraUtil.upImg(image);
+              // Get.to(CroppingPage(fileName: urls[0].split('/').last));
             },
           ),
           SizedBox(height: 10.h),
@@ -280,8 +281,9 @@ class _SRoutePageState extends State<_SRoutePage>
               if (image == null) {
                 return;
               }
-              List<String> urls = await CameraUtil.upImg(image);
-              Get.to(CroppingPage(fileName: urls[0].split('/').last));
+              // TODO
+              // List<String> urls = await CameraUtil.upImg(image);
+              // Get.to(CroppingPage(fileName: urls[0].split('/').last));
             },
           ),
           SizedBox(height: 20.h),

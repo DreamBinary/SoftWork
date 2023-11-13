@@ -16,7 +16,6 @@ import '../../component/myiconbtn.dart';
 import '../../component/myshowbottomsheet.dart';
 import '../../component/picchoicebtn.dart';
 import '../../data/entity/consume.dart';
-import '../../data/net/api_consume.dart';
 import '../../theme/app_text_theme.dart';
 import '../../utils/date_util.dart';
 import '../../utils/save_file_mobile.dart';
@@ -94,7 +93,7 @@ class _TableAnalysePageState extends State<TableAnalysePage> {
         ),
       ),
       body: FutureBuilder(
-        future: logic.getRecord(date),
+        future: Future.delayed(const Duration(seconds: 1)),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             print(snapshot.data);
@@ -169,32 +168,6 @@ class _TableAnalysePageState extends State<TableAnalysePage> {
       ),
     );
   }
-
-// void _getExportChoice() {
-//   myShowBottomSheet(
-//     context: context,
-//     builder: (context) => Column(
-//       mainAxisSize: MainAxisSize.min,
-//       children: [
-//         SizedBox(height: 20.h),
-//         PicChoiceBtn(
-//           title: "Excel",
-//           onPressed: () {
-//             _exportDataGridToExcel();
-//           },
-//         ),
-//         SizedBox(height: 10.h),
-//         PicChoiceBtn(
-//           title: "Pdf",
-//           onPressed: () {
-//             _exportDataGridToPdf();
-//           },
-//         ),
-//         SizedBox(height: 20.h),
-//       ],
-//     ),
-//   );
-// }
 }
 
 class DataSource extends DataGridSource {
