@@ -38,18 +38,18 @@ class HomePage extends StatelessWidget {
     if (VersionCtrl.of(context)?.version != 0) {
       return const _SHomePage();
     }
-    return const _MHomePage();
+    return const MHomePage();
   }
 }
 
-class _MHomePage extends StatefulWidget {
-  const _MHomePage({Key? key}) : super(key: key);
+class MHomePage extends StatefulWidget {
+  const MHomePage({Key? key}) : super(key: key);
 
   @override
-  State<_MHomePage> createState() => _MHomePageState();
+  State<MHomePage> createState() => _MHomePageState();
 }
 
-class _MHomePageState extends State<_MHomePage> {
+class _MHomePageState extends State<MHomePage> {
   final logic = Get.find<HomeLogic>();
   final state = Get.find<HomeLogic>().state;
   late String start = state.start ?? DateUtil.getNowFormattedDate();
@@ -91,7 +91,6 @@ class _MHomePageState extends State<_MHomePage> {
       backgroundColor: AppColors.whiteBg,
       body: CustomRefreshIndicator(
         onRefresh: () async {
-          logic.clear();
           setState(() {});
         },
         builder: MaterialIndicatorDelegate(
@@ -160,8 +159,7 @@ class _MHomePageState extends State<_MHomePage> {
                 background: Align(
                   alignment: Alignment.bottomLeft,
                   child: FutureBuilder(
-                    future: logic.getOutIn(
-                        start: start, end: end, isMonth: isMonth),
+                    future: Future.delayed(const Duration(milliseconds: 500)),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return _HomeTopPart(
@@ -208,11 +206,7 @@ class _MHomePageState extends State<_MHomePage> {
               ),
             ),
             FutureBuilder(
-              future: logic.getRecord(
-                start: start,
-                end: end,
-                isMonth: isMonth,
-              ),
+              future: Future.delayed(const Duration(milliseconds: 500)),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<Map<String, List<ConsumeData>>> data =
@@ -408,7 +402,6 @@ class _SHomePage extends StatefulWidget {
 
 class _SHomePageState extends State<_SHomePage>
     with SingleTickerProviderStateMixin {
-
   @override
   Widget build(BuildContext context) {
     return Container();
@@ -684,8 +677,7 @@ class _SOnePageState extends State<_SOnePage> {
                 ),
               ),
               child: FutureBuilder(
-                future:
-                    logic.getOutIn(start: start, end: end, isMonth: isMonth),
+                future: Future.delayed(const Duration(milliseconds: 500)),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return _HomeTopPart(
@@ -693,7 +685,6 @@ class _SOnePageState extends State<_SOnePage> {
                       allExpense: snapshot.data![0],
                       allIncome: snapshot.data![1],
                       isOld: true,
-
                       filterTap: () {
                         myShowBottomSheet(
                           context: context,
@@ -733,11 +724,7 @@ class _SOnePageState extends State<_SOnePage> {
               ),
             ),
             FutureBuilder(
-              future: logic.getRecord(
-                start: start,
-                end: end,
-                isMonth: isMonth,
-              ),
+              future: Future.delayed(const Duration(milliseconds: 500)),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<Map<String, List<ConsumeData>>> data =
