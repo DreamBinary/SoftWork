@@ -1,14 +1,11 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:account/app/component/mytopbar.dart';
-
 import 'package:account/app/theme/app_text_theme.dart';
 import 'package:account/app/utils/camera_util.dart';
 import 'package:crop_image/crop_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../theme/app_colors.dart';
 

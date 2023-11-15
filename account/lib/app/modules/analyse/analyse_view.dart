@@ -4,13 +4,14 @@ import 'package:account/app/component/myshimmer.dart';
 import 'package:account/app/routes/app_pages.dart';
 import 'package:account/app/theme/app_colors.dart';
 import 'package:account/app/theme/app_text_theme.dart';
+import 'package:account/app/utils/extension.dart';
 import 'package:account/res/assets_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import '../../component/mytopbar.dart';
 import 'analyse_logic.dart';
-import 'package:account/app/utils/extension.dart';
 
 class AnalysePage extends StatelessWidget {
   const AnalysePage({super.key});

@@ -1,7 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 // import 'package:head_image_cropper/head_image_cropper.dart';
 
 import '../mytopbar.dart';

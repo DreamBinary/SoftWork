@@ -9,7 +9,6 @@ import 'package:account/res/assets_res.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../component/line_chart.dart';
@@ -17,10 +16,7 @@ import '../../component/multi_column_row.dart';
 import '../../component/mydatepicker.dart';
 import '../../component/myshimmer.dart';
 import '../../component/myshowbottomsheet.dart';
-import '../../component/mytopbarnormal.dart';
-import '../../data/entity/data.dart';
 import '../../theme/app_colors.dart';
-import '../../theme/app_sizes.dart';
 import '../../theme/app_text_theme.dart';
 import '../../utils/date_util.dart';
 import 'image_analyse_logic.dart';

@@ -6,7 +6,6 @@ import 'package:account/res/assets_res.dart';
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 import '../../../../theme/app_colors.dart';
 import 'color_view.dart';

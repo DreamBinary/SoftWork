@@ -1,4 +1,3 @@
-import 'package:account/app/theme/app_text_theme.dart';
 import 'package:account/app/utils/compute.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';

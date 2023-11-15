@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:account/app/utils/camera_util.dart';
 import 'package:account/res/assets_res.dart';
+import 'package:badges/badges.dart' as bdg;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:badges/badges.dart' as bdg;
+
 import '../../theme/app_colors.dart';
 import '../../theme/app_string.dart';
 import '../../theme/app_text_theme.dart';

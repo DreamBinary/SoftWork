@@ -1,5 +1,4 @@
 import 'package:account/app/component/lines_text.dart';
-import 'package:account/app/component/mytopbar.dart';
 import 'package:account/app/component/mytopbarnormal.dart';
 import 'package:account/app/theme/app_text_theme.dart';
 import 'package:account/res/assets_res.dart';

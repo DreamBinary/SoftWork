@@ -2,8 +2,6 @@ import 'package:account/app/component/mybottombar.dart';
 import 'package:account/app/component/version_ctrl.dart';
 import 'package:account/app/modules/home/home_view.dart';
 import 'package:account/app/theme/app_text_theme.dart';
-import 'package:animated_floating_buttons/animated_floating_buttons.dart';
-import 'package:circular_menu/circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -11,19 +9,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:screen_capture_event/screen_capture_event.dart';
 
 import '../../../res/assets_res.dart';
-import '../../component/croping_page.dart';
 import '../../component/myshowbottomsheet.dart';
 import '../../component/picchoicebtn.dart';
 import '../../component/sound_page.dart';
-import '../../routes/app_pages.dart';
 import '../../theme/app_colors.dart';
-import '../../theme/app_string.dart';
 import '../../utils/camera_util.dart';
 import '../../utils/floating_util.dart';
-import '../../utils/mmkv.dart';
 import '../all_more/more/more_view.dart';
 import '../analyse/analyse_view.dart';
-import 'route_logic.dart';
 
 class RoutePage extends StatelessWidget {
   const RoutePage({Key? key}) : super(key: key);

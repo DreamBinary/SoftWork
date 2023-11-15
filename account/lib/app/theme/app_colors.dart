@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:account/app/theme/app_string.dart';
-import 'package:account/app/utils/mmkv.dart';
 import 'package:flutter/material.dart';
+
+import '../utils/mmkv.dart';
 
 class AppColors {
   static const Color grey = Color(0xFF747474);

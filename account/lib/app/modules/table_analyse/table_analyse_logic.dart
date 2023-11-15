@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 
-import '../../data/entity/consume.dart';
 import 'table_analyse_state.dart';
 
 class TableAnalyseLogic extends GetxController {

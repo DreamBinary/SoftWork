@@ -1,10 +1,5 @@
-import 'dart:ui';
 import 'package:account/app/component/version_ctrl.dart';
-import 'package:account/app/theme/app_string.dart';
-import 'package:account/app/theme/app_text_theme.dart';
-import 'package:account/app/utils/mmkv.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,10 +7,11 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:mmkv/mmkv.dart';
 import 'package:status_bar_control/status_bar_control.dart';
 import 'package:statusbarz/statusbarz.dart';
+
+import 'app/component/floating_head.dart';
 import 'app/modules/route/route_binding.dart';
 import 'app/routes/app_pages.dart';
 import 'app/theme/app_colors.dart';
-import 'app/component/floating_head.dart';
 
 void main() async {
   final rootDir = await MMKV.initialize();

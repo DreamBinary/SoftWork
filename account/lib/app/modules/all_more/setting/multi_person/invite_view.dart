@@ -10,6 +10,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:share_plus/share_plus.dart';
+
 import '../../../../utils/toast.dart';
 
 class InvitePage extends StatelessWidget {

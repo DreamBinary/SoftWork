@@ -1,7 +1,6 @@
 import 'package:account/res/assets_res.dart';
 import 'package:app_to_foreground/app_to_foreground.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 
 class FloatingHead extends StatefulWidget {

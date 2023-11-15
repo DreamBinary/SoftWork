@@ -8,6 +8,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import '../../../component/multi_column_row.dart';
 import '../../../component/version_ctrl.dart';
 import '../../../theme/app_colors.dart';

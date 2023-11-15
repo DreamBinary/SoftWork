@@ -1,4 +1,4 @@
-import 'package:account/app/component/version_ctrl.dart';
+
 
 class AppString {
   static const String nextPage = "下一页";

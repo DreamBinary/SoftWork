@@ -1,16 +1,16 @@
-import 'package:account/app/component/loading_page.dart';
+import 'dart:async';
+
 import 'package:account/app/component/mytopbar.dart';
 import 'package:account/app/component/version_ctrl.dart';
 import 'package:account/app/theme/app_text_theme.dart';
 import 'package:account/res/assets_res.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+
 import '../routes/app_pages.dart';
 import 'audio_item.dart';
 

@@ -8,6 +8,7 @@ import 'package:account/app/modules/home/home_view.dart';
 import 'package:account/app/modules/route/route_binding.dart';
 import 'package:account/app/modules/route/route_view.dart';
 import 'package:get/get.dart';
+
 import '../modules/all_more/more/more_binding.dart';
 import '../modules/all_more/more/more_view.dart';
 import '../modules/all_more/my_book/my_book_binding.dart';

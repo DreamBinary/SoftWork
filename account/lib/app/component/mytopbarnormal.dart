@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../res/assets_res.dart';
-import '../theme/app_colors.dart';
 import '../theme/app_text_theme.dart';
-import 'myiconbtn.dart';
 import 'mytopbar.dart';
 
 class MyTopBarN extends StatelessWidget {

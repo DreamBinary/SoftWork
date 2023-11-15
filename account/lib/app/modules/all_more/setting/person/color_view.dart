@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:account/app/component/mytopbar.dart';
 import 'package:account/app/theme/app_colors.dart';
 import 'package:account/app/theme/app_text_theme.dart';
@@ -9,8 +7,6 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../routes/app_pages.dart';
 import '../../../../theme/app_string.dart';

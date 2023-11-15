@@ -51,3 +51,4 @@ class AddLogic extends GetxController {
     state.imgUrl = null;
   }
 }
+

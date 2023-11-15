@@ -1,4 +1,3 @@
-import 'package:account/app/component/mycard.dart';
 import 'package:account/app/component/mytopbar.dart';
 import 'package:account/app/component/version_ctrl.dart';
 import 'package:account/app/modules/all_more/setting/multi_person/member.dart';
@@ -10,6 +9,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import '../../../theme/app_string.dart';
 import '../../../theme/app_text_theme.dart';
 import '../../../utils/mmkv.dart';
