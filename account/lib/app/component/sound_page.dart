@@ -124,6 +124,7 @@ class _SoundPageState extends State<SoundPage> {
             started ? "正在录音" : "请说话",
             style: AppTS.normal,
           ),
+
           trailing: version == 0
               ? null
               : Padding(
