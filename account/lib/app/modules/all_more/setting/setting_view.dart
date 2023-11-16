@@ -128,16 +128,6 @@ class SettingPage extends StatelessWidget {
               ),
               SizedBox(height: 30.h),
               _PersonOpenButton(
-                imgPath: AssetsRes.PERSON_ICON0,
-                color: AppColors.color_list[1],
-                title: "监护人绑定",
-                openBuilder: (BuildContext context,
-                    void Function({dynamic returnValue}) action) {
-                  return const GuardianPage();
-                },
-              ),
-              SizedBox(height: 20.h),
-              _PersonOpenButton(
                 imgPath: AssetsRes.PERSON_ICON1,
                 color: AppColors.color_list[2],
                 title: "多人记账",
