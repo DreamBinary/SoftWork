@@ -14,7 +14,6 @@ import '../../../theme/app_string.dart';
 import '../../../theme/app_text_theme.dart';
 import '../../../utils/mmkv.dart';
 import '../../../utils/toast.dart';
-import 'guardian_view.dart';
 import 'setting_logic.dart';
 
 class SettingPage extends StatelessWidget {
