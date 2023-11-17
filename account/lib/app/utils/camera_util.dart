@@ -60,7 +60,9 @@ class CameraUtil {
   static Future<String> getPath(Uint8List bytes) async {
     var tempDir = await getTemporaryDirectory();
     var file = await File(
-            '${tempDir.path}/image_${DateTime.now().millisecondsSinceEpoch}.png')
+        '${tempDir.path}/image_${DateTime
+            .now()
+            .millisecondsSinceEpoch}.png')
         .create();
     file.writeAsBytesSync(bytes);
     return file.path;
