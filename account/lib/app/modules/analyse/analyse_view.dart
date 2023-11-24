@@ -38,24 +38,6 @@ class AnalysePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _ProportionCard(),
-            FutureBuilder(
-                future: logic.getOut(),
-                builder: (_, snapshot) {
-                  if (snapshot.hasData) {
-                    return _IETextRow(
-                      budget: 5231,
-                      expend: snapshot.data!,
-                      remain: 1599,
-                    );
-                  } else {
-                    return const _IETextRow(
-                      budget: 0000,
-                      expend: 0000,
-                      remain: 0000,
-                    );
-                  }
-                }),
             _IEBtnRow(),
             Align(
               alignment: Alignment.centerLeft,
@@ -79,8 +61,6 @@ class AnalysePage extends StatelessWidget {
               title: "表格详细报告",
               color: AppColors.color_list[2],
               imgPath: AssetsRes.TABLE_ANALYSE,
-              // todo
-              // imgColor: AppColors.color_list[2],
               onPressed: () {
                 Get.toNamed(Routes.tableAnalyse);
               },

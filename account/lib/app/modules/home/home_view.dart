@@ -108,52 +108,44 @@ class _MHomePageState extends State<MHomePage> {
               pinned: true,
               centerTitle: true,
               title: Text(bookName[_currentBook], style: AppTS.big),
-              leading: Padding(
-                padding: EdgeInsets.only(left: 10.w),
-                child: MyIconBtn(
-                  onPressed: () async {
-                    showMenu(
-                      context: context,
-                      position: const RelativeRect.fromLTRB(0, 100, 0, 0),
-                      items: List.generate(
-                        bookImgPath.length,
-                        (index) => PopupMenuItem(
-                          value: index,
-                          onTap: () {
-                            setState(() {
-                              _currentBook = index;
-                            });
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const SizedBox(width: 10),
-                              CircleAvatar(
-                                  radius: 15,
-                                  backgroundImage:
-                                      AssetImage(bookImgPath[index])),
-                              const SizedBox(width: 15),
-                              Text(bookName[index], style: AppTS.small)
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  color: AppColors.color_list[5],
-                  imgPath: AssetsRes.CHANGE_BOOK,
-                ),
-              ),
-              leadingWidth: 65.w,
               actions: [
                 Padding(
                   padding: EdgeInsets.only(right: 10.w),
                   child: MyIconBtn(
-                    onPressed: () async {},
+                    onPressed: () async {
+                      showMenu(
+                        context: context,
+                        position: const RelativeRect.fromLTRB(0, 100, 0, 0),
+                        items: List.generate(
+                          bookImgPath.length,
+                              (index) => PopupMenuItem(
+                            value: index,
+                            onTap: () {
+                              setState(() {
+                                _currentBook = index;
+                              });
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const SizedBox(width: 10),
+                                CircleAvatar(
+                                    radius: 15,
+                                    backgroundImage:
+                                    AssetImage(bookImgPath[index])),
+                                const SizedBox(width: 15),
+                                Text(bookName[index], style: AppTS.small)
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                     color: AppColors.color_list[5],
-                    imgPath: AssetsRes.SEARCH,
+                    imgPath: AssetsRes.CHANGE_BOOK,
                   ),
-                ),
+                )
+
               ],
               flexibleSpace: FlexibleSpaceBar(
                 background: Align(

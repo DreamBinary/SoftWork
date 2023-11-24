@@ -1,3 +1,4 @@
+import 'package:account/app/modules/all_more/setting/multi_person/member.dart';
 import 'package:account/app/routes/app_pages.dart';
 import 'package:account/app/utils/extension.dart';
 import 'package:flutter/material.dart';
@@ -100,10 +101,10 @@ class _SMorePage extends StatelessWidget {
                         AppColors.color_list[0],
                         height: 2 * h + 10.h,
                         onPressed: () {
-                          Get.toNamed(Routes.dream);
+                          Get.to(MemberPage());
                         },
                         child: Text(
-                          "梦\n想\n储\n蓄\n罐",
+                          "多\n人\n记\n账",
                           style: AppTS.big32.copyWith(
                             color: AppColors.textColor(AppColors.color_list[0]),
                           ),
@@ -117,14 +118,15 @@ class _SMorePage extends StatelessWidget {
                         height: 2 * h + 10.h,
                         child: Column(
                           children: [
+                            SizedBox(height: 20.h),
                             Expanded(
                               child: MyCard(
                                 AppColors.color_list[0],
                                 onPressed: () {
-
+                                  Get.toNamed(Routes.dream);
                                 },
                                 child: Text(
-                                  "报告",
+                                  "储蓄罐",
                                   style: AppTS.big32.copyWith(
                                     color: AppColors.textColor(
                                         AppColors.color_list[0]),
@@ -258,10 +260,10 @@ class _MMorePage extends StatelessWidget {
                               child: MyCard(
                                 AppColors.color_list[3],
                                 onPressed: () {
-
+                                  Get.toNamed(Routes.dream);
                                 },
                                 child: Text(
-                                  "报告",
+                                  "储蓄罐",
                                   style: AppTS.normal.copyWith(
                                     color: AppColors.textColor(
                                         AppColors.color_list[3]),
@@ -304,10 +306,10 @@ class _MMorePage extends StatelessWidget {
                       AppColors.color_list[5],
                       height: constraint.constrainWidth() * 10 / 31,
                       onPressed: () {
-                        Get.toNamed(Routes.dream);
+                        Get.to(const MemberPage());
                       },
                       child: Text(
-                        "梦想储蓄罐",
+                        "多人记账",
                         style: AppTS.normal.copyWith(
                           color: AppColors.textColor(AppColors.color_list[5]),
                         ),

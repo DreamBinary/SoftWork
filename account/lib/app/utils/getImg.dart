@@ -29,10 +29,8 @@ class GetImg {
   }
 
   static Future<Image> crop(XFile xFile) async {
-    Uint8List bytes =
-        await Get.to(
-                () => {}
-            // CropHeader(FileImage(File(xFile.path)))
+    Uint8List bytes = await Get.to(() => {}
+        // CropHeader(FileImage(File(xFile.path)))
         );
     getPath(bytes);
     return Image.memory(bytes);
