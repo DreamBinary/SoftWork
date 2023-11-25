@@ -2,7 +2,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../../data/net/api_user.dart';
 import '../../../routes/app_pages.dart';
 import '../../../theme/app_string.dart';
 import '../../../utils/mmkv.dart';
@@ -37,34 +36,15 @@ class LoginLogic extends GetxController {
       ToastUtil.showToast("请勾选使用条款和隐私政策");
       return;
     }
-    // // 测试账号
-    // if (username == "11111111111" && password == "1111111111") {
-    //   ToastUtil.showToast("登录成功");
-    //   MMKVUtil.put(AppString.mmUsername, username);
-    //   MMKVUtil.put(AppString.mmIsLogin, true);
-    //   Get.offAllNamed(Routes.route);
-    //   return;
-    // }
-    bool isSuccess = await ApiUser.login(username, password);
-    if (isSuccess) {
+
+    // bool isSuccess = await ApiUser.login(username, password);
+    // if (isSuccess) {
       ToastUtil.showToast("登录成功");
       MMKVUtil.put(AppString.mmUsername, username);
       MMKVUtil.put(AppString.mmIsLogin, true);
       Get.offAllNamed(Routes.route);
-    } else {
-      ToastUtil.showToast("登录失败");
-    }
-  }
-
-  sendSms() async {
-    var username = state.usernameCtrl.text.trim();
-    if (username.length != 11) {
-      ToastUtil.showToast("请输入正确的手机号");
-      return;
-    }
-    var isSuccess = await ApiUser.sendSms(username);
-    if (!isSuccess) {
-      ToastUtil.showToast("请再次发送");
-    }
+    // } else {
+    //   ToastUtil.showToast("登录失败");
+    // }
   }
 }

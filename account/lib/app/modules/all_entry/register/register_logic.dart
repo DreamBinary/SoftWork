@@ -1,7 +1,6 @@
 
 import 'package:get/get.dart';
 
-import '../../../data/net/api_user.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/toast.dart';
 import '../login/login_logic.dart';
@@ -26,10 +25,10 @@ class RegisterLogic extends GetxController {
       ToastUtil.showToast("两次密码不一致");
       return;
     }
-    bool isSuccess = await ApiUser.signUp(username, password, verify);
-    if (isSuccess) {
+    // bool isSuccess = await ApiUser.signUp(username, password, verify);
+    // if (isSuccess) {
       ToastUtil.showToast("注册成功");
       Get.offNamed(Routes.login);
-    }
+    // }
   }
 }
