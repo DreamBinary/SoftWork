@@ -30,5 +30,7 @@ class RegisterLogic extends GetxController {
       ToastUtil.showToast("注册成功");
       Get.offNamed(Routes.login);
     // }
+
+
   }
 }
