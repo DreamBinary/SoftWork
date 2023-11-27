@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../../data/net/api_guardian.dart';
 import '../../../../utils/toast.dart';
 
 class InvitePage extends StatelessWidget {
@@ -102,20 +103,21 @@ class InvitePage extends StatelessWidget {
                               alignment: Alignment.center,
                               child: Column(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                MainAxisAlignment.spaceAround,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("邀请编码有效期     24小时", style: AppTS.big),
+                                  Text("邀请编码有效期     24小时",
+                                      style: AppTS.big),
                                   Text("超过分享有效期后，邀请码将失效",
                                       style: AppTS.small.copyWith(
                                           color: AppColors.color_list[5])),
                                 ],
                               )),
                           FutureBuilder(
-                            future: Future.delayed(const Duration(seconds: 1)),
+                            future: ApiGuardian.getCode(),
                             builder: (_, snapshot) {
                               if (snapshot.hasData) {
-                                String code = "&AJ9L0HW";
+                                String code = snapshot.data ?? "&AJ9L0HW";
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -134,7 +136,7 @@ class InvitePage extends StatelessWidget {
                                     const SizedBox(height: 20),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                       children: [
                                         const SizedBox(width: 30),
                                         Expanded(
@@ -144,10 +146,11 @@ class InvitePage extends StatelessWidget {
                                             onPressed: () {
                                               FlutterClipboard.copy(
                                                   "邀请码:$code");
-                                              ToastUtil.showToast("复制到剪切板");
+                                              ToastUtil.showToast(
+                                                  "复制到剪切板");
                                             },
                                             child:
-                                                Text('复制', style: AppTS.normal),
+                                            Text('复制', style: AppTS.normal),
                                           ),
                                         ),
                                         const SizedBox(width: 20),
@@ -160,7 +163,7 @@ class InvitePage extends StatelessWidget {
                                                   subject: code);
                                             },
                                             child:
-                                                Text('分享', style: AppTS.normal),
+                                            Text('分享', style: AppTS.normal),
                                           ),
                                         ),
                                         const SizedBox(width: 30),
@@ -188,7 +191,7 @@ class InvitePage extends StatelessWidget {
                                       const SizedBox(height: 20),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                                        MainAxisAlignment.spaceAround,
                                         children: [
                                           const SizedBox(width: 30),
                                           Expanded(

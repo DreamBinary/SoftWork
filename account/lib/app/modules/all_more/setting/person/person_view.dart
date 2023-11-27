@@ -43,7 +43,7 @@ class _PersonPageState extends State<PersonPage> {
                   openBuilder: (context, action) => ColorView(),
                   shape: const RoundedRectangleBorder(
                     borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(15)),
+                    BorderRadius.vertical(top: Radius.circular(15)),
                   )),
               SettingItem(
                 imgPath: AssetsRes.SETTING_ICON1,
@@ -59,7 +59,7 @@ class _PersonPageState extends State<PersonPage> {
                   onChanged: (value) {
                     MMKVUtil.put(AppString.mmOpenLock, value);
                     setState(
-                      () {
+                          () {
                         openLock = value;
                       },
                     );
@@ -107,13 +107,12 @@ class SettingItem extends StatelessWidget {
   final GestureTapCallback? onTap;
   final Widget? trailing;
 
-  const SettingItem(
-      {Key? key,
-      required this.title,
-      required this.imgPath,
-      this.shape,
-      this.onTap,
-      this.trailing})
+  const SettingItem({Key? key,
+    required this.title,
+    required this.imgPath,
+    this.shape,
+    this.onTap,
+    this.trailing})
       : super(key: key);
 
   @override
@@ -135,13 +134,12 @@ class SettingItem extends StatelessWidget {
 class SettingItemOpen extends SettingItem {
   final OpenContainerBuilder openBuilder;
 
-  const SettingItemOpen(
-      {super.key,
-      required super.title,
-      required super.imgPath,
-      super.shape,
-      super.trailing,
-      required this.openBuilder});
+  const SettingItemOpen({super.key,
+    required super.title,
+    required super.imgPath,
+    super.shape,
+    super.trailing,
+    required this.openBuilder});
 
   @override
   Widget build(BuildContext context) {

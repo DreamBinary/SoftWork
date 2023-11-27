@@ -29,9 +29,11 @@ class AddPage extends StatefulWidget {
 
 class _AddPageState extends State<AddPage> with SingleTickerProviderStateMixin {
   final logic = Get.find<AddLogic>();
-  final state = Get.find<AddLogic>().state;
+  final state = Get
+      .find<AddLogic>()
+      .state;
   late final TabController tabCtrl =
-      TabController(initialIndex: 1, length: 2, vsync: this);
+  TabController(initialIndex: 1, length: 2, vsync: this);
 
   @override
   void initState() {
@@ -52,8 +54,7 @@ class _AddPageState extends State<AddPage> with SingleTickerProviderStateMixin {
               shape: const StadiumBorder(),
               backgroundColor: AppColors.color_list[5]),
           onPressed: () async {
-            // bool result = await logic.upAdd();
-            bool result = true;
+            bool result = await logic.upAdd();
             if (result) {
               ToastUtil.showToast("添加成功");
             } else {
@@ -126,12 +127,13 @@ class IncomePage extends StatelessWidget {
             SizedBox(height: 15.h),
             ...List.generate(
               addItems.length,
-              (index) => AddItem(
-                addItems[index]["label"],
-                InputTextField(
-                  ctrl: addItems[index]["ctrl"],
-                ),
-              ),
+                  (index) =>
+                  AddItem(
+                    addItems[index]["label"],
+                    InputTextField(
+                      ctrl: addItems[index]["ctrl"],
+                    ),
+                  ),
             ),
             const AddItem("分类", _ClassSelect()),
           ],
@@ -151,7 +153,9 @@ class ExpendPage extends StatefulWidget {
 class _ExpendPageState extends State<ExpendPage> {
   final logic = Get.find<AddLogic>();
 
-  final state = Get.find<AddLogic>().state;
+  final state = Get
+      .find<AddLogic>()
+      .state;
 
   @override
   Widget build(BuildContext context) {
@@ -220,40 +224,41 @@ class _ExpendPageState extends State<ExpendPage> {
               onTap: () {
                 myShowBottomSheet(
                   context: context,
-                  builder: (context) => Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(height: 20.h),
-                      PicChoiceBtn(
-                        title: "拍照",
-                        onPressed: () async {
-                          XFile? image = await CameraUtil.getCamera();
-                          if (image == null) {
-                            return;
-                          }
-                          List<String> urls = await CameraUtil.upImg(image);
-                          setState(() {
-                            state.imgUrl = urls[0];
-                          });
-                        },
+                  builder: (context) =>
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(height: 20.h),
+                          PicChoiceBtn(
+                            title: "拍照",
+                            onPressed: () async {
+                              XFile? image = await CameraUtil.getCamera();
+                              if (image == null) {
+                                return;
+                              }
+                              List<String> urls = await CameraUtil.upImg(image);
+                              setState(() {
+                                state.imgUrl = urls[0];
+                              });
+                            },
+                          ),
+                          SizedBox(height: 10.h),
+                          PicChoiceBtn(
+                            title: "相册",
+                            onPressed: () async {
+                              XFile? image = await CameraUtil.getGallery();
+                              if (image == null) {
+                                return;
+                              }
+                              List<String> urls = await CameraUtil.upImg(image);
+                              setState(() {
+                                state.imgUrl = urls[0];
+                              });
+                            },
+                          ),
+                          SizedBox(height: 20.h),
+                        ],
                       ),
-                      SizedBox(height: 10.h),
-                      PicChoiceBtn(
-                        title: "相册",
-                        onPressed: () async {
-                          XFile? image = await CameraUtil.getGallery();
-                          if (image == null) {
-                            return;
-                          }
-                          List<String> urls = await CameraUtil.upImg(image);
-                          setState(() {
-                            state.imgUrl = urls[0];
-                          });
-                        },
-                      ),
-                      SizedBox(height: 20.h),
-                    ],
-                  ),
                 );
               },
               child: DottedBorder(
@@ -268,22 +273,22 @@ class _ExpendPageState extends State<ExpendPage> {
                       image: state.imgUrl == null
                           ? null
                           : DecorationImage(
-                              image: NetworkImage(
-                                state.imgUrl!,
-                                headers: {
-                                  "token": MMKVUtil.getString(AppString.mmToken)
-                                },
-                              ),
-                              fit: BoxFit.contain,
-                            ),
+                        image: NetworkImage(
+                          state.imgUrl!,
+                          headers: {
+                            "token": MMKVUtil.getString(AppString.mmToken)
+                          },
+                        ),
+                        fit: BoxFit.contain,
+                      ),
                     ),
                     child: state.imgUrl == null
                         ? Center(
-                            child: Text(
-                              "点击添加图片",
-                              style: AppTS.normal,
-                            ),
-                          )
+                      child: Text(
+                        "点击添加图片",
+                        style: AppTS.normal,
+                      ),
+                    )
                         : null),
               ),
             ),
@@ -323,7 +328,15 @@ class _ClassSelectState extends State<_ClassSelect> {
     {"path": AssetsRes.CLASS_OTHER, "label": "其他"},
   ];
   final subClassInfo = {
-    "交通": ["公交地铁", "打车", "飞机", "火车/动车", "轮船", "长途汽车", "其他"],
+    "交通": [
+      "公交地铁",
+      "打车",
+      "飞机",
+      "火车/动车",
+      "轮船",
+      "长途汽车",
+      "其他"
+    ],
     "办公": ["旅费", "其他"],
     "日用": ["请客", "其他"],
     "服务": ["药品", "医疗", "其他"],
@@ -354,46 +367,49 @@ class _ClassSelectState extends State<_ClassSelect> {
           value: value0,
           items: List.generate(
             classInfo.length,
-            (index) => DropdownMenuItem(
-              value: index,
-              onTap: () {
-                setState(
-                  () {
-                    value0 = index;
-                    label = classInfo[value0]["label"]!;
-                    value1 = 0;
-                    subLabel = subClassInfo[label]![value1];
+                (index) =>
+                DropdownMenuItem(
+                  value: index,
+                  onTap: () {
+                    setState(
+                          () {
+                        value0 = index;
+                        label = classInfo[value0]["label"]!;
+                        value1 = 0;
+                        subLabel = subClassInfo[label]![value1];
+                      },
+                    );
                   },
-                );
-              },
-              child: ClassSubItem(
-                path: classInfo[index]["path"]!,
-                label: classInfo[index]["label"]!,
-                isSelect: value0 == index,
-              ),
-            ),
+                  child: ClassSubItem(
+                    path: classInfo[index]["path"]!,
+                    label: classInfo[index]["label"]!,
+                    isSelect: value0 == index,
+                  ),
+                ),
           ),
         ),
         StatefulBuilder(
-          builder: (context, aSetState) => ClassItem(
-            value: value1,
-            items: List.generate(
-              subClassInfo[label]!.length,
-              (index) => DropdownMenuItem(
-                value: index,
-                onTap: () {
-                  aSetState(() {
-                    value1 = index;
-                    subLabel = subClassInfo[label]![index];
-                  });
-                },
-                child: ClassSubItem(
-                  label: subClassInfo[label]![index],
-                  isSelect: value1 == index,
+          builder: (context, aSetState) =>
+              ClassItem(
+                value: value1,
+                items: List.generate(
+                  subClassInfo[label]!.length,
+                      (index) =>
+                      DropdownMenuItem(
+                        value: index,
+                        onTap: () {
+                          aSetState(() {
+                            value1 = index;
+                            subLabel = subClassInfo[label]![index];
+                          });
+                        },
+                        child: ClassSubItem(
+                          label: subClassInfo[label]![index],
+                          isSelect: value1 == index,
+                        ),
+                      ),
                 ),
               ),
-            ),
-          ),
         )
       ],
     );
@@ -440,28 +456,28 @@ class ClassSubItem extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 10.w),
       decoration: isSelect
           ? BoxDecoration(
-              color: AppColors.color_list[1],
-              borderRadius: BorderRadius.circular(15),
-            )
+        color: AppColors.color_list[1],
+        borderRadius: BorderRadius.circular(15),
+      )
           : null,
       child: Center(
         child: path == null
             ? Text(
-                label,
-                style: AppTS.small,
-              )
+          label,
+          style: AppTS.small,
+        )
             : Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset(path!, width: 25.w, height: 25.h),
-                  const SizedBox(width: 5),
-                  Text(
-                    label,
-                    style: AppTS.small,
-                  )
-                ],
-              ),
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset(path!, width: 25.w, height: 25.h),
+            const SizedBox(width: 5),
+            Text(
+              label,
+              style: AppTS.small,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -496,15 +512,14 @@ class InputTextField extends StatefulWidget {
   final List<String>? chips;
   final bool enabled;
 
-  InputTextField(
-      {super.key,
-      required this.ctrl,
-      this.isSuffix = false,
-      this.isNum = false,
-      this.style,
-      this.enabled = true,
-      this.chips,
-      this.verticalPadding = 5});
+  InputTextField({super.key,
+    required this.ctrl,
+    this.isSuffix = false,
+    this.isNum = false,
+    this.style,
+    this.enabled = true,
+    this.chips,
+    this.verticalPadding = 5});
 
   @override
   State<InputTextField> createState() => _InputTextFieldState();
@@ -548,8 +563,8 @@ class _InputTextFieldState extends State<InputTextField> {
               ),
               suffixIcon: widget.isSuffix
                   ? Padding(
-                      padding: EdgeInsets.only(right: 15.w),
-                      child: Text("元", style: AppTS.small))
+                  padding: EdgeInsets.only(right: 15.w),
+                  child: Text("元", style: AppTS.small))
                   : null,
               contentPadding: EdgeInsets.symmetric(
                   horizontal: 15.w, vertical: widget.verticalPadding),
@@ -566,12 +581,12 @@ class _InputTextFieldState extends State<InputTextField> {
           onChanged: chips == null
               ? null
               : (t) {
-                  if (t.length != text.length) {
-                    setState(() {
-                      chips = null;
-                    });
-                  }
-                },
+            if (t.length != text.length) {
+              setState(() {
+                chips = null;
+              });
+            }
+          },
         ),
         if (chips != null)
           SelectChips(

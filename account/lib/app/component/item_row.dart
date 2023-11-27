@@ -28,17 +28,17 @@ class RowItem extends StatelessWidget {
       tileColor: color,
       shape: topRound
           ? const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(15),
-              ),
-            )
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(15),
+        ),
+      )
           : (bottomRound
-              ? const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(15),
-                  ),
-                )
-              : null),
+          ? const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(15),
+        ),
+      )
+          : null),
       title: Text(
         title,
         style: AppTS.normal,
@@ -52,12 +52,11 @@ class RowItem extends StatelessWidget {
 class RowItemOpen extends RowItem {
   final OpenContainerBuilder openBuilder;
 
-  RowItemOpen(
-      {super.key,
-      required super.title,
-      super.topRound,
-      super.bottomRound,
-      required this.openBuilder});
+  RowItemOpen({super.key,
+    required super.title,
+    super.topRound,
+    super.bottomRound,
+    required this.openBuilder});
 
   @override
   Widget build(BuildContext context) {
@@ -65,17 +64,17 @@ class RowItemOpen extends RowItem {
         closedElevation: 0,
         closedShape: topRound
             ? const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(15),
-                ),
-              )
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(15),
+          ),
+        )
             : (bottomRound
-                ? const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(15),
-                    ),
-                  )
-                : const RoundedRectangleBorder()),
+            ? const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(15),
+          ),
+        )
+            : const RoundedRectangleBorder()),
         closedBuilder: (context, action) => super.build(context),
         openBuilder: openBuilder);
   }

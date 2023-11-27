@@ -21,9 +21,13 @@ class SettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int version = VersionCtrl.of(context)?.version ?? 0;
+    int version = VersionCtrl
+        .of(context)
+        ?.version ?? 0;
     final logic = Get.find<SettingLogic>();
-    final state = Get.find<SettingLogic>().state;
+    final state = Get
+        .find<SettingLogic>()
+        .state;
 
     return Scaffold(
       backgroundColor: AppColors.whiteBg,
@@ -75,12 +79,16 @@ class SettingPage extends StatelessWidget {
                     imgPath: AssetsRes.PERSON_BG2,
                     onPressed: () {
                       VersionCtrl.of(context)?.changeVersion(
-                        VersionCtrl.of(context)?.version == 0 ? 1 : 0,
+                        VersionCtrl
+                            .of(context)
+                            ?.version == 0 ? 1 : 0,
                       );
                       Get.offAllNamed(Routes.route);
                     },
                     child: Text(
-                      VersionCtrl.of(context)?.version == 0 ? "极简版" : "丰富版",
+                      VersionCtrl
+                          .of(context)
+                          ?.version == 0 ? "极简版" : "丰富版",
                       style: AppTS.big.copyWith(
                         color: AppColors.textColor(
                           version != 0
@@ -180,14 +188,13 @@ class _PersonBgButton extends StatelessWidget {
   final String imgPath;
   final VoidCallback? onPressed;
 
-  const _PersonBgButton(
-      {Key? key,
-      required this.height,
-      required this.width,
-      required this.child,
-      required this.color,
-      required this.imgPath,
-      this.onPressed})
+  const _PersonBgButton({Key? key,
+    required this.height,
+    required this.width,
+    required this.child,
+    required this.color,
+    required this.imgPath,
+    this.onPressed})
       : super(key: key);
 
   @override
@@ -233,12 +240,11 @@ class _PersonOpenButton extends StatelessWidget {
   final OpenContainerBuilder openBuilder;
   final Color color;
 
-  const _PersonOpenButton(
-      {required this.imgPath,
-      required this.title,
-      required this.color,
-      required this.openBuilder,
-      Key? key})
+  const _PersonOpenButton({required this.imgPath,
+    required this.title,
+    required this.color,
+    required this.openBuilder,
+    Key? key})
       : super(key: key);
 
   @override
@@ -267,7 +273,7 @@ class _PersonOpenButton extends StatelessWidget {
               SizedBox(width: 10.w),
               Text(title,
                   style:
-                      AppTS.normal.copyWith(color: AppColors.textColor(color))),
+                  AppTS.normal.copyWith(color: AppColors.textColor(color))),
               const Spacer(),
             ],
           ),
@@ -284,12 +290,11 @@ class _PersonButton extends StatelessWidget {
   final Color color;
   final GestureTapCallback? onTap;
 
-  const _PersonButton(
-      {required this.imgPath,
-      required this.title,
-      required this.color,
-      this.onTap,
-      Key? key})
+  const _PersonButton({required this.imgPath,
+    required this.title,
+    required this.color,
+    this.onTap,
+    Key? key})
       : super(key: key);
 
   @override
@@ -319,7 +324,7 @@ class _PersonButton extends StatelessWidget {
               SizedBox(width: 10.w),
               Text(title,
                   style:
-                      AppTS.normal.copyWith(color: AppColors.textColor(color))),
+                  AppTS.normal.copyWith(color: AppColors.textColor(color))),
               const Spacer(),
             ],
           ),

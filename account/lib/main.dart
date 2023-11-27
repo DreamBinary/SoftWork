@@ -1,4 +1,8 @@
 import 'package:account/app/component/version_ctrl.dart';
+import 'package:account/app/modules/all_entry/login/login_binding.dart';
+import 'package:account/app/theme/app_string.dart';
+import 'package:account/app/theme/app_text_theme.dart';
+import 'package:account/app/utils/mmkv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -19,6 +23,7 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   StatusBarControl.setTranslucent(true);
+
   runApp(const MyApp());
 }
 
@@ -41,6 +46,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  int version = MMKVUtil.getInt(AppString.mmVersion);
+  bool isLogin = MMKVUtil.getBool(AppString.mmIsLogin);
+  bool isIntro = MMKVUtil.getBool(AppString.mmIsIntro);
+
   @override
   void initState() {
     super.initState();
@@ -49,6 +58,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    // ApiMoney.getAbleMon();
+    // ApiMoney.getExchange();
+
     Statusbarz.instance.setDefaultDelay = const Duration();
     return ScreenUtilInit(
       designSize: const Size(375, 812),
@@ -58,21 +70,37 @@ class _MyAppState extends State<MyApp> {
         return KeyboardDismissOnTap(
           child: StatusbarzCapturer(
             child: VersionCtrl(
-              version: 0,
-              changeVersion: (v) {},
+              version: version,
+              changeVersion: (v) {
+                MMKVUtil.put(AppString.mmVersion, v);
+                AppTS.changeVersion(v);
+                AppColors.changeVersion(v);
+                setState(
+                      () {
+                    version = v;
+                  },
+                );
+              },
               child: GetMaterialApp(
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
                   primaryColor: AppColors.primary,
                   fontFamily: "FZQKBYSJW",
                   colorScheme:
-                      ColorScheme.fromSwatch(primarySwatch: Colors.grey)
-                          .copyWith(background: AppColors.whiteBg),
+                  ColorScheme.fromSwatch(primarySwatch: Colors.grey)
+                      .copyWith(background: AppColors.whiteBg),
                 ),
                 navigatorObservers: [Statusbarz.instance.observer],
                 getPages: AppPages.pages,
-                initialBinding: RouteBinding(),
-                initialRoute: Routes.route,
+                // // initialRoute: Routes.route,
+                // initialRoute: Routes.intro,
+
+                initialBinding: isIntro
+                    ? (isLogin ? RouteBinding() : LoginBinding())
+                    : null,
+                initialRoute: isIntro
+                    ? (isLogin ? Routes.route : Routes.login)
+                    : Routes.intro,
                 builder: (context, child) {
                   return SafeArea(top: false, child: child!);
                 },

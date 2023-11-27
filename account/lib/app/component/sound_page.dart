@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:account/app/component/loading_page.dart';
 import 'package:account/app/component/mytopbar.dart';
 import 'package:account/app/component/version_ctrl.dart';
+import 'package:account/app/data/net/api_sound.dart';
 import 'package:account/app/theme/app_text_theme.dart';
 import 'package:account/res/assets_res.dart';
 import 'package:audio_session/audio_session.dart';
@@ -40,11 +42,11 @@ class _SoundPageState extends State<SoundPage> {
     await session.configure(AudioSessionConfiguration(
       avAudioSessionCategory: AVAudioSessionCategory.playAndRecord,
       avAudioSessionCategoryOptions:
-          AVAudioSessionCategoryOptions.allowBluetooth |
-              AVAudioSessionCategoryOptions.defaultToSpeaker,
+      AVAudioSessionCategoryOptions.allowBluetooth |
+      AVAudioSessionCategoryOptions.defaultToSpeaker,
       avAudioSessionMode: AVAudioSessionMode.spokenAudio,
       avAudioSessionRouteSharingPolicy:
-          AVAudioSessionRouteSharingPolicy.defaultPolicy,
+      AVAudioSessionRouteSharingPolicy.defaultPolicy,
       avAudioSessionSetActiveOptions: AVAudioSessionSetActiveOptions.none,
       androidAudioAttributes: const AndroidAudioAttributes(
         contentType: AndroidAudioContentType.speech,
@@ -109,7 +111,9 @@ class _SoundPageState extends State<SoundPage> {
 
   @override
   Widget build(BuildContext context) {
-    int version = VersionCtrl.of(context)?.version ?? 0;
+    int version = VersionCtrl
+        .of(context)
+        ?.version ?? 0;
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -124,24 +128,23 @@ class _SoundPageState extends State<SoundPage> {
             started ? "正在录音" : "请说话",
             style: AppTS.normal,
           ),
-
           trailing: version == 0
               ? null
               : Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Material(
-                    color: Colors.white,
-                    shape: const CircleBorder(),
-                    clipBehavior: Clip.antiAlias,
-                    child: IconButton(
-                      padding: const EdgeInsets.all(5),
-                      icon: const Icon(Icons.add),
-                      onPressed: () {
-                        Get.toNamed(Routes.add);
-                      },
-                    ),
-                  ),
-                ),
+            padding: const EdgeInsets.all(8),
+            child: Material(
+              color: Colors.white,
+              shape: const CircleBorder(),
+              clipBehavior: Clip.antiAlias,
+              child: IconButton(
+                padding: const EdgeInsets.all(5),
+                icon: const Icon(Icons.add),
+                onPressed: () {
+                  Get.toNamed(Routes.add);
+                },
+              ),
+            ),
+          ),
         ),
         body: Stack(
           children: [
@@ -165,9 +168,8 @@ class _SoundPageState extends State<SoundPage> {
                     started = false;
                   });
                   await stopRecorder();
-                  // TODO
-                  // Get.to(LoadingPage(future: ApiSound.upSound(_mPath!)))?.then(
-                  //     (value) => Get.toNamed(Routes.add, arguments: value));
+                  Get.to(LoadingPage(future: ApiSound.upSound(_mPath!)))?.then(
+                          (value) => Get.toNamed(Routes.add, arguments: value));
                   // var words = await ApiSound.upSound(_mPath!);
                   // Get.toNamed(Routes.add, arguments: words);
                 },

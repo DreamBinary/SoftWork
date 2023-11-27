@@ -12,11 +12,10 @@ class MyDatePicker extends StatefulWidget {
   final bool isSingleDay;
   final Function(String, String, bool) changeTime;
 
-  const MyDatePicker(
-      {this.isSingleDay = false,
-      this.isSingleMonth = false,
-      required this.changeTime,
-      Key? key})
+  const MyDatePicker({this.isSingleDay = false,
+    this.isSingleMonth = false,
+    required this.changeTime,
+    Key? key})
       : super(key: key);
 
   @override
@@ -67,20 +66,20 @@ class _MyDatePickerState extends State<MyDatePicker> {
         Expanded(
           child: isMonth
               ? MonthPicker(
-                  onTimeChanged: (value) {
-                    startTime = value;
-                    endTime = value;
-                  },
-                )
+            onTimeChanged: (value) {
+              startTime = value;
+              endTime = value;
+            },
+          )
               : DatePicker(
-                  isSingleDay: widget.isSingleDay,
-                  onStarTimeChanged: (value) {
-                    startTime = value;
-                  },
-                  onEndTimeChanged: (value) {
-                    endTime = value;
-                  },
-                ),
+            isSingleDay: widget.isSingleDay,
+            onStarTimeChanged: (value) {
+              startTime = value;
+            },
+            onEndTimeChanged: (value) {
+              endTime = value;
+            },
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -126,11 +125,10 @@ class _MyDatePickerState extends State<MyDatePicker> {
 }
 
 class DatePicker extends StatelessWidget {
-  const DatePicker(
-      {required this.onStarTimeChanged,
-      required this.onEndTimeChanged,
-      required this.isSingleDay,
-      Key? key})
+  const DatePicker({required this.onStarTimeChanged,
+    required this.onEndTimeChanged,
+    required this.isSingleDay,
+    Key? key})
       : super(key: key);
   final bool isSingleDay;
   final ValueChanged<String> onStarTimeChanged;
@@ -167,11 +165,13 @@ class DatePicker extends StatelessWidget {
         if (date.runtimeType == PickerDateRange) {
           final DateTime rangeStartDate = date.startDate!;
           final DateTime rangeEndDate =
-              date.endDate == null ? date.startDate! : date.endDate!;
+          date.endDate == null ? date.startDate! : date.endDate!;
           onStarTimeChanged(
-              "${rangeStartDate.year}-${rangeStartDate.month.toString().padLeft(2, "0")}-${rangeStartDate.day.toString().padLeft(2, "0")}");
+              "${rangeStartDate.year}-${rangeStartDate.month.toString().padLeft(
+                  2, "0")}-${rangeStartDate.day.toString().padLeft(2, "0")}");
           onEndTimeChanged(
-              "${rangeEndDate.year}-${rangeEndDate.month.toString().padLeft(2, "0")}-${rangeEndDate.day.toString().padLeft(2, "0")}");
+              "${rangeEndDate.year}-${rangeEndDate.month.toString().padLeft(
+                  2, "0")}-${rangeEndDate.day.toString().padLeft(2, "0")}");
         } else if (date.runtimeType == DateTime) {
           onStarTimeChanged(
             date.toString().split(" ")[0],
@@ -241,11 +241,10 @@ class _ScrollNum extends StatelessWidget {
   final ValueChanged<int>? onSelectedItemChanged;
   final int initialItem;
 
-  const _ScrollNum(
-      {required this.nums,
-      this.onSelectedItemChanged,
-      this.initialItem = 0,
-      Key? key})
+  const _ScrollNum({required this.nums,
+    this.onSelectedItemChanged,
+    this.initialItem = 0,
+    Key? key})
       : super(key: key);
 
   @override
@@ -264,15 +263,16 @@ class _ScrollNum extends StatelessWidget {
         onSelectedItemChanged: onSelectedItemChanged,
         children: List.generate(
           nums.length,
-          (index) => Container(
-            height: 50,
-            width: 100,
-            alignment: Alignment.center,
-            child: Text(
-              nums[index].toString().padLeft(2, "0"),
-              style: AppTS.big,
-            ),
-          ),
+              (index) =>
+              Container(
+                height: 50,
+                width: 100,
+                alignment: Alignment.center,
+                child: Text(
+                  nums[index].toString().padLeft(2, "0"),
+                  style: AppTS.big,
+                ),
+              ),
         ),
       ),
     );

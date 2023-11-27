@@ -9,11 +9,10 @@ class MyPieChart extends StatefulWidget {
   final List<double> percentage;
   final List<String> legend;
 
-  const MyPieChart(
-      {required this.percentage,
-      required this.radius,
-      required this.legend,
-      super.key});
+  const MyPieChart({required this.percentage,
+    required this.radius,
+    required this.legend,
+    super.key});
 
   @override
   State<MyPieChart> createState() => MyPieChartState();
@@ -40,7 +39,6 @@ class MyPieChartState extends State<MyPieChart> {
       pieRadius += widget.radius;
       initialFontSize += 20;
     });
-
   }
 
   @override
@@ -48,14 +46,14 @@ class MyPieChartState extends State<MyPieChart> {
     percentage.sort();
     return SizedBox(
       width: widget.radius * 2.5,
-      height:  widget.radius * 2.5,
+      height: widget.radius * 2.5,
       child: PieChart(
         PieChartData(
           pieTouchData: PieTouchData(
             enabled: false,
             touchCallback: (FlTouchEvent event, pieTouchResponse) {
               setState(
-                () {
+                    () {
                   if (!event.isInterestedForInteractions ||
                       pieTouchResponse == null ||
                       pieTouchResponse.touchedSection == null) {
@@ -75,16 +73,18 @@ class MyPieChartState extends State<MyPieChart> {
           centerSpaceRadius: 0,
           sections: List.generate(
             percentage.length,
-            (index) {
+                (index) {
               final textColor = AppColors.textColor(colors[index]);
               final scale = (1 + percentage[index] * 0.5);
               final isTouched = index == touchedIndex;
               final TextStyle textStyle = isTouched
-                  ? TextStyle(fontSize: ((initialFontSize + 4) * scale).sp, color: textColor)
-                  : TextStyle(fontSize: (initialFontSize * scale).sp, color: textColor);
+                  ? TextStyle(fontSize: ((initialFontSize + 4) * scale).sp,
+                  color: textColor)
+                  : TextStyle(
+                  fontSize: (initialFontSize * scale).sp, color: textColor);
               final radius =
-                  (isTouched ? pieRadius * scale * 1.2 : pieRadius * scale)
-                      .toDouble();
+              (isTouched ? pieRadius * scale * 1.2 : pieRadius * scale)
+                  .toDouble();
               return PieChartSectionData(
                 value: percentage[index],
                 color: colors[index],
@@ -94,16 +94,16 @@ class MyPieChartState extends State<MyPieChart> {
                 badgePositionPercentageOffset: 0.85,
                 badgeWidget: isTouched
                     ? Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: ShapeDecoration(
-                            color: Colors.grey,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8))),
-                        child: Text(
-                          widget.legend[index],
-                          style: AppTS.big.copyWith(color: Colors.white),
-                        ),
-                      )
+                  padding: const EdgeInsets.all(8),
+                  decoration: ShapeDecoration(
+                      color: Colors.grey,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                  child: Text(
+                    widget.legend[index],
+                    style: AppTS.big.copyWith(color: Colors.white),
+                  ),
+                )
                     : null,
               );
             },

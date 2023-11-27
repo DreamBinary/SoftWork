@@ -18,7 +18,7 @@ class ApiImg {
         Url.uploadImg,
         {
           "multipartFiles": List.generate(imgPaths.length,
-              (index) => MultipartFile.fromFileSync(imgPaths[index])),
+                  (index) => MultipartFile.fromFileSync(imgPaths[index])),
         },
         Options(headers: {"token": token}, contentType: "multipart/form-data"));
     if (response?.data["code"] == 200) {
@@ -39,20 +39,22 @@ class ApiImg {
     return null;
   }
 
-  static Future<ConsumeData?> getRecognizeResult({required String fileName}) async {
+  static Future<ConsumeData?> getRecognizeResult(
+      {required String fileName}) async {
     String token = MMKVUtil.getString(AppString.mmToken);
     var response = await DioUtil().post(Url.recognizeImg,
         query: {"fileName": fileName},
         options: Options(headers: {"token": token}));
     if (response?.data["code"] == 200) {
-      var data=  ConsumeData.fromJson(response?.data["data"]["consumption"]);
+      var data = ConsumeData.fromJson(response?.data["data"]["consumption"]);
       print(data);
       return data;
     }
     return null;
   }
 
-  static Future<ConsumeData?> getScreenRecognizeResult({required String fileName}) async {
+  static Future<ConsumeData?> getScreenRecognizeResult(
+      {required String fileName}) async {
     String token = MMKVUtil.getString(AppString.mmToken);
     var response = await DioUtil().post(Url.recognizeImg2,
         query: {"fileName": fileName},

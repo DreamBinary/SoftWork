@@ -1,4 +1,5 @@
 import 'package:account/app/data/entity/consume.dart';
+import 'package:account/app/data/net/api_consume.dart';
 import 'package:get/get.dart';
 
 import '../../utils/date_util.dart';
@@ -32,9 +33,7 @@ class AddLogic extends GetxController {
       consumeDate: state.dateCtrl.text,
       credential: state.imgUrl ?? "",
     );
-    // TODO
-    // var res = await ApiConsume.addConsume(cData);
-    var res = true;
+    var res = await ApiConsume.addConsume(cData);
     if (res) {
       clear();
     }
@@ -51,4 +50,3 @@ class AddLogic extends GetxController {
     state.imgUrl = null;
   }
 }
-

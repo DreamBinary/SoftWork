@@ -1,7 +1,12 @@
 import 'package:account/app/modules/add/add_binding.dart';
 import 'package:account/app/modules/add/add_view.dart';
+import 'package:account/app/modules/all_entry/login/login_binding.dart';
+import 'package:account/app/modules/all_entry/login/login_view.dart';
+import 'package:account/app/modules/all_entry/register/register_binding.dart';
+import 'package:account/app/modules/all_entry/register/register_view.dart';
 import 'package:account/app/modules/analyse/analyse_binding.dart';
 import 'package:account/app/modules/analyse/analyse_view.dart';
+import 'package:account/app/modules/budget/budget_view.dart';
 import 'package:account/app/modules/dream/dream_view.dart';
 import 'package:account/app/modules/home/home_binding.dart';
 import 'package:account/app/modules/home/home_view.dart';
@@ -15,9 +20,11 @@ import '../modules/all_more/my_book/my_book_binding.dart';
 import '../modules/all_more/my_book/my_book_view.dart';
 import '../modules/all_more/setting/setting_binding.dart';
 import '../modules/all_more/setting/setting_view.dart';
+import '../modules/budget/budget_binding.dart';
 import '../modules/dream/dream_binding.dart';
 import '../modules/image_analyse/image_analyse_binding.dart';
 import '../modules/image_analyse/image_analyse_view.dart';
+import '../modules/intro/intro.dart';
 import '../modules/table_analyse/table_analyse_binding.dart';
 import '../modules/table_analyse/table_analyse_view.dart';
 
@@ -25,56 +32,71 @@ part './app_routes.dart';
 
 abstract class AppPages {
   static final pages = [
-    // GetPage(name: Routes.intro, page: () => const IntroPage()),
+    GetPage(name: Routes.intro, page: () => const IntroPage()),
     GetPage(
-        name: Routes.route, page: () => RoutePage(), binding: RouteBinding()),
+      name: Routes.route,
+      page: () => const RoutePage(),
+      binding: RouteBinding(),
+    ),
     GetPage(
       name: Routes.home,
-      page: () => HomePage(),
+      page: () => const HomePage(),
       binding: HomeBinding(),
     ),
     GetPage(
       name: Routes.analyse,
-      page: () => AnalysePage(),
+      page: () => const AnalysePage(),
       binding: AnalyseBinding(),
     ),
     GetPage(
       name: Routes.more,
-      page: () => MorePage(),
+      page: () => const MorePage(),
       binding: MoreBinding(),
     ),
-    // GetPage(
-    //     name: Routes.login,
-    //     page: () => const LoginPage(),
-    //     binding: LoginBinding()),
-    // GetPage(
-    //     name: Routes.register,
-    //     page: () => RegisterPage(),
-    //     binding: RegisterBinding()),
-    GetPage(name: Routes.add, page: () => AddPage(), binding: AddBinding()),
     GetPage(
-        name: Routes.myBook,
-        page: () => MyBookPage(),
-        binding: MyBookBinding()),
+      name: Routes.login,
+      page: () => const LoginPage(),
+      binding: LoginBinding(),
+    ),
+    GetPage(
+      name: Routes.register,
+      page: () => const RegisterPage(),
+      binding: RegisterBinding(),
+    ),
+    GetPage(
+      name: Routes.add,
+      page: () => const AddPage(),
+      binding: AddBinding(),
+    ),
+    GetPage(
+      name: Routes.myBook,
+      page: () => const MyBookPage(),
+      binding: MyBookBinding(),
+    ),
     GetPage(
       name: Routes.imageAnalyse,
-      page: () => ImageAnalysePage(),
+      page: () => const ImageAnalysePage(),
       binding: ImageAnalyseBinding(),
     ),
     GetPage(
       name: Routes.tableAnalyse,
-      page: () => TableAnalysePage(),
+      page: () => const TableAnalysePage(),
       binding: TableAnalyseBinding(),
     ),
     GetPage(
       name: Routes.dream,
-      page: () => DreamPage(),
+      page: () => const DreamPage(),
       binding: DreamBinding(),
     ),
     GetPage(
       name: Routes.setting,
-      page: () => SettingPage(),
+      page: () => const SettingPage(),
       binding: SettingBinding(),
+    ),
+    GetPage(
+      name: Routes.budget,
+      page: () => const BudgetPage(),
+      binding: BudgetBinding(),
     ),
   ];
 }

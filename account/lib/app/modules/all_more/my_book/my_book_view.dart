@@ -25,7 +25,9 @@ class MyBookPage extends StatefulWidget {
 class _MyBookPageState extends State<MyBookPage> {
   @override
   Widget build(BuildContext context) {
-    if (VersionCtrl.of(context)?.version != 0) {
+    if (VersionCtrl
+        .of(context)
+        ?.version != 0) {
       return const _SMyBookPage();
     }
     return const _MMyBookPage();
@@ -65,14 +67,15 @@ class _SMyBookPageState extends State<_SMyBookPage> {
       body: Column(
         children: List.generate(
           bookName.length,
-          (index) => _SBook(
-            color: colors[index],
-            bookName: bookName[index],
-            bookImgPath: bookImgPath[index],
-            income: values[index][0],
-            expense: values[index][1],
-            balance: values[index][2],
-          ),
+              (index) =>
+              _SBook(
+                color: colors[index],
+                bookName: bookName[index],
+                bookImgPath: bookImgPath[index],
+                income: values[index][0],
+                expense: values[index][1],
+                balance: values[index][2],
+              ),
         ),
       ).paddingSymmetric(horizontal: 20.w),
     );
@@ -153,14 +156,13 @@ class _SBook extends StatelessWidget {
   final String expense;
   final String balance;
 
-  const _SBook(
-      {required this.color,
-      required this.bookName,
-      required this.bookImgPath,
-      this.income = "0",
-      this.expense = "0",
-      this.balance = "0",
-      Key? key})
+  const _SBook({required this.color,
+    required this.bookName,
+    required this.bookImgPath,
+    this.income = "0",
+    this.expense = "0",
+    this.balance = "0",
+    Key? key})
       : super(key: key);
 
   @override
@@ -335,11 +337,10 @@ class _DetailPart extends StatelessWidget {
   final String bookName;
   final List<String>? values;
 
-  const _DetailPart(
-      {required this.bookName,
-      required this.values,
-      required this.time,
-      Key? key})
+  const _DetailPart({required this.bookName,
+    required this.values,
+    required this.time,
+    Key? key})
       : super(key: key);
 
   @override
@@ -348,7 +349,8 @@ class _DetailPart extends StatelessWidget {
       children: [
         Text(bookName, style: AppTS.big),
         SizedBox(height: 10.h),
-        Text("${time.year}年${time.month}月${time.day}日创建", style: AppTS.small),
+        Text("${time.year}年${time.month}月${time.day}日创建",
+            style: AppTS.small),
         SizedBox(height: 30.h),
         MultiColumnRow(
           titles: const [

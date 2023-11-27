@@ -41,24 +41,23 @@ class ConsumeData {
     AssetsRes.CLASS_OTHER,
   ];
 
-  ConsumeData(
-      {required this.consumptionName,
-      required this.description,
-      required this.amount,
-      required this.typeId,
-      required this.store,
-      required this.consumeTime,
-      required this.consumeDate,
-      required this.credential,
-      this.imgUrl});
+  ConsumeData({required this.consumptionName,
+    required this.description,
+    required this.amount,
+    required this.typeId,
+    required this.store,
+    required this.consumeTime,
+    required this.consumeDate,
+    required this.credential,
+    this.imgUrl});
 
   ConsumeData.fromJson(dynamic json) {
     credential = json['credential'] ?? "";
     imgUrl = credential.startsWith("http")
         ? credential
         : (credential == "default"
-            ? null
-            : "http://luke.host/images/$credential");
+        ? null
+        : "http://luke.host/images/$credential");
     consumptionName = json['consumptionName'] ?? "";
     description = json['description'] ?? "";
     amount = json['amount'] ?? 0.0;

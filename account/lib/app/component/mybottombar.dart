@@ -36,16 +36,15 @@ class MyBottomBar extends StatefulWidget {
   final TextStyle? itemLabelStyle;
   final Color notchColor;
 
-  const MyBottomBar(
-      {Key? key,
-      required this.pageController,
-      required this.bottomBarItems,
-      required this.onTap,
-      this.color = Colors.white,
-      this.itemLabelStyle,
-      this.showShadow = true,
-      this.showLabel = true,
-      this.notchColor = Colors.white})
+  const MyBottomBar({Key? key,
+    required this.pageController,
+    required this.bottomBarItems,
+    required this.onTap,
+    this.color = Colors.white,
+    this.itemLabelStyle,
+    this.showShadow = true,
+    this.showLabel = true,
+    this.notchColor = Colors.white})
       : super(key: key);
 
   @override
@@ -58,12 +57,17 @@ class _MyBottomBarState extends State<MyBottomBar> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _screenWidth = MediaQuery.of(context).size.width;
+    _screenWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
   }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery
+        .of(context)
+        .size;
     final width = size.width;
     const height = kHeight;
     return AnimatedBuilder(
@@ -147,8 +151,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
 }
 
 class BottomBarActiveItem extends StatelessWidget {
-  const BottomBarActiveItem(
-    this.index, {
+  const BottomBarActiveItem(this.index, {
     required this.itemWidget,
     required this.onTap,
     required this.scrollPosition,
@@ -174,14 +177,13 @@ class BottomBarActiveItem extends StatelessWidget {
 }
 
 class BottomBarPainter extends CustomPainter {
-  BottomBarPainter(
-      {required this.position,
-      required this.color,
-      required this.showShadow,
-      required this.notchColor})
+  BottomBarPainter({required this.position,
+    required this.color,
+    required this.showShadow,
+    required this.notchColor})
       : _paint = Paint()
-          ..color = color
-          ..isAntiAlias = true,
+    ..color = color
+    ..isAntiAlias = true,
         _shadowColor = Colors.grey.shade600,
         _notchPaint = Paint()
           ..color = notchColor
@@ -217,13 +219,11 @@ class BottomBarPainter extends CustomPainter {
       ..relativeArcToPoint(
         const Offset(kTopRadius, kTopRadius),
         radius: const Radius.circular(kTopRadius),
-      )
-      ..relativeArcToPoint(
+      )..relativeArcToPoint(
         const Offset((kCircleRadius + kCircleMargin) * 2, 0.0),
         radius: const Radius.circular(kCircleRadius + kCircleMargin),
         clockwise: false,
-      )
-      ..relativeArcToPoint(
+      )..relativeArcToPoint(
         const Offset(kTopRadius, -kTopRadius),
         radius: const Radius.circular(kTopRadius),
       )
@@ -232,9 +232,8 @@ class BottomBarPainter extends CustomPainter {
         const Offset(kTopRadius, kTopRadius),
         radius: const Radius.circular(kTopRadius),
       )
-      ..lineTo(right, bottom)
-      ..lineTo(left, bottom)
-      ..lineTo(left, top + kTopRadius)
+      ..lineTo(right, bottom)..lineTo(left, bottom)..lineTo(
+          left, top + kTopRadius)
       ..relativeArcToPoint(
         const Offset(kTopRadius, -kTopRadius),
         radius: const Radius.circular(kTopRadius),
@@ -268,10 +267,10 @@ class BottomBarPainter extends CustomPainter {
 class BottomBarInActiveItem extends StatelessWidget {
   const BottomBarInActiveItem(this.index,
       {required this.itemWidget,
-      required this.onTap,
-      required this.showLabel,
-      this.label,
-      this.labelStyle});
+        required this.onTap,
+        required this.showLabel,
+        this.label,
+        this.labelStyle});
 
   final int index;
   final Widget itemWidget;

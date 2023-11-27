@@ -27,11 +27,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   final logic = Get.find<LoginLogic>();
-  final state = Get.find<LoginLogic>().state;
+  final state = Get
+      .find<LoginLogic>()
+      .state;
   late final AnimationController _shakeCtrl = AnimationController(
       duration: const Duration(milliseconds: 500), vsync: this)
     ..addStatusListener(
-      (status) {
+          (status) {
         if (status == AnimationStatus.completed) {
           _shakeCtrl.reset();
         }
@@ -76,21 +78,24 @@ class _LoginPageState extends State<LoginPage>
           Row(
             children: <Widget>[
               Obx(
-                () => Checkbox(
-                  activeColor: Colors.transparent,
-                  checkColor: AppColors.primary,
-                  value: state.checkUseAndPrivate.value,
-                  onChanged: (value) {
-                    state.checkUseAndPrivate.value = value!;
-                  },
-                ),
+                    () =>
+                    Checkbox(
+                      activeColor: Colors.transparent,
+                      checkColor: AppColors.primary,
+                      value: state.checkUseAndPrivate.value,
+                      onChanged: (value) {
+                        state.checkUseAndPrivate.value = value!;
+                      },
+                    ),
               ),
               AnimatedBuilder(
                 animation: _shakeCtrl,
-                builder: (context, child) => Transform.translate(
-                  offset: Offset(sin(1000 * 2 * pi * _shakeCtrl.value) * 5, 0),
-                  child: child,
-                ),
+                builder: (context, child) =>
+                    Transform.translate(
+                      offset: Offset(
+                          sin(1000 * 2 * pi * _shakeCtrl.value) * 5, 0),
+                      child: child,
+                    ),
                 child: Text.rich(
                   TextSpan(
                     children: [
@@ -128,30 +133,32 @@ class _LoginPageState extends State<LoginPage>
   List<Widget> getWidgets() {
     return Platform.isIOS
         ? [
-            UsernameTextFieldIOS(state.usernameCtrl),
-            SizedBox(height: 10.h),
-            PasswordTextFieldIOS(
-              state.passwordCtrl,
-              hint: AppString.passwordInput,
-              prefixIcon: Icons.privacy_tip_outlined,
-              onSubmitted: (_) => {
-                // logic.login(_shake), KeyboardUtils.hideKeyboard(context)
-              },
-            ),
-          ]
+      UsernameTextFieldIOS(state.usernameCtrl),
+      SizedBox(height: 10.h),
+      PasswordTextFieldIOS(
+        state.passwordCtrl,
+        hint: AppString.passwordInput,
+        prefixIcon: Icons.privacy_tip_outlined,
+        onSubmitted: (_) =>
+        {
+          // logic.login(_shake), KeyboardUtils.hideKeyboard(context)
+        },
+      ),
+    ]
         : [
-            UsernameTextField(state.usernameCtrl,
-                onClear: () => state.usernameCtrl.clear()),
-            PasswordTextField(
-              state.passwordCtrl,
-              hint: AppString.passwordInput,
-              onClear: () => state.passwordCtrl.clear(),
-              prefixIcon: Icons.privacy_tip_outlined,
-              onSubmitted: (_) => {
-                // logic.login(_shake), KeyboardUtils.hideKeyboard(context)
-              },
-            ),
-          ];
+      UsernameTextField(state.usernameCtrl,
+          onClear: () => state.usernameCtrl.clear()),
+      PasswordTextField(
+        state.passwordCtrl,
+        hint: AppString.passwordInput,
+        onClear: () => state.passwordCtrl.clear(),
+        prefixIcon: Icons.privacy_tip_outlined,
+        onSubmitted: (_) =>
+        {
+          // logic.login(_shake), KeyboardUtils.hideKeyboard(context)
+        },
+      ),
+    ];
   }
 
   @override

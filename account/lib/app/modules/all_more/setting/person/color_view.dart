@@ -21,7 +21,8 @@ class ColorView extends StatefulWidget {
 
 class _ColorViewState extends State<ColorView> {
 
-  final ExpandableController _ctrl = ExpandableController(initialExpanded: true);
+  final ExpandableController _ctrl = ExpandableController(
+      initialExpanded: true);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class _ColorViewState extends State<ColorView> {
                 ),
                 ExpandablePanel(
                   controller: ExpandableController(initialExpanded: false),
-                  header:  Padding(
+                  header: Padding(
                     padding: const EdgeInsets.only(left: 40.0),
                     child: Text("第四套人民币", style: AppTS.normal),
                   ),
@@ -62,7 +63,8 @@ class _ColorViewState extends State<ColorView> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 40.0, top: 10.0),
-                  child: Text("敬请期待", style: AppTS.normal.copyWith(color: Colors.grey)),
+                  child: Text("敬请期待",
+                      style: AppTS.normal.copyWith(color: Colors.grey)),
                 )
               ],
             ),
@@ -228,10 +230,11 @@ class _ColorPart extends StatelessWidget {
                               ),
                               ...List.generate(
                                 colorList.length,
-                                (i) => CircleAvatar(
-                                  backgroundColor: colorList[i],
-                                  radius: 10.h,
-                                ),
+                                    (i) =>
+                                    CircleAvatar(
+                                      backgroundColor: colorList[i],
+                                      radius: 10.h,
+                                    ),
                               ),
                               SizedBox(
                                 width: 5.h,

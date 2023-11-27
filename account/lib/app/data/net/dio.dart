@@ -80,7 +80,7 @@ class DioUtil {
       {Map<String, dynamic>? map, Options? options}) async {
     try {
       Response response =
-          await _dio.get(url, queryParameters: map, options: options);
+      await _dio.get(url, queryParameters: map, options: options);
       return response;
     } on DioError catch (e) {
       formatError(e);
@@ -90,8 +90,8 @@ class DioUtil {
 
   Future<Response?> post(String url,
       {Map<String, dynamic>? data,
-      Map<String, dynamic>? query,
-      Options? options}) async {
+        Map<String, dynamic>? query,
+        Options? options}) async {
     try {
       return _dio.post(url,
           data: data, queryParameters: query, options: options);
@@ -101,8 +101,8 @@ class DioUtil {
     return null;
   }
 
-  Future<Response?> postForm(
-      String url, Map<String, dynamic> map, Options? options) async {
+  Future<Response?> postForm(String url, Map<String, dynamic> map,
+      Options? options) async {
     try {
       FormData formData = FormData.fromMap(map);
       return await _dio.post(url, data: formData, options: options);
@@ -145,8 +145,8 @@ class DioUtil {
     try {
       Response response = await _dio.download(urlPath, savePath,
           onReceiveProgress: (int count, int total) {
-        debugPrint("$count $total");
-      });
+            debugPrint("$count $total");
+          });
       debugPrint("downLoadFile response: $response");
       return response;
     } on DioError catch (e) {

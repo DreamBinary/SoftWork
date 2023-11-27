@@ -1,4 +1,3 @@
-import 'package:account/app/modules/all_more/setting/multi_person/member.dart';
 import 'package:account/app/routes/app_pages.dart';
 import 'package:account/app/utils/extension.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,7 @@ import '../../../component/mycard.dart';
 import '../../../component/version_ctrl.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_text_theme.dart';
+import '../setting/multi_person/member.dart';
 
 class MorePage extends StatelessWidget {
   const MorePage({super.key});
@@ -101,7 +101,7 @@ class _SMorePage extends StatelessWidget {
                         AppColors.color_list[0],
                         height: 2 * h + 10.h,
                         onPressed: () {
-                          Get.to(MemberPage());
+                          Get.to(const MemberPage());
                         },
                         child: Text(
                           "多\n人\n记\n账",
@@ -118,7 +118,6 @@ class _SMorePage extends StatelessWidget {
                         height: 2 * h + 10.h,
                         child: Column(
                           children: [
-                            SizedBox(height: 20.h),
                             Expanded(
                               child: MyCard(
                                 AppColors.color_list[0],

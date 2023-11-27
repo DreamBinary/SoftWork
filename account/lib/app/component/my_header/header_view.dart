@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:account/app/utils/camera_util.dart';
 import 'package:account/res/assets_res.dart';
 import 'package:badges/badges.dart' as bdg;
 import 'package:flutter/cupertino.dart';
@@ -18,12 +19,11 @@ class HeaderComponent extends StatefulWidget {
   final double radius;
   final GestureTapCallback? onTap;
 
-  const HeaderComponent(
-      {this.radius = 50,
-      this.onTap,
-      this.child,
-      this.showAdd = false,
-      super.key});
+  const HeaderComponent({this.radius = 50,
+    this.onTap,
+    this.child,
+    this.showAdd = false,
+    super.key});
 
   @override
   _HeaderComponentState createState() => _HeaderComponentState();
@@ -31,7 +31,9 @@ class HeaderComponent extends StatefulWidget {
 
 class _HeaderComponentState extends State<HeaderComponent> {
   final logic = Get.find<HeaderLogic>();
-  final state = Get.find<HeaderLogic>().state;
+  final state = Get
+      .find<HeaderLogic>()
+      .state;
   late dynamic _child;
 
   @override
@@ -44,7 +46,7 @@ class _HeaderComponentState extends State<HeaderComponent> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap ??
-          () {
+              () {
             Get.to(ImagePreview(_child.image));
           },
       child: bdg.Badge(
@@ -79,64 +81,70 @@ class _HeaderComponentState extends State<HeaderComponent> {
 
   Future<dynamic> _showChoice() {
     return Platform.isIOS
-        // iphone
+    // iphone
         ? showCupertinoModalPopup(
-            context: context,
-            builder: (_) => CupertinoActionSheet(
-              actions: [
-                CupertinoActionSheetAction(
-                  onPressed: _getCamera,
-                  child: Text(AppString.camera, style: AppTS.big),
-                ),
-                CupertinoActionSheetAction(
-                  onPressed: _getGallery,
-                  child: Text(AppString.gallery, style: AppTS.big),
-                ),
-              ],
-            ),
-          )
-        // android
+      context: context,
+      builder: (_) =>
+          CupertinoActionSheet(
+            actions: [
+              CupertinoActionSheetAction(
+                onPressed: _getCamera,
+                child: Text(AppString.camera, style: AppTS.big),
+              ),
+              CupertinoActionSheetAction(
+                onPressed: _getGallery,
+                child: Text(AppString.gallery, style: AppTS.big),
+              ),
+            ],
+          ),
+    )
+    // android
         : showModalBottomSheet(
-            context: context,
-            builder: (_) => Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                _sheetItem(onPressed: _getCamera, text: AppString.camera),
-                const Divider(),
-                _sheetItem(onPressed: _getGallery, text: AppString.gallery),
-              ],
-            ),
-          );
+      context: context,
+      builder: (_) =>
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              _sheetItem(onPressed: _getCamera, text: AppString.camera),
+              const Divider(),
+              _sheetItem(onPressed: _getGallery, text: AppString.gallery),
+            ],
+          ),
+    );
   }
 
   void _getGallery() {
     Get.back();
-    logic.getGallery().then((value) => {
-          if (value != null)
-            {
-              setState(
-                () {
-                  _child = value;
-                },
-              )
-            }
-        });
+    CameraUtil.getGallery().then(
+          (value) =>
+      {
+        if (value != null)
+          {
+            setState(
+                  () {
+                _child = value;
+              },
+            )
+          }
+      },
+    );
   }
 
   void _getCamera() {
     Get.back();
-    logic.getCamera().then(
-          (value) => {
-            if (value != null)
-              {
-                setState(
+    CameraUtil.getCamera().then(
+          (value) =>
+      {
+        if (value != null)
+          {
+            setState(
                   () {
-                    _child = value;
-                  },
-                )
-              }
-          },
-        );
+                _child = value;
+              },
+            )
+          }
+      },
+    );
   }
 
   Widget _sheetItem({required VoidCallback onPressed, required String text}) {

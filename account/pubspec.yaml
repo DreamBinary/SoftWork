@@ -58,6 +58,7 @@ dependencies:
   dotted_border: ^2.0.0+3
   circular_menu: ^2.0.1
   get: ^4.6.5
+  crop_your_image: ^0.7.5
   flutter_native_splash: ^2.2.19
   fluttertoast: ^8.1.2
   card_swiper: ^2.0.4

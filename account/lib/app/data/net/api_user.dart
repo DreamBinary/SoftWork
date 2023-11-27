@@ -17,8 +17,8 @@ class ApiUser {
     return false;
   }
 
-  static Future<bool> signUp(
-      String phone, String password, String verify) async {
+  static Future<bool> signUp(String phone, String password,
+      String verify) async {
     var response = await DioUtil().post(
       Url.signUp,
       query: {

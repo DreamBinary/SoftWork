@@ -8,8 +8,7 @@ class MyCard extends StatelessWidget {
   final Widget? child;
   final double? elevation;
 
-  const MyCard(
-    this.color, {
+  const MyCard(this.color, {
     super.key,
     this.height,
     this.width,

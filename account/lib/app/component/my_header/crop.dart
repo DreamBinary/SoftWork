@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
+import 'dart:typed_data';
 
-// import 'package:head_image_cropper/head_image_cropper.dart';
+import 'package:crop_your_image/crop_your_image.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../mytopbar.dart';
 
 class CropHeader extends StatefulWidget {
-  final ImageProvider image;
+  final Uint8List image;
 
   const CropHeader(this.image, {super.key});
 
@@ -14,7 +16,7 @@ class CropHeader extends StatefulWidget {
 }
 
 class _CropHeaderState extends State<CropHeader> {
-  // final CropperController _ctrl = CropperController();
+  final _ctrl = CropController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,48 +24,16 @@ class _CropHeaderState extends State<CropHeader> {
       appBar: MyTopBar(
           trailing: IconButton(
               onPressed: () {
-                // TODO
-                // _ctrl.outImage().then((image) async {
-                //   var bytes =
-                //       (await (image.toByteData(format: ImageByteFormat.png)))
-                //           ?.buffer
-                //           .asUint8List();
-                //   Get.back(result: bytes);
-                // });
+                _ctrl.crop();
               },
               icon: const Icon(Icons.done_rounded))),
-      body: SizedBox(),
+      body: Crop(
+        image: widget.image,
+        controller: _ctrl,
+        onCropped: (Uint8List value) {
+          Get.back(result: value);
+        },
+      ),
     );
   }
 }
-
-
-
-// class _CropHeaderState extends State<CropHeader> {
-//   // final CropperController _ctrl = CropperController();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: MyTopBar(
-//           trailing: IconButton(
-//               onPressed: () {
-//                 // TODO
-//                 // _ctrl.outImage().then((image) async {
-//                 //   var bytes =
-//                 //       (await (image.toByteData(format: ImageByteFormat.png)))
-//                 //           ?.buffer
-//                 //           .asUint8List();
-//                 //   Get.back(result: bytes);
-//                 // });
-//               },
-//               icon: const Icon(Icons.done_rounded))),
-//       body: CropperImage(
-//         widget.image,
-//         isArc: true,
-//         controller: _ctrl,
-//         // isArc: true,
-//       ),
-//     );
-//   }
-// }

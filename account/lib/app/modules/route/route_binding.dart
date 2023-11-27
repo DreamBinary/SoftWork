@@ -14,6 +14,5 @@ class RouteBinding extends Bindings {
     Get.lazyPut(() => AnalyseLogic());
     Get.lazyPut(() => MoreLogic());
     Get.lazyPut(() => HeaderLogic(), fenix: true);
-
   }
 }

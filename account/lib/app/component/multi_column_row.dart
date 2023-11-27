@@ -11,14 +11,13 @@ class MultiColumnRow extends StatelessWidget {
   final TextStyle? decTextStyle;
   final TextStyle? numTextStyle;
 
-  const MultiColumnRow(
-      {required this.titles,
-      this.subTitles,
-      this.crossAxisAlignment = CrossAxisAlignment.start,
-      this.hasDivider = false,
-      this.decTextStyle,
-      this.numTextStyle,
-      Key? key})
+  const MultiColumnRow({required this.titles,
+    this.subTitles,
+    this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.hasDivider = false,
+    this.decTextStyle,
+    this.numTextStyle,
+    Key? key})
       : super(key: key);
 
   @override
@@ -59,13 +58,12 @@ class _OneColumn extends StatelessWidget {
   final TextStyle? decTextStyle;
   final TextStyle? numTextStyle;
 
-  const _OneColumn(
-      {required this.title,
-      required this.subTitle,
-      required this.crossAxisAlignment,
-      this.decTextStyle,
-      this.numTextStyle,
-      Key? key})
+  const _OneColumn({required this.title,
+    required this.subTitle,
+    required this.crossAxisAlignment,
+    this.decTextStyle,
+    this.numTextStyle,
+    Key? key})
       : super(key: key);
 
   @override

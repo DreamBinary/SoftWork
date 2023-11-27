@@ -16,7 +16,8 @@ class _AudioItemState extends State<AudioItem> with TickerProviderStateMixin {
   late final AnimationController _ctrlB0 = AnimationController(
     vsync: this,
     duration: const Duration(seconds: 1, milliseconds: 500),
-  )..addStatusListener((status) {
+  )
+    ..addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         // print("completed0");
         _ctrlB0.reset();
@@ -28,7 +29,8 @@ class _AudioItemState extends State<AudioItem> with TickerProviderStateMixin {
   late final AnimationController _ctrlB1 = AnimationController(
     vsync: this,
     duration: const Duration(seconds: 1, milliseconds: 500),
-  )..addStatusListener((status) {
+  )
+    ..addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         // print("completed1");
         _ctrlB1.reset();
@@ -43,7 +45,8 @@ class _AudioItemState extends State<AudioItem> with TickerProviderStateMixin {
   double radius = 150;
   bool started = false;
   late final GestureLongPressCallback? onLongPress = widget.onLongPress;
-  late final GestureLongPressEndCallback? onLongPressEnd = widget.onLongPressEnd;
+  late final GestureLongPressEndCallback? onLongPressEnd = widget
+      .onLongPressEnd;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +62,8 @@ class _AudioItemState extends State<AudioItem> with TickerProviderStateMixin {
                   width: radius + _ctrlB0.value * radius,
                   height: radius + _ctrlB0.value * radius,
                   decoration: BoxDecoration(
-                    color: AppColors.color_list[3].withOpacity(1 - _ctrlB0.value),
+                    color: AppColors.color_list[3].withOpacity(
+                        1 - _ctrlB0.value),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -69,7 +73,8 @@ class _AudioItemState extends State<AudioItem> with TickerProviderStateMixin {
                   width: radius + _ctrlB1.value * radius,
                   height: radius + _ctrlB1.value * radius,
                   decoration: BoxDecoration(
-                    color: AppColors.color_list[4].withOpacity(1 - _ctrlB1.value),
+                    color: AppColors.color_list[4].withOpacity(
+                        1 - _ctrlB1.value),
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -100,12 +105,12 @@ class _AudioItemState extends State<AudioItem> with TickerProviderStateMixin {
                       ),
                       child: started
                           ? Icon(
-                              Icons.mic_rounded,
-                              size: 50,
-                              color: AppColors.color_list[0],
-                            )
+                        Icons.mic_rounded,
+                        size: 50,
+                        color: AppColors.color_list[0],
+                      )
                           : Icon(Icons.mic_none_rounded,
-                              size: 45, color: AppColors.color_list[0])),
+                          size: 45, color: AppColors.color_list[0])),
                 ),
               )
             ],

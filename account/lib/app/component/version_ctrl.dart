@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 class VersionCtrl extends InheritedWidget {
-  const VersionCtrl(
-      {required this.version,
-      required this.changeVersion,
-      super.key,
-      required super.child});
+  const VersionCtrl({required this.version,
+    required this.changeVersion,
+    super.key,
+    required super.child});
 
   final int version;
   final Function(int) changeVersion;

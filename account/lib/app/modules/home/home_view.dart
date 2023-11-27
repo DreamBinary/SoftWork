@@ -1,11 +1,13 @@
 import 'dart:math';
 
+import 'package:account/app/component/croping_page.dart';
 import 'package:account/app/component/lines_text.dart';
 import 'package:account/app/component/mybottombar.dart';
 import 'package:account/app/component/mycard.dart';
 import 'package:account/app/component/mydatepicker.dart';
 import 'package:account/app/component/myshowbottomsheet.dart';
 import 'package:account/app/component/refresh_indicator.dart';
+import 'package:account/app/data/net/api_img.dart';
 import 'package:account/app/modules/home/home_logic.dart';
 import 'package:account/app/routes/app_pages.dart';
 import 'package:account/app/theme/app_colors.dart';
@@ -35,27 +37,31 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (VersionCtrl.of(context)?.version != 0) {
+    if (VersionCtrl
+        .of(context)
+        ?.version != 0) {
       return const _SHomePage();
     }
-    return const MHomePage();
+    return const _MHomePage();
   }
 }
 
-class MHomePage extends StatefulWidget {
-  const MHomePage({Key? key}) : super(key: key);
+class _MHomePage extends StatefulWidget {
+  const _MHomePage({Key? key}) : super(key: key);
 
   @override
-  State<MHomePage> createState() => _MHomePageState();
+  State<_MHomePage> createState() => _MHomePageState();
 }
 
-class _MHomePageState extends State<MHomePage> {
+class _MHomePageState extends State<_MHomePage> {
   final logic = Get.find<HomeLogic>();
-  final state = Get.find<HomeLogic>().state;
+  final state = Get
+      .find<HomeLogic>()
+      .state;
   late String start = state.start ?? DateUtil.getNowFormattedDate();
   late String end = state.end ?? DateUtil.getNowFormattedDate();
   late String showTime =
-      isMonth ? start : (start == end ? start : "$start -> $end");
+  isMonth ? start : (start == end ? start : "$start -> $end");
   late bool isMonth = state.isMonth;
 
   List<String> bookImgPath = [
@@ -73,13 +79,14 @@ class _MHomePageState extends State<MHomePage> {
   void initState() {
     super.initState();
     screenListener.addScreenShotListener(
-      (filePath) async {
+          (filePath) async {
         FloatingUtil.end();
         await Future.delayed(const Duration(milliseconds: 100));
-        // TODO
-        // var urls = await ApiImg.upImg(imgPaths: [filePath]);
-        // Get.to(CroppingPage(
-        //     fileName: urls[0].split('/').last, isScreenShot: true));
+        var urls = await ApiImg.upImg(imgPaths: [filePath]);
+        Get.to(CroppingPage(
+            fileName: urls[0]
+                .split('/')
+                .last, isScreenShot: true));
         screenListener.dispose();
       },
     );
@@ -91,6 +98,7 @@ class _MHomePageState extends State<MHomePage> {
       backgroundColor: AppColors.whiteBg,
       body: CustomRefreshIndicator(
         onRefresh: () async {
+          logic.clear();
           setState(() {});
         },
         builder: MaterialIndicatorDelegate(
@@ -108,50 +116,60 @@ class _MHomePageState extends State<MHomePage> {
               pinned: true,
               centerTitle: true,
               title: Text(bookName[_currentBook], style: AppTS.big),
+              leading: Padding(
+                padding: EdgeInsets.only(left: 10.w),
+                child: MyIconBtn(
+                  onPressed: () async {
+                    showMenu(
+                      context: context,
+                      position: const RelativeRect.fromLTRB(0, 100, 0, 0),
+                      items: List.generate(
+                        bookImgPath.length,
+                            (index) =>
+                            PopupMenuItem(
+                              value: index,
+                              onTap: () {
+                                setState(() {
+                                  _currentBook = index;
+                                });
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const SizedBox(width: 10),
+                                  CircleAvatar(
+                                      radius: 15,
+                                      backgroundImage:
+                                      AssetImage(bookImgPath[index])),
+                                  const SizedBox(width: 15),
+                                  Text(bookName[index], style: AppTS.small)
+                                ],
+                              ),
+                            ),
+                      ),
+                    );
+                  },
+                  color: AppColors.color_list[5],
+                  imgPath: AssetsRes.CHANGE_BOOK,
+                ),
+              ),
+              leadingWidth: 65.w,
               actions: [
                 Padding(
                   padding: EdgeInsets.only(right: 10.w),
                   child: MyIconBtn(
-                    onPressed: () async {
-                      showMenu(
-                        context: context,
-                        position: const RelativeRect.fromLTRB(0, 100, 0, 0),
-                        items: List.generate(
-                          bookImgPath.length,
-                              (index) => PopupMenuItem(
-                            value: index,
-                            onTap: () {
-                              setState(() {
-                                _currentBook = index;
-                              });
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const SizedBox(width: 10),
-                                CircleAvatar(
-                                    radius: 15,
-                                    backgroundImage:
-                                    AssetImage(bookImgPath[index])),
-                                const SizedBox(width: 15),
-                                Text(bookName[index], style: AppTS.small)
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    },
+                    onPressed: () async {},
                     color: AppColors.color_list[5],
-                    imgPath: AssetsRes.CHANGE_BOOK,
+                    imgPath: AssetsRes.SEARCH,
                   ),
-                )
-
+                ),
               ],
               flexibleSpace: FlexibleSpaceBar(
                 background: Align(
                   alignment: Alignment.bottomLeft,
                   child: FutureBuilder(
-                    future: Future.delayed(const Duration(milliseconds: 500)),
+                    future: logic.getOutIn(
+                        start: start, end: end, isMonth: isMonth),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return _HomeTopPart(
@@ -165,15 +183,15 @@ class _MHomePageState extends State<MHomePage> {
                                 return MyDatePicker(
                                   changeTime: (start_, end_, isMonth_) {
                                     setState(
-                                      () {
+                                          () {
                                         start = start_;
                                         end = end_;
                                         isMonth = isMonth_;
                                         showTime = isMonth
                                             ? start
                                             : (start == end
-                                                ? start
-                                                : "$start -> $end");
+                                            ? start
+                                            : "$start -> $end");
                                       },
                                     );
                                   },
@@ -198,15 +216,19 @@ class _MHomePageState extends State<MHomePage> {
               ),
             ),
             FutureBuilder(
-              future: Future.delayed(const Duration(milliseconds: 500)),
+              future: logic.getRecord(
+                start: start,
+                end: end,
+                isMonth: isMonth,
+              ),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<Map<String, List<ConsumeData>>> data =
-                      snapshot.data as List<Map<String, List<ConsumeData>>>;
+                  snapshot.data as List<Map<String, List<ConsumeData>>>;
                   int len = data.length;
                   return SliverList(
                     delegate: SliverChildBuilderDelegate(
-                      (context, index) {
+                          (context, index) {
                         if (index == 0) {
                           return const _CardMarker();
                         } else if (index == len + 1) {
@@ -234,7 +256,7 @@ class _MHomePageState extends State<MHomePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: List.generate(
                             2,
-                            (index) => const _ShimmerItem(),
+                                (index) => const _ShimmerItem(),
                           ),
                         )
                       ],
@@ -322,56 +344,58 @@ class _MHomePageState extends State<MHomePage> {
   void _getCameraChoice() {
     myShowBottomSheet(
       context: context,
-      builder: (context) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(height: 20.h),
-          PicChoiceBtn(
-            title: "截屏",
-            onPressed: () async {
-              screenListener.watch();
-              await FloatingUtil.start();
-            },
+      builder: (context) =>
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(height: 20.h),
+              PicChoiceBtn(
+                title: "截屏",
+                onPressed: () async {
+                  screenListener.watch();
+                  await FloatingUtil.start();
+                },
+              ),
+              SizedBox(height: 10.h),
+              PicChoiceBtn(
+                title: "拍照",
+                onPressed: () async {
+                  XFile? image = await CameraUtil.getCamera();
+                  if (image == null) {
+                    return;
+                  }
+                  List<String> urls = await CameraUtil.upImg(image);
+                  Get.to(CroppingPage(fileName: urls[0]
+                      .split('/')
+                      .last));
+                },
+              ),
+              SizedBox(height: 10.h),
+              PicChoiceBtn(
+                title: "相册",
+                onPressed: () async {
+                  XFile? image = await CameraUtil.getGallery();
+                  if (image == null) {
+                    return;
+                  }
+                  List<String> urls = await CameraUtil.upImg(image);
+                  Get.to(CroppingPage(fileName: urls[0]
+                      .split('/')
+                      .last));
+                },
+              ),
+              SizedBox(height: 20.h),
+            ],
           ),
-          SizedBox(height: 10.h),
-          PicChoiceBtn(
-            title: "拍照",
-            onPressed: () async {
-              XFile? image = await CameraUtil.getCamera();
-              if (image == null) {
-                return;
-              }
-              List<String> urls = await CameraUtil.upImg(image);
-              // TODO
-              // Get.to(CroppingPage(fileName: urls[0].split('/').last));
-            },
-          ),
-          SizedBox(height: 10.h),
-          PicChoiceBtn(
-            title: "相册",
-            onPressed: () async {
-              XFile? image = await CameraUtil.getGallery();
-              if (image == null) {
-                return;
-              }
-              List<String> urls = await CameraUtil.upImg(image);
-              // TODO
-              // Get.to(CroppingPage(fileName: urls[0].split('/').last));
-            },
-          ),
-          SizedBox(height: 20.h),
-        ],
-      ),
     );
   }
 }
 
 class MyCircularMenuItem extends CircularMenuItem {
-  MyCircularMenuItem(
-      {required super.icon,
-      required super.color,
-      required super.onTap,
-      super.margin = 0});
+  MyCircularMenuItem({required super.icon,
+    required super.color,
+    required super.onTap,
+    super.margin = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -394,9 +418,140 @@ class _SHomePage extends StatefulWidget {
 
 class _SHomePageState extends State<_SHomePage>
     with SingleTickerProviderStateMixin {
+  int _currentIndex = 0;
+
+  List<String> bookImgPath = [
+    AssetsRes.BOOK0,
+    AssetsRes.BOOK1,
+    AssetsRes.BOOK2
+  ];
+
+  List<String> bookName = ["我的日常", "家人们", "舍友们"];
+  List<String> bookName2 = ["我\n的\n日\n常", "家\n人\n们", "舍\n友\n们"];
+  late List<Color> colors = AppColors.randomColor(num: bookName.length);
+
+  int _bookIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      backgroundColor: AppColors.whiteBg,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: _Tab(
+                    title: bookName[_bookIndex],
+                    indicateColor: _currentIndex == 0
+                        ? AppColors.color_list[0]
+                        : AppColors.color_list[1],
+                    onTap: () {
+                      setState(() {
+                        _currentIndex = 0;
+                      });
+                    },
+                    isSelect: _currentIndex == 0,
+                  ),
+                ),
+                Expanded(
+                  child: _Tab(
+                    title: "选择账本",
+                    indicateColor: _currentIndex == 1
+                        ? AppColors.color_list[0]
+                        : AppColors.color_list[1],
+                    onTap: () {
+                      setState(() {
+                        _currentIndex = 1;
+                      });
+                    },
+                    isSelect: _currentIndex == 1,
+                  ),
+                ),
+              ],
+            ),
+            Expanded(
+              child: _currentIndex == 0
+                  ? const _SOnePage()
+                  : SingleChildScrollView(
+                child: Container(
+                  width: double.maxFinite,
+                  padding: EdgeInsets.only(top: 10.h),
+                  child: Column(
+                    children: List.generate(
+                      bookName.length + 1,
+                          (index) {
+                        if (index == bookName.length) {
+                          return SizedBox(height: 40.h);
+                        } else {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _bookIndex = index;
+                                _currentIndex = 0;
+                              });
+                            },
+                            child: Align(
+                              alignment: index % 2 == 0
+                                  ? Alignment.centerLeft
+                                  : Alignment.centerRight,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 40),
+                                child: MyCard(
+                                  colors[index],
+                                  width: 200.w,
+                                  height: 200.h,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 125.w,
+                                        height: double.infinity,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(10),
+                                          image: DecorationImage(
+                                            image: AssetImage(
+                                                bookImgPath[index]),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 10.w),
+                                      Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Text(
+                                            bookName2[index],
+                                            style: AppTS.big32.copyWith(
+                                                color:
+                                                AppColors.textColor(
+                                                    colors[index])),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ).paddingAll(10),
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -488,7 +643,8 @@ class _HomeTopPart extends StatelessWidget {
             const SizedBox(height: 5),
             if (!isOld)
               Text(
-                "总支出 ${allExpense.moneyFormatZero}  总收入 ${allIncome.moneyFormatZero}",
+                "总支出 ${allExpense.moneyFormatZero}  总收入 ${allIncome
+                    .moneyFormatZero}",
                 style: isOld ? AppTS.big : AppTS.normal,
               ),
           ],
@@ -516,18 +672,18 @@ class _DayRecordState extends State<DayRecord> {
   Widget build(BuildContext context) {
     var time = widget.data.keys.first;
     var typeId = List.generate(widget.data.values.first.length,
-        (i) => widget.data.values.first[i].typeId);
+            (i) => widget.data.values.first[i].typeId);
     var titles = List.generate(
       widget.data.values.first.length,
-      (i) => widget.data.values.first[i].consumptionName,
+          (i) => widget.data.values.first[i].consumptionName,
     );
     var subTitles = List.generate(
       widget.data.values.first.length,
-      (i) => widget.data.values.first[i].store,
+          (i) => widget.data.values.first[i].store,
     );
     var contents = List.generate(
       widget.data.values.first.length,
-      (i) => widget.data.values.first[i].amount.moneyFormatZero,
+          (i) => widget.data.values.first[i].amount.moneyFormatZero,
     );
     var colors = AppColors.randomColor(num: titles.length);
     return Container(
@@ -539,12 +695,12 @@ class _DayRecordState extends State<DayRecord> {
           Container(
             decoration: widget.isOld
                 ? BoxDecoration(
-                    border: Border.all(
-                        color: Colors.white,
-                        width: 2,
-                        strokeAlign: BorderSide.strokeAlignOutside),
-                    borderRadius: BorderRadius.circular(20),
-                  )
+              border: Border.all(
+                  color: Colors.white,
+                  width: 2,
+                  strokeAlign: BorderSide.strokeAlignOutside),
+              borderRadius: BorderRadius.circular(20),
+            )
                 : null,
             margin: const EdgeInsets.symmetric(vertical: 8.0),
             child: Chip(
@@ -558,19 +714,19 @@ class _DayRecordState extends State<DayRecord> {
           ),
           ...List.generate(
             titles.length,
-            (index) {
+                (index) {
               Color textColor = AppColors.textColor(colors[index]);
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 6.0),
                 child: Container(
                   decoration: widget.isOld
                       ? BoxDecoration(
-                          border: Border.all(
-                              color: Colors.white,
-                              width: 2,
-                              strokeAlign: BorderSide.strokeAlignOutside),
-                          borderRadius: BorderRadius.circular(20),
-                        )
+                    border: Border.all(
+                        color: Colors.white,
+                        width: 2,
+                        strokeAlign: BorderSide.strokeAlignOutside),
+                    borderRadius: BorderRadius.circular(20),
+                  )
                       : null,
                   child: MyCard(
                     colors[index],
@@ -603,12 +759,12 @@ class _DayRecordState extends State<DayRecord> {
                                 : [titles[index], subTitles[index]],
                             styles: widget.isOld
                                 ? [
-                                    AppTS.normal.copyWith(color: textColor),
-                                  ]
+                              AppTS.normal.copyWith(color: textColor),
+                            ]
                                 : [
-                                    AppTS.normal.copyWith(color: textColor),
-                                    AppTS.small.copyWith(color: textColor)
-                                  ],
+                              AppTS.normal.copyWith(color: textColor),
+                              AppTS.small.copyWith(color: textColor)
+                            ],
                             textAlign: CrossAxisAlignment.start,
                             textColor: textColor,
                           ),
@@ -629,6 +785,83 @@ class _DayRecordState extends State<DayRecord> {
   }
 }
 
+// class _STwoPage extends StatefulWidget {
+//   final Function(int index) onSelect;
+//
+//   const _STwoPage({required this.onSelect, Key? key}) : super(key: key);
+//
+//   @override
+//   State<_STwoPage> createState() => _STwoPageState();
+// }
+
+// class _STwoPageState extends State<_STwoPage> {
+//   List<String> bookImgPath = [
+//     AssetsRes.BOOK0,
+//     AssetsRes.BOOK1,
+//     AssetsRes.BOOK2
+//   ];
+//
+//   List<String> bookName = ["我\n的\n日\n常", "家\n人\n们", "舍\n友\n们"];
+//
+//   late List<Color> colors = AppColors.randomColor(num: bookName.length);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return SingleChildScrollView(
+//       child: Container(
+//         color: AppColors.color_list[1],
+//         width: double.maxFinite,
+//         padding: EdgeInsets.only(top: 10.h),
+//         child: Column(
+//           children: List.generate(
+//               bookName.length,
+//               (index) => GestureDetector(
+//                     onTap: () {
+//                       widget.onSelect(index);
+//                     },
+//                     child: Padding(
+//                       padding: const EdgeInsets.all(15),
+//                       child: MyCard(
+//                         colors[index],
+//                         width: 200.w,
+//                         height: 200.h,
+//                         child: Row(
+//                           children: [
+//                             Container(
+//                               width: 125.w,
+//                               height: double.infinity,
+//                               decoration: BoxDecoration(
+//                                 borderRadius: BorderRadius.circular(10),
+//                                 image: DecorationImage(
+//                                   image: AssetImage(bookImgPath[index]),
+//                                   fit: BoxFit.cover,
+//                                 ),
+//                               ),
+//                             ),
+//                             SizedBox(width: 10.w),
+//                             Column(
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                               children: [
+//                                 Text(
+//                                   bookName[index],
+//                                   style: AppTS.big32.copyWith(
+//                                       color:
+//                                           AppColors.textColor(colors[index])),
+//                                 ),
+//                               ],
+//                             )
+//                           ],
+//                         ).paddingAll(10),
+//                       ),
+//                     ),
+//                   )),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 class _SOnePage extends StatefulWidget {
   const _SOnePage({Key? key}) : super(key: key);
 
@@ -638,11 +871,13 @@ class _SOnePage extends StatefulWidget {
 
 class _SOnePageState extends State<_SOnePage> {
   final logic = Get.find<HomeLogic>();
-  final state = Get.find<HomeLogic>().state;
+  final state = Get
+      .find<HomeLogic>()
+      .state;
   late String start = state.start ?? DateUtil.getNowFormattedDate();
   late String end = state.end ?? DateUtil.getNowFormattedDate();
   late String showTime =
-      isMonth ? start : (start == end ? start : "$start -> $end");
+  isMonth ? start : (start == end ? start : "$start -> $end");
   late bool isMonth = state.isMonth;
 
   List<String> bookImgPath = [
@@ -669,7 +904,8 @@ class _SOnePageState extends State<_SOnePage> {
                 ),
               ),
               child: FutureBuilder(
-                future: Future.delayed(const Duration(milliseconds: 500)),
+                future:
+                logic.getOutIn(start: start, end: end, isMonth: isMonth),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return _HomeTopPart(
@@ -677,6 +913,7 @@ class _SOnePageState extends State<_SOnePage> {
                       allExpense: snapshot.data![0],
                       allIncome: snapshot.data![1],
                       isOld: true,
+
                       filterTap: () {
                         myShowBottomSheet(
                           context: context,
@@ -684,15 +921,15 @@ class _SOnePageState extends State<_SOnePage> {
                             return MyDatePicker(
                               changeTime: (start_, end_, isMonth_) {
                                 setState(
-                                  () {
+                                      () {
                                     start = start_;
                                     end = end_;
                                     isMonth = isMonth_;
                                     showTime = isMonth
                                         ? start
                                         : (start == end
-                                            ? start
-                                            : "$start -> $end");
+                                        ? start
+                                        : "$start -> $end");
                                   },
                                 );
                               },
@@ -716,16 +953,20 @@ class _SOnePageState extends State<_SOnePage> {
               ),
             ),
             FutureBuilder(
-              future: Future.delayed(const Duration(milliseconds: 500)),
+              future: logic.getRecord(
+                start: start,
+                end: end,
+                isMonth: isMonth,
+              ),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<Map<String, List<ConsumeData>>> data =
-                      snapshot.data as List<Map<String, List<ConsumeData>>>;
+                  snapshot.data as List<Map<String, List<ConsumeData>>>;
                   int len = data.length;
                   return Column(
                     children: List.generate(
                       len + 1,
-                      (index) {
+                          (index) {
                         if (index == len) {
                           return MyBottomBarPlaceholder(
                             color: Colors.transparent,
@@ -798,7 +1039,7 @@ class _Tab extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(title,
                     style:
-                        AppTS.big.copyWith(color: AppColors.textColor(color))),
+                    AppTS.big.copyWith(color: AppColors.textColor(color))),
               ),
             ),
             const Spacer()
@@ -808,6 +1049,74 @@ class _Tab extends StatelessWidget {
     );
   }
 }
+// class _Tab extends StatelessWidget {
+//   final String title;
+//   final Color colorBg;
+//   final Color indicateColor;
+//   final bool isSelect;
+//   final GestureTapCallback? onTap;
+//
+//   const _Tab({
+//     required this.title,
+//     required this.colorBg,
+//     required this.indicateColor,
+//     required this.isSelect,
+//     this.onTap,
+//     Key? key,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         height: 45,
+//         color: isSelect ? indicateColor : colorBg,
+//         child: Row(
+//           children: [
+//             Expanded(
+//                 child: Container(
+//               decoration: BoxDecoration(
+//                 color: colorBg,
+//                 borderRadius: const BorderRadius.only(
+//                   bottomRight: Radius.circular(15),
+//                 ),
+//               ),
+//             )),
+//             Expanded(
+//               flex: 5,
+//               child: Container(
+//                 color: colorBg,
+//                 child: Container(
+//                   decoration: BoxDecoration(
+//                     color: indicateColor,
+//                     borderRadius: const BorderRadius.vertical(
+//                       top: Radius.circular(15),
+//                     ),
+//                   ),
+//                   alignment: Alignment.center,
+//                   child: Text(title,
+//                       style: AppTS.big
+//                           .copyWith(color: AppColors.textColor(colorBg))),
+//                 ),
+//               ),
+//             ),
+//             Expanded(
+//               child: Container(
+//                 decoration: BoxDecoration(
+//                   color: colorBg,
+//                   borderRadius: const BorderRadius.only(
+//                     bottomLeft: Radius.circular(15),
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class _ShimmerItem extends StatelessWidget {
   const _ShimmerItem({Key? key}) : super(key: key);

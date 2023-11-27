@@ -7,13 +7,13 @@ class MyIconBtn extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final Color color;
 
-  const MyIconBtn(
-      {required this.onPressed,
-      required this.imgPath,
-      required this.color,
-      this.margin,
-      Key? key})
-      : super(key: key);
+  const MyIconBtn({
+    required this.onPressed,
+    required this.imgPath,
+    required this.color,
+    this.margin,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

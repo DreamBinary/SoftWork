@@ -1,5 +1,3 @@
-
-
 class AppString {
   // mmkv
   static const String mmVersion = "mmVersion";
@@ -27,5 +25,4 @@ class AppString {
 
   static const String camera = "相机";
   static const String gallery = "相册";
-
 }

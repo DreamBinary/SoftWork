@@ -25,157 +25,158 @@ class MemberPage extends StatelessWidget {
         children: [
           Expanded(
               child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 55.h,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 55.h,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text('角色管理', style: AppTS.normal),
+                          Text('4个',
+                              style: AppTS.small.copyWith(color: Colors.grey)),
+                        ],
+                      ),
                     ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text('角色管理', style: AppTS.normal),
-                      Text('4个',
-                          style: AppTS.small.copyWith(color: Colors.grey)),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Text("成员管理（共4 个）", style: AppTS.small),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 10.h),
-                      ListTile(
-                        leading: const CircleAvatar(
-                          backgroundImage: AssetImage(AssetsRes.P0),
-                          backgroundColor: AppColors.whiteBg,
-                        ),
-                        title: Text('啊哈哈哈', style: AppTS.normal),
-                        trailing: Text("账本主人",
-                            style: AppTS.small
-                                .copyWith(color: AppColors.color_list[5])),
+                    Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Text("成员管理（共4 个）", style: AppTS.small),
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
-                      SizedBox(height: 10.h),
-                      ListTile(
-                        leading: const CircleAvatar(
-                          backgroundImage: AssetImage(AssetsRes.FATHER),
-                          backgroundColor: AppColors.whiteBg,
-                        ),
-                        title: Text('爸爸', style: AppTS.normal),
-                        trailing: Text("管理员",
-                            style: AppTS.small
-                                .copyWith(color: AppColors.color_list[4])),
-                      ),
-                      SizedBox(height: 10.h),
-                      ListTile(
-                        leading: const CircleAvatar(
-                          backgroundImage: AssetImage(AssetsRes.MOTHER),
-                          backgroundColor: AppColors.whiteBg,
-                        ),
-                        title: Text('妈妈', style: AppTS.normal),
-                        trailing: Text("管理员",
-                            style: AppTS.small
-                                .copyWith(color: AppColors.color_list[4])),
-                      ),
-                      SizedBox(height: 10.h),
-                      ListTile(
-                        leading: const CircleAvatar(
-                          backgroundImage: AssetImage(AssetsRes.GRANDFATHER),
-                          backgroundColor: AppColors.whiteBg,
-                        ),
-                        title: Text('爷爷', style: AppTS.normal),
-                        trailing: Text("游客",
-                            style: AppTS.small
-                                .copyWith(color: AppColors.color_list[4])),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Text("收支记录", style: AppTS.small),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Column(
-                    children: [
-                      DayRecord(
-                        colorBg: Colors.white,
-                        data: {
-                          "2023.4.12": [
-                            ConsumeData(
-                              consumptionName: "客厅电视",
-                              description: "啊哈哈哈",
-                              amount: -2000,
-                              typeId: 4,
-                              store: "啊哈哈哈",
-                              consumeTime: "00:00:00",
-                              consumeDate: "2023-4-12",
-                              credential: "",
+                      child: Column(
+                        children: [
+                          SizedBox(height: 10.h),
+                          ListTile(
+                            leading: const CircleAvatar(
+                              backgroundImage: AssetImage(AssetsRes.P0),
+                              backgroundColor: AppColors.whiteBg,
                             ),
-                            ConsumeData(
-                              consumptionName: "工资",
-                              description: "爸爸",
-                              amount: 7000,
-                              typeId: 15,
-                              store: "爸爸",
-                              consumeTime: "00:00:00",
-                              consumeDate: "2023-4-12",
-                              credential: "",
+                            title: Text('啊哈哈哈', style: AppTS.normal),
+                            trailing: Text("账本主人",
+                                style: AppTS.small
+                                    .copyWith(color: AppColors.color_list[5])),
+                          ),
+                          SizedBox(height: 10.h),
+                          ListTile(
+                            leading: const CircleAvatar(
+                              backgroundImage: AssetImage(AssetsRes.FATHER),
+                              backgroundColor: AppColors.whiteBg,
                             ),
-                          ],
-                        },
+                            title: Text('爸爸', style: AppTS.normal),
+                            trailing: Text("管理员",
+                                style: AppTS.small
+                                    .copyWith(color: AppColors.color_list[4])),
+                          ),
+                          SizedBox(height: 10.h),
+                          ListTile(
+                            leading: const CircleAvatar(
+                              backgroundImage: AssetImage(AssetsRes.MOTHER),
+                              backgroundColor: AppColors.whiteBg,
+                            ),
+                            title: Text('妈妈', style: AppTS.normal),
+                            trailing: Text("管理员",
+                                style: AppTS.small
+                                    .copyWith(color: AppColors.color_list[4])),
+                          ),
+                          SizedBox(height: 10.h),
+                          ListTile(
+                            leading: const CircleAvatar(
+                              backgroundImage: AssetImage(
+                                  AssetsRes.GRANDFATHER),
+                              backgroundColor: AppColors.whiteBg,
+                            ),
+                            title: Text('爷爷', style: AppTS.normal),
+                            trailing: Text("游客",
+                                style: AppTS.small
+                                    .copyWith(color: AppColors.color_list[4])),
+                          ),
+                        ],
                       ),
-                      DayRecord(
-                        colorBg: Colors.white,
-                        data: {
-                          "2023.4.11": [
-                            ConsumeData(
-                              consumptionName: "今日食材",
-                              description: "妈妈",
-                              amount: -50,
-                              typeId: 10,
-                              store: "妈妈",
-                              consumeTime: "00:00:00",
-                              consumeDate: "2023.4.11",
-                              credential: "",
-                            ),
-                            ConsumeData(
-                              consumptionName: "水果",
-                              description: "爷爷",
-                              amount: -30,
-                              typeId: 11,
-                              store: "爷爷",
-                              consumeTime: "00:00:00",
-                              consumeDate: "2023.4.11",
-                              credential: "",
-                            ),
-                          ],
-                        },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Text("收支记录", style: AppTS.small),
+                    ),
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
                       ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )),
+                      clipBehavior: Clip.antiAlias,
+                      child: Column(
+                        children: [
+                          DayRecord(
+                            colorBg: Colors.white,
+                            data: {
+                              "2023.4.12": [
+                                ConsumeData(
+                                  consumptionName: "客厅电视",
+                                  description: "啊哈哈哈",
+                                  amount: -2000,
+                                  typeId: 4,
+                                  store: "啊哈哈哈",
+                                  consumeTime: "00:00:00",
+                                  consumeDate: "2023-4-12",
+                                  credential: "",
+                                ),
+                                ConsumeData(
+                                  consumptionName: "工资",
+                                  description: "爸爸",
+                                  amount: 7000,
+                                  typeId: 15,
+                                  store: "爸爸",
+                                  consumeTime: "00:00:00",
+                                  consumeDate: "2023-4-12",
+                                  credential: "",
+                                ),
+                              ],
+                            },
+                          ),
+                          DayRecord(
+                            colorBg: Colors.white,
+                            data: {
+                              "2023.4.11": [
+                                ConsumeData(
+                                  consumptionName: "今日食材",
+                                  description: "妈妈",
+                                  amount: -50,
+                                  typeId: 10,
+                                  store: "妈妈",
+                                  consumeTime: "00:00:00",
+                                  consumeDate: "2023.4.11",
+                                  credential: "",
+                                ),
+                                ConsumeData(
+                                  consumptionName: "水果",
+                                  description: "爷爷",
+                                  amount: -30,
+                                  typeId: 11,
+                                  store: "爷爷",
+                                  consumeTime: "00:00:00",
+                                  consumeDate: "2023.4.11",
+                                  credential: "",
+                                ),
+                              ],
+                            },
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )),
           Container(
             color: Colors.white,
             height: 70.h,
@@ -183,17 +184,16 @@ class MemberPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 MaterialButton(
-                    onPressed: () {}, child: Text("批量管理", style: AppTS.normal)),
+                    onPressed: () {},
+                    child: Text("批量管理", style: AppTS.normal)),
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: OpenContainer(
                       closedShape: const StadiumBorder(),
                       closedElevation: 0,
-                      closedBuilder: (
-                        context,
-                        action,
-                      ) {
+                      closedBuilder: (context,
+                          action,) {
                         return Container(
                           color: AppColors.color_list[1],
                           child: Padding(
@@ -203,10 +203,8 @@ class MemberPage extends StatelessWidget {
                           ),
                         );
                       },
-                      openBuilder: (
-                        context,
-                        action,
-                      ) {
+                      openBuilder: (context,
+                          action,) {
                         return const InvitePage();
                       }),
                 ),

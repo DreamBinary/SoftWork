@@ -60,7 +60,7 @@ class MyBarChartState extends State<MyBarChart>
           touchTooltipData: BarTouchTooltipData(
             tooltipBgColor: Colors.grey,
             tooltipPadding:
-                const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             tooltipMargin: 8,
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
               return BarTooltipItem(
@@ -143,7 +143,7 @@ class MyBarChartState extends State<MyBarChart>
         ),
         barGroups: List.generate(
           showYList.length,
-          (index) {
+              (index) {
             var isTouched = touchedIndex == index;
             return BarChartGroupData(
               x: index,

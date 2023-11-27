@@ -27,7 +27,9 @@ class TableAnalysePage extends StatefulWidget {
 
 class _TableAnalysePageState extends State<TableAnalysePage> {
   final logic = Get.find<TableAnalyseLogic>();
-  final state = Get.find<TableAnalyseLogic>().state;
+  final state = Get
+      .find<TableAnalyseLogic>()
+      .state;
   final GlobalKey<SfDataGridState> _key = GlobalKey<SfDataGridState>();
 
   @override
@@ -67,7 +69,7 @@ class _TableAnalysePageState extends State<TableAnalysePage> {
                   changeTime: (start_, end_, isMonth_) {
                     logic.clear();
                     setState(
-                      () {
+                          () {
                         date = "$start_-01";
                       },
                     );
@@ -91,7 +93,7 @@ class _TableAnalysePageState extends State<TableAnalysePage> {
         ),
       ),
       body: FutureBuilder(
-        future: Future.delayed(const Duration(seconds: 1)),
+        future: logic.getRecord(date),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             print(snapshot.data);
@@ -166,6 +168,32 @@ class _TableAnalysePageState extends State<TableAnalysePage> {
       ),
     );
   }
+
+// void _getExportChoice() {
+//   myShowBottomSheet(
+//     context: context,
+//     builder: (context) => Column(
+//       mainAxisSize: MainAxisSize.min,
+//       children: [
+//         SizedBox(height: 20.h),
+//         PicChoiceBtn(
+//           title: "Excel",
+//           onPressed: () {
+//             _exportDataGridToExcel();
+//           },
+//         ),
+//         SizedBox(height: 10.h),
+//         PicChoiceBtn(
+//           title: "Pdf",
+//           onPressed: () {
+//             _exportDataGridToPdf();
+//           },
+//         ),
+//         SizedBox(height: 20.h),
+//       ],
+//     ),
+//   );
+// }
 }
 
 class DataSource extends DataGridSource {
@@ -174,15 +202,17 @@ class DataSource extends DataGridSource {
   DataSource({required List<ConsumeData> data}) {
     _data = data
         .map<DataGridRow>(
-          (e) => DataGridRow(
+          (e) =>
+          DataGridRow(
             cells: [
               DataGridCell<String>(columnName: "时间", value: e.consumeDate),
               DataGridCell<double>(columnName: "金额", value: e.amount),
-              DataGridCell<String>(columnName: "物品", value: e.consumptionName),
+              DataGridCell<String>(
+                  columnName: "物品", value: e.consumptionName),
               DataGridCell<String>(columnName: "地点", value: e.store),
             ],
           ),
-        )
+    )
         .toList();
   }
 
@@ -193,12 +223,13 @@ class DataSource extends DataGridSource {
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>((dataGridCell) {
-      return Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Text(dataGridCell.value.toString(),
-            maxLines: 1,
-            style: TextStyle(fontSize: 12.sp, color: const Color(0xff3D3D3D))),
-      );
-    }).toList());
+          return Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(dataGridCell.value.toString(),
+                maxLines: 1,
+                style: TextStyle(
+                    fontSize: 12.sp, color: const Color(0xff3D3D3D))),
+          );
+        }).toList());
   }
 }

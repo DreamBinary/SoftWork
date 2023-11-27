@@ -8,14 +8,13 @@ class LinesTextItem extends StatelessWidget {
   final Color? textColor;
   final EdgeInsetsGeometry padding;
 
-  const LinesTextItem(
-      {this.defaultStyle,
-      required this.texts,
-      this.styles,
-      this.textColor,
-      this.padding = const EdgeInsets.all(0),
-      this.textAlign = CrossAxisAlignment.center,
-      Key? key})
+  const LinesTextItem({this.defaultStyle,
+    required this.texts,
+    this.styles,
+    this.textColor,
+    this.padding = const EdgeInsets.all(0),
+    this.textAlign = CrossAxisAlignment.center,
+    Key? key})
       : super(key: key);
 
   @override
@@ -37,14 +36,15 @@ class LinesTextItem extends StatelessWidget {
       crossAxisAlignment: textAlign,
       children: List.generate(
         texts.length,
-        (index) => Padding(
-          padding:padding,
-          child: Text(
-            texts[index],
-            style: tStyles[index],
-            maxLines: 1,
-          ),
-        ),
+            (index) =>
+            Padding(
+              padding: padding,
+              child: Text(
+                texts[index],
+                style: tStyles[index],
+                maxLines: 1,
+              ),
+            ),
       ),
     );
   }

@@ -16,7 +16,9 @@ class DreamPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final logic = Get.find<DreamLogic>();
-    final state = Get.find<DreamLogic>().state;
+    final state = Get
+        .find<DreamLogic>()
+        .state;
 
     return Scaffold(
       // appBar: MyTopBar(
@@ -84,7 +86,7 @@ class DreamPage extends StatelessWidget {
                     ),
                   ),
                   backgroundColor:
-                      MaterialStatePropertyAll(AppColors.color_list.last),
+                  MaterialStatePropertyAll(AppColors.color_list.last),
                   fixedSize: MaterialStatePropertyAll(Size.fromWidth(300.w)),
                 ),
                 onPressed: () {},
@@ -92,7 +94,8 @@ class DreamPage extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   child: Text("设定目标",
                       style: AppTS.big.copyWith(
-                          color: AppColors.textColor(AppColors.color_list.last))),
+                          color: AppColors.textColor(
+                              AppColors.color_list.last))),
                 ),
               ),
               const Spacer(flex: 2),

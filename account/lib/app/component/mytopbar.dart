@@ -38,13 +38,13 @@ class _MyTopBarState extends State<MyTopBar> {
           image: widget.backgroundImage == null
               ? null
               : DecorationImage(
-                  image: widget.backgroundImage!, fit: BoxFit.fill)),
+              image: widget.backgroundImage!, fit: BoxFit.fill)),
       child: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: NavigationToolbar(
               leading:
-                  widget.leading ?? (haveParent ? const MyBackButton() : null),
+              widget.leading ?? (haveParent ? const MyBackButton() : null),
               middle: widget.middle,
               trailing: widget.trailing),
         ),

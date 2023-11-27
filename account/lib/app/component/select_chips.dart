@@ -42,7 +42,7 @@ class _SelectChipsState extends State<SelectChips> {
       },
       choiceItems: List.generate(
         widget.items.length,
-        (index) =>
+            (index) =>
             C2Choice(value: index, label: widget.items[index], selected: false),
       ),
     );

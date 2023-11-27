@@ -1,4 +1,3 @@
-
 import '../../data/entity/consume.dart';
 
 class HomeState {

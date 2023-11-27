@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:account/app/component/mytopbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,9 +21,13 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final logic = Get.find<RegisterLogic>();
-  final state = Get.find<RegisterLogic>().state;
+  final state = Get
+      .find<RegisterLogic>()
+      .state;
   final logicLogin = Get.find<LoginLogic>();
-  final stateLogin = Get.find<LoginLogic>().state;
+  final stateLogin = Get
+      .find<LoginLogic>()
+      .state;
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +66,38 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   List<Widget> getWidgets() {
-    return [
+    return Platform.isIOS
+        ? [
+      UsernameTextFieldIOS(stateLogin.usernameCtrl),
+      SizedBox(height: 10.h),
+      VerifyTextFieldIOS(state.verifyCtrl,
+          onSend: () => {logicLogin.sendSms()},
+          onSubmitted: (_) => logicLogin.sendSms()),
+      SizedBox(height: 10.h),
+      PasswordTextFieldIOS(
+        stateLogin.passwordCtrl,
+        // label: S.password,
+        hint: AppString.passwordInput,
+        prefixIcon: Icons.privacy_tip_outlined,
+        textInputAction: TextInputAction.next,
+      ),
+      SizedBox(height: 10.h),
+      PasswordTextFieldIOS(state.verifyPasswordCtrl,
+          // label: S.verifyPassword,
+          hint: AppString.verifyPasswordInput,
+          prefixIcon: Icons.password,
+          textInputAction: TextInputAction.done,
+          onSubmitted: (_) =>
+          {
+            // logic.register(), KeyboardUtils.hideKeyboard(context),
+          })
+    ]
+        : [
       UsernameTextField(stateLogin.usernameCtrl,
           onClear: () => stateLogin.usernameCtrl.clear()),
+      VerifyTextField(state.verifyCtrl,
+          onSend: () => {logicLogin.sendSms()},
+          onSubmitted: (_) => logicLogin.sendSms()),
       PasswordTextField(
         stateLogin.passwordCtrl,
         // label: S.password,
@@ -76,9 +111,10 @@ class _RegisterPageState extends State<RegisterPage> {
           prefixIcon: Icons.password,
           onClear: () => state.verifyPasswordCtrl.clear(),
           textInputAction: TextInputAction.done,
-          onSubmitted: (_) => {
-                // logic.register(), KeyboardUtils.hideKeyboard(context),
-              })
+          onSubmitted: (_) =>
+          {
+            // logic.register(), KeyboardUtils.hideKeyboard(context),
+          })
     ];
   }
 
