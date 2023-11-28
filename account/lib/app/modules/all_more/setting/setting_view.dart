@@ -45,6 +45,39 @@ class SettingPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 20.h),
+              _PersonBgButton(
+                height: 160.h,
+                width: double.maxFinite,
+                color: AppColors.color_list[1],
+                imgPath: AssetsRes.PERSON_BG0,
+                child: Container(
+                  padding:
+                  EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+                  width: double.maxFinite,
+                  height: double.maxFinite,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "¥1236.1",
+                        style: AppTS.normal.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textColor(AppColors.color_list[1]),
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        "**** **** **** 1458",
+                        style: AppTS.normal.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textColor(AppColors.color_list[1]),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 30.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

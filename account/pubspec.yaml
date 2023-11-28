@@ -143,8 +143,13 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  fonts:
+    - family: FZQKBYSJW
+      fonts:
+        - asset: assets/fonts/FZQKBYSJW.TTF
+
   assets:
-    - assets/fonts/FZQKBYSJW.TTF
     - assets/images/back.png
     - assets/images/book0.png
     - assets/images/book1.png

@@ -58,9 +58,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // ApiMoney.getAbleMon();
-    // ApiMoney.getExchange();
-
     Statusbarz.instance.setDefaultDelay = const Duration();
     return ScreenUtilInit(
       designSize: const Size(375, 812),

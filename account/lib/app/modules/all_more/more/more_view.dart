@@ -176,151 +176,152 @@ class _MMorePage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 30.w),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            SizedBox(height: 66.h),
-            const HeaderComponent(),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Text(
-                "啊哈哈哈",
-                style: AppTS.normal,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 66.h),
+              const HeaderComponent(),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Text(
+                  "啊哈哈哈",
+                  style: AppTS.normal,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "手机号: 10086",
-                style: AppTS.small,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "手机号: 10086",
+                  style: AppTS.small,
+                ),
               ),
-            ),
-            SizedBox(height: 10.h),
-            LayoutBuilder(
-              builder: (context, constraint) {
-                double h = (constraint.constrainWidth() - 15) / 3.0;
-                return SizedBox(
-                  height: 2 * h + 15,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: MyCard(
-                          AppColors.color_list[1],
-                          onPressed: () {
-                            Get.toNamed(Routes.myBook);
-                          },
+              SizedBox(height: 10.h),
+              LayoutBuilder(
+                builder: (context, constraint) {
+                  double h = (constraint.constrainWidth() - 15) / 3.0;
+                  return SizedBox(
+                    height: 2 * h + 15,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: MyCard(
+                            AppColors.color_list[1],
+                            onPressed: () {
+                              Get.toNamed(Routes.myBook);
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text("我的账本",
+                                    style: AppTS.big32.copyWith(
+                                        color: AppColors.textColor(
+                                            AppColors.color_list[1]))),
+                                SizedBox(height: 10.h),
+                                Text("总余额",
+                                    style: AppTS.small.copyWith(
+                                        color: AppColors.textColor(
+                                            AppColors.color_list[1]))),
+                                SizedBox(height: 5.h),
+                                Text(
+                                  remain.moneyFormatZero,
+                                  style: AppTS.big.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.textColor(
+                                          AppColors.color_list[1])),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 15),
+                        Expanded(
+                          flex: 1,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text("我的账本",
-                                  style: AppTS.big32.copyWith(
+                              Expanded(
+                                child: MyCard(
+                                  AppColors.color_list[2],
+                                  onPressed: () {
+                                    Get.toNamed(Routes.setting);
+                                  },
+                                  child: Text(
+                                    "设置",
+                                    style: AppTS.normal.copyWith(
                                       color: AppColors.textColor(
-                                          AppColors.color_list[1]))),
-                              SizedBox(height: 10.h),
-                              Text("总余额",
-                                  style: AppTS.small.copyWith(
+                                          AppColors.color_list[2]),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 15),
+                              Expanded(
+                                child: MyCard(
+                                  AppColors.color_list[3],
+                                  onPressed: () {
+                                    Get.toNamed(Routes.dream);
+                                  },
+                                  child: Text(
+                                    "储蓄罐",
+                                    style: AppTS.normal.copyWith(
                                       color: AppColors.textColor(
-                                          AppColors.color_list[1]))),
-                              SizedBox(height: 5.h),
-                              Text(
-                                remain.moneyFormatZero,
-                                style: AppTS.big.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.textColor(
-                                        AppColors.color_list[1])),
+                                          AppColors.color_list[3]),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 15),
+              LayoutBuilder(builder: (context, constraint) {
+                return Row(
+                  children: [
+                    Expanded(
+                      flex: 10,
+                      child: MyCard(
+                        AppColors.color_list[3],
+                        height: constraint.constrainWidth() * 10 / 31,
+                        onPressed: () {
+                          // todo
+                        },
+                        child: Text(
+                          "敬请期待",
+                          style: AppTS.normal.copyWith(
+                            color: AppColors.textColor(AppColors.color_list[3]),
+                          ),
                         ),
                       ),
-                      const SizedBox(width: 15),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: MyCard(
-                                AppColors.color_list[2],
-                                onPressed: () {
-                                  Get.toNamed(Routes.setting);
-                                },
-                                child: Text(
-                                  "设置",
-                                  style: AppTS.normal.copyWith(
-                                    color: AppColors.textColor(
-                                        AppColors.color_list[2]),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 15),
-                            Expanded(
-                              child: MyCard(
-                                AppColors.color_list[3],
-                                onPressed: () {
-                                  Get.toNamed(Routes.dream);
-                                },
-                                child: Text(
-                                  "储蓄罐",
-                                  style: AppTS.normal.copyWith(
-                                    color: AppColors.textColor(
-                                        AppColors.color_list[3]),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                    ),
+                    const SizedBox(width: 15),
+                    Expanded(
+                      flex: 20,
+                      child: MyCard(
+                        AppColors.color_list[5],
+                        height: constraint.constrainWidth() * 10 / 31,
+                        onPressed: () {
+                          Get.to(const MemberPage());
+                        },
+                        child: Text(
+                          "多人记账",
+                          style: AppTS.normal.copyWith(
+                            color: AppColors.textColor(AppColors.color_list[5]),
+                          ),
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 );
-              },
-            ),
-            const SizedBox(height: 15),
-            LayoutBuilder(builder: (context, constraint) {
-              return Row(
-                children: [
-                  Expanded(
-                    flex: 10,
-                    child: MyCard(
-                      AppColors.color_list[3],
-                      height: constraint.constrainWidth() * 10 / 31,
-                      onPressed: () {
-                        // todo
-                      },
-                      child: Text(
-                        "敬请期待",
-                        style: AppTS.normal.copyWith(
-                          color: AppColors.textColor(AppColors.color_list[3]),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 15),
-                  Expanded(
-                    flex: 20,
-                    child: MyCard(
-                      AppColors.color_list[5],
-                      height: constraint.constrainWidth() * 10 / 31,
-                      onPressed: () {
-                        Get.to(const MemberPage());
-                      },
-                      child: Text(
-                        "多人记账",
-                        style: AppTS.normal.copyWith(
-                          color: AppColors.textColor(AppColors.color_list[5]),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              );
-            })
-          ]),
+              })
+            ],
+          ),
         ),
-        // bottomNavigationBar: const MyBottomBarPlaceholder(),
       ),
     );
   }

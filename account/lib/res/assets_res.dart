@@ -5,7 +5,6 @@
 class AssetsRes {
   static const String PLUGIN_NAME = 'account';
   static const String PLUGIN_VERSION = '1.0.0+1';
-  static const String FZQKBYSJW = 'assets/fonts/FZQKBYSJW.TTF';
   static const String BACK = 'assets/images/back.png';
   static const String BOOK0 = 'assets/images/book0.png';
   static const String BOOK1 = 'assets/images/book1.png';

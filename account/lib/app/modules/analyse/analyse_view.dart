@@ -149,6 +149,9 @@ class _ColorLegendRow extends StatelessWidget {
   const _ColorLegendRow({required this.colors, required this.labels, Key? key})
       : super(key: key);
 
+
+
+  
   @override
   Widget build(BuildContext context) {
     return Row(
