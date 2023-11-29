@@ -14,18 +14,19 @@ class LoginLogic extends GetxController {
     String username = state.usernameCtrl.text.trim();
     String password = state.passwordCtrl.text.trim();
 
-    if (username == "11111111111" && password == "1111111111") {
-      ToastUtil.showToast("登录成功");
-      MMKVUtil.put(AppString.mmUsername, username);
-      MMKVUtil.put(AppString.mmIsLogin, true);
-      Get.offAllNamed(Routes.route);
+    // if (username == "11111111111" && password == "1111111111") {
+    //   ToastUtil.showToast("登录成功");
+    //   MMKVUtil.put(AppString.mmUsername, username);
+    //   MMKVUtil.put(AppString.mmIsLogin, true);
+    //   Get.offAllNamed(Routes.route);
+    //   return;
+    // }
+
+    if (username.length != 11) {
+      ToastUtil.showToast("请输入正确的手机号");
       return;
     }
 
-    // if (username.length != 11) {
-    //   ToastUtil.showToast("请输入正确的手机号");
-    //   return;
-    // }
     if (password.isEmpty) {
       ToastUtil.showToast("密码不能为空");
       return;
@@ -35,14 +36,7 @@ class LoginLogic extends GetxController {
       ToastUtil.showToast("请勾选使用条款和隐私政策");
       return;
     }
-    // // 测试账号
-    // if (username == "11111111111" && password == "1111111111") {
-    //   ToastUtil.showToast("登录成功");
-    //   MMKVUtil.put(AppString.mmUsername, username);
-    //   MMKVUtil.put(AppString.mmIsLogin, true);
-    //   Get.offAllNamed(Routes.route);
-    //   return;
-    // }
+
     bool isSuccess = await ApiUser.login(username, password);
     if (isSuccess) {
       ToastUtil.showToast("登录成功");
@@ -51,18 +45,6 @@ class LoginLogic extends GetxController {
       Get.offAllNamed(Routes.route);
     } else {
       ToastUtil.showToast("登录失败");
-    }
-  }
-
-  sendSms() async {
-    var username = state.usernameCtrl.text.trim();
-    if (username.length != 11) {
-      ToastUtil.showToast("请输入正确的手机号");
-      return;
-    }
-    var isSuccess = await ApiUser.sendSms(username);
-    if (!isSuccess) {
-      ToastUtil.showToast("请再次发送");
     }
   }
 }

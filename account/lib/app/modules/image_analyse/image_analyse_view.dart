@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:account/app/component/bar_chart.dart';
 import 'package:account/app/component/lines_text.dart';
-import 'package:account/app/component/myiconbtn.dart';
 import 'package:account/app/component/mytopbar.dart';
 import 'package:account/app/utils/extension.dart';
 import 'package:account/res/assets_res.dart';
@@ -30,9 +29,7 @@ class ImageAnalysePage extends StatefulWidget {
 
 class _ImageAnalysePageState extends State<ImageAnalysePage> {
   final logic = Get.find<ImageAnalyseLogic>();
-  final state = Get
-      .find<ImageAnalyseLogic>()
-      .state;
+  final state = Get.find<ImageAnalyseLogic>().state;
   late String date = state.date ?? DateUtil.getNowFormattedDate();
 
   @override
@@ -50,7 +47,7 @@ class _ImageAnalysePageState extends State<ImageAnalysePage> {
                   changeTime: (start_, end_, isMonth_) {
                     logic.clear();
                     setState(
-                          () {
+                      () {
                         date = "$start_-01";
                       },
                     );
@@ -64,11 +61,6 @@ class _ImageAnalysePageState extends State<ImageAnalysePage> {
             style: AppTS.normal,
             textAlign: TextAlign.center,
           ),
-        ),
-        trailing: MyIconBtn(
-          onPressed: () {},
-          imgPath: AssetsRes.EXPORT,
-          color: AppColors.color_list[5],
         ),
         backgroundColor: AppColors.color_list[1],
       ),
@@ -100,9 +92,9 @@ class _ImageAnalysePageState extends State<ImageAnalysePage> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         List<double> percentage =
-                        snapshot.data!.map((e) => e.values.first).toList();
+                            snapshot.data!.map((e) => e.values.first).toList();
                         List<String> type =
-                        snapshot.data!.map((e) => e.keys.first).toList();
+                            snapshot.data!.map((e) => e.keys.first).toList();
                         if (percentage.isNotEmpty) {
                           return MyBarChart(y: percentage, x: type);
                         } else {
@@ -185,9 +177,7 @@ class _PiePart extends StatefulWidget {
 
 class _PiePartState extends State<_PiePart> {
   final logic = Get.find<ImageAnalyseLogic>();
-  final state = Get
-      .find<ImageAnalyseLogic>()
-      .state;
+  final state = Get.find<ImageAnalyseLogic>().state;
 
   @override
   Widget build(BuildContext context) {
@@ -196,41 +186,39 @@ class _PiePartState extends State<_PiePart> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         FutureBuilder(
-            future: logic.getTypeTop4(widget.date),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                List<double> percentage =
-                snapshot.data!.map((e) => e.values.first).toList();
-                List<String> type =
-                snapshot.data!.map((e) => e.keys.first).toList();
-                return SizedBox(
-                  height: 280,
-                  child: BubbleChart(
-                    percentages: percentage,
-                    types: type,
-                  ),
-                );
-                // // print(percentage);
-                // return MyPieChart(
-                //     percentage: percentage, radius: 100, legend: type);
-              } else {
-                return Center(
-                  child: ShimmerEffect(
-                    child: Container(
-                      width: 300.h,
-                      height: 175.h,
-                      decoration: BoxDecoration(
-                        color: AppColors.color_list[1].withAlpha(150),
-                        image: const DecorationImage(
-                          image: AssetImage(AssetsRes.COVER_LINE),
-                          fit: BoxFit.cover,
-                        ),
+          future: logic.getTypeTop4(widget.date),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<double> percentage =
+                  snapshot.data!.map((e) => e.values.first).toList();
+              List<String> type =
+                  snapshot.data!.map((e) => e.keys.first).toList();
+              return SizedBox(
+                height: 280,
+                child: BubbleChart(
+                  percentages: percentage,
+                  types: type,
+                ),
+              );
+            } else {
+              return Center(
+                child: ShimmerEffect(
+                  child: Container(
+                    width: 300.h,
+                    height: 175.h,
+                    decoration: BoxDecoration(
+                      color: AppColors.color_list[1].withAlpha(150),
+                      image: const DecorationImage(
+                        image: AssetImage(AssetsRes.COVER_LINE),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
-                );
-              }
-            }),
+                ),
+              );
+            }
+          },
+        ),
         FutureBuilder(
           future: logic.getOutIn(date: widget.date),
           builder: (context, snapshot) {
@@ -373,29 +361,28 @@ class _BubbleChartState extends State<BubbleChart> {
           clipBehavior: Clip.none,
           children: len == 1
               ? [
-            Center(
-              child: Bubble(
-                percentage: showPer[0],
-                type: widget.types[0],
-                color: colors[0],
-                height: min(max(rHeight * showPer[0], mHeight), mmHeight),
-              ),
-            )
-          ]
+                  Center(
+                    child: Bubble(
+                      percentage: showPer[0],
+                      type: widget.types[0],
+                      color: colors[0],
+                      height: min(max(rHeight * showPer[0], mHeight), mmHeight),
+                    ),
+                  )
+                ]
               : List.generate(
-            len,
-                (index) =>
-                getPosition(
-                  index,
-                  Bubble(
-                    percentage: showPer[index],
-                    type: widget.types[index],
-                    color: colors[index],
-                    height:
-                    min(max(rHeight * showPer[index], mHeight), mmHeight),
+                  len,
+                  (index) => getPosition(
+                    index,
+                    Bubble(
+                      percentage: showPer[index],
+                      type: widget.types[index],
+                      color: colors[index],
+                      height:
+                          min(max(rHeight * showPer[index], mHeight), mmHeight),
+                    ),
                   ),
                 ),
-          ),
         );
       },
     );
@@ -448,11 +435,12 @@ class Bubble extends StatefulWidget {
   final Color color;
   final double height;
 
-  const Bubble({required this.type,
-    required this.percentage,
-    required this.height,
-    required this.color,
-    Key? key})
+  const Bubble(
+      {required this.type,
+      required this.percentage,
+      required this.height,
+      required this.color,
+      Key? key})
       : super(key: key);
 
   @override
@@ -461,8 +449,8 @@ class Bubble extends StatefulWidget {
 
 class _BubbleState extends State<Bubble> with TickerProviderStateMixin {
   late final AnimationController _ctrl =
-  AnimationController(vsync: this, duration: const Duration(seconds: 1))
-    ..forward();
+      AnimationController(vsync: this, duration: const Duration(seconds: 1))
+        ..forward();
 
   @override
   Widget build(BuildContext context) {

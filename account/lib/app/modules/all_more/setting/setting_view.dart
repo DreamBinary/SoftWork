@@ -136,6 +136,15 @@ class SettingPage extends StatelessWidget {
               SizedBox(height: 30.h),
               _PersonButton(
                 imgPath: AssetsRes.PERSON_ICON2,
+                color: AppColors.color_list[2],
+                title: "账号设置",
+                onTap: () {
+                  // todo
+                },
+              ),
+              SizedBox(height: 20.h),
+              _PersonButton(
+                imgPath: AssetsRes.PERSON_ICON2,
                 color: AppColors.color_list[1],
                 title: "退出登录",
                 onTap: () {

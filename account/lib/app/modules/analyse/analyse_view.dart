@@ -19,9 +19,6 @@ class AnalysePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final logic = Get.find<AnalyseLogic>();
-    final state = Get
-        .find<AnalyseLogic>()
-        .state;
 
     return Container(
       decoration: BoxDecoration(
@@ -149,20 +146,16 @@ class _ColorLegendRow extends StatelessWidget {
   const _ColorLegendRow({required this.colors, required this.labels, Key? key})
       : super(key: key);
 
-
-
-  
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: List.generate(
         colors.length,
-            (index) =>
-            _ColorLegend(
-              color: colors[index],
-              label: labels[index],
-            ),
+        (index) => _ColorLegend(
+          color: colors[index],
+          label: labels[index],
+        ),
       ),
     );
   }
@@ -228,11 +221,12 @@ class _AnalyseCard extends StatelessWidget {
   final String imgPath;
   final VoidCallback? onPressed;
 
-  const _AnalyseCard({required this.title,
-    required this.color,
-    required this.imgPath,
-    this.onPressed,
-    Key? key})
+  const _AnalyseCard(
+      {required this.title,
+      required this.color,
+      required this.imgPath,
+      this.onPressed,
+      Key? key})
       : super(key: key);
 
   @override
@@ -241,7 +235,7 @@ class _AnalyseCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 30.w),
       child: MaterialButton(
         shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
         color: color,
         elevation: 10,
         onPressed: onPressed,
@@ -254,7 +248,7 @@ class _AnalyseCard extends StatelessWidget {
             children: [
               Text(title,
                   style:
-                  AppTS.normal.copyWith(color: AppColors.textColor(color))),
+                      AppTS.normal.copyWith(color: AppColors.textColor(color))),
               const Spacer(),
               Image.asset(imgPath),
             ],
@@ -270,10 +264,11 @@ class _IETextRow extends StatelessWidget {
   final double expend;
   final double remain;
 
-  const _IETextRow({required this.budget,
-    required this.expend,
-    required this.remain,
-    Key? key})
+  const _IETextRow(
+      {required this.budget,
+      required this.expend,
+      required this.remain,
+      Key? key})
       : super(key: key);
 
   @override

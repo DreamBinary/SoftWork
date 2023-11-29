@@ -13,15 +13,21 @@ import 'dio.dart';
 class ApiImg {
   static Future<List<String>> upImg({required List<String> imgPaths}) async {
     String token = MMKVUtil.getString(AppString.mmToken);
+
     List<String> list = [];
     var response = await DioUtil().postForm(
         Url.uploadImg,
         {
-          "multipartFiles": List.generate(imgPaths.length,
-                  (index) => MultipartFile.fromFileSync(imgPaths[index])),
+          "multipartFiles": List.generate(
+            imgPaths.length,
+            (index) => MultipartFile.fromFileSync(imgPaths[index]),
+          ),
         },
-        Options(headers: {"token": token}, contentType: "multipart/form-data"));
-    if (response?.data["code"] == 200) {
+        Options(headers: {"token": token}, contentType: "multipart/form-data"),
+        query: {
+          "multipartFiles": List.generate(imgPaths.length, (index) => "")
+        });
+    if (response?.data["base"]["code"] == 0) {
       List<dynamic> data = response?.data["data"]["list"];
       list = List.generate(data.length, (index) => data[index]);
     }
@@ -74,5 +80,4 @@ class ApiImg {
 
     return Uint8List.fromList(response?.data.bodyBytes);
   }
-
 }

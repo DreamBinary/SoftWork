@@ -4,7 +4,8 @@ import 'package:flutter/cupertino.dart';
 class DioUtil {
   static DioUtil? _instance;
   late Dio _dio;
-  static const String _BASEURL = "http://luke.host";
+  static const String _BASEURL =
+      "http://43.136.122.18:8087"; // 43.136.122.18:8087
   static const Duration _CONNECTTIMEOUT = Duration(seconds: 5);
   static const Duration _RECEIVETIMEOUT = Duration(seconds: 10);
 
@@ -80,7 +81,7 @@ class DioUtil {
       {Map<String, dynamic>? map, Options? options}) async {
     try {
       Response response =
-      await _dio.get(url, queryParameters: map, options: options);
+          await _dio.get(url, queryParameters: map, options: options);
       return response;
     } on DioError catch (e) {
       formatError(e);
@@ -90,8 +91,8 @@ class DioUtil {
 
   Future<Response?> post(String url,
       {Map<String, dynamic>? data,
-        Map<String, dynamic>? query,
-        Options? options}) async {
+      Map<String, dynamic>? query,
+      Options? options}) async {
     try {
       return _dio.post(url,
           data: data, queryParameters: query, options: options);
@@ -101,11 +102,13 @@ class DioUtil {
     return null;
   }
 
-  Future<Response?> postForm(String url, Map<String, dynamic> map,
-      Options? options) async {
+  Future<Response?> postForm(
+      String url, Map<String, dynamic> map, Options? options,
+      {Map<String, dynamic>? query}) async {
     try {
       FormData formData = FormData.fromMap(map);
-      return await _dio.post(url, data: formData, options: options);
+      return await _dio.post(url,
+          data: formData, queryParameters: query, options: options);
     } on DioError catch (e) {
       formatError(e);
     }
@@ -145,8 +148,8 @@ class DioUtil {
     try {
       Response response = await _dio.download(urlPath, savePath,
           onReceiveProgress: (int count, int total) {
-            debugPrint("$count $total");
-          });
+        debugPrint("$count $total");
+      });
       debugPrint("downLoadFile response: $response");
       return response;
     } on DioError catch (e) {

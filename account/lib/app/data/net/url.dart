@@ -1,21 +1,23 @@
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo4LCJleHAiOjE3MDE4NTQzMTUsImlhdCI6MTcwMTI0OTUxNSwiaXNzIjoicnVuRnp1In0.j-slB-3XshG9Zf3fgw-5vQNEl3wEUab_0mVCWXGdm-Q
+
+// s49neujkg.hn-bkt.clouddn.com/8/ticket_receipt_acg_0.jpg
+
 class Url {
+  // static String baseUrl = "http://43.136.122.18:8087";
+  // static String baseUrl2 = "";
+
   // user
-  static String sendSms = "/auth/register/mobile";
-  static String signUp = "/auth/register/mobile";
+  static String signUp = "/auth/register/pwd";
   static String login = "/auth/login/pwd";
-  static String user = "/user";
-  static String avatar = "https://gorsonpy-bucket.oss-cn-beijing.aliyuncs.com/";
+  // static String user = "/user";
+  // static String avatar = "https://gorsonpy-bucket.oss-cn-beijing.aliyuncs.com/";
   static String logout = "/user/logout";
 
   // img
-  static String uploadImg = "/file";
+  static String uploadImg = "/api/file";
   static String modify = "/api/dewarp";
   static String recognizeImg = "/api/common_receipt";
   static String recognizeImg2 = "/api/shop_receipt";
-
-  // money
-  static String ableMon = "/api/exchange_rate/configs";
-  static String exchange = "/api/exchange_rate/list";
 
   // guardian
   static String code = "/api/guardianship/code";
@@ -53,4 +55,15 @@ class Url {
   static String monthType = "/api/type/analysis/month";
 
   static String thirtyOutMoney = "/api/consumption/last/month/analysis";
+
+  // book
+  static String book = "/api/ledger"; // get ->
+  static String bookRecord = "/api/ledger/consumption";
+
+
+  // goal
+  static String goal = "/api/goal";
+  static String goalRecord = "/api/goal/record";
+
+
 }

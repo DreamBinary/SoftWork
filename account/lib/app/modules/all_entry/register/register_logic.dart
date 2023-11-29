@@ -27,7 +27,7 @@ class RegisterLogic extends GetxController {
       ToastUtil.showToast("两次密码不一致");
       return;
     }
-    bool isSuccess = await ApiUser.signUp(username, password, verify);
+    bool isSuccess = await ApiUser.signUp(username, password);
     if (isSuccess) {
       ToastUtil.showToast("注册成功");
       Get.offNamed(Routes.login);

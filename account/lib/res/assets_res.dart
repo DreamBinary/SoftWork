@@ -32,6 +32,8 @@ class AssetsRes {
   static const String CLASS_SERVICE = 'assets/images/class_service.png';
   static const String CLASS_TRANSPORT = 'assets/images/class_transport.png';
   static const String CLASS_USECAR = 'assets/images/class_usecar.png';
+  static const String COIN = 'assets/images/coin.json';
+  static const String COIN_DANCE = 'assets/images/coin_dance.json';
   static const String COVER_LINE = 'assets/images/cover_line.png';
   static const String EXPORT = 'assets/images/export.png';
   static const String FATHER = 'assets/images/father.png';
