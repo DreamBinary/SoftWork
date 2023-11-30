@@ -9,6 +9,7 @@ class Url {
   // user
   static String signUp = "/auth/register/pwd";
   static String login = "/auth/login/pwd";
+
   // static String user = "/user";
   // static String avatar = "https://gorsonpy-bucket.oss-cn-beijing.aliyuncs.com/";
   static String logout = "/user/logout";
@@ -25,10 +26,10 @@ class Url {
   // consumption
   static String addRecord = "/api/consumption";
 
-  static String dayRemain = "/api/consumption/balance/day";
-  static String dayOut = "/api/consumption/day/out";
-  static String dayIn = "/api/consumption/day/in";
-  static String dayRecord = "/api/consumption/day";
+  static String dayRemain = "/api/consumption/balance/day"; // 日余
+  static String dayOut = "/api/consumption/day/out"; // 日支出
+  static String dayIn = "/api/consumption/day/in"; // 日收入
+  static String dayRecord = "/api/consumption/day"; // 日记录
 
   static String monthRemain = "/api/consumption/balance/month";
   static String monthOut = "/api/consumption/out/month/sum";
@@ -60,10 +61,7 @@ class Url {
   static String book = "/api/ledger"; // get ->
   static String bookRecord = "/api/ledger/consumption";
 
-
   // goal
   static String goal = "/api/goal";
   static String goalRecord = "/api/goal/record";
-
-
 }

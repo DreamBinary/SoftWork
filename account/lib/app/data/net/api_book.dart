@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 
 import '../../theme/app_string.dart';
 import '../../utils/mmkv.dart';
+import '../entity/consume.dart';
 import 'dio.dart';
 import 'url.dart';
 
@@ -54,15 +55,16 @@ class ApiBook {
   }
 
   // getBookRecord
-  static Future<List<Book>> getBookRecord(num ledgerId) async {
+  // todo
+  static Future<List<ConsumeData>> getBookRecord(num ledgerId) async {
     String token = MMKVUtil.getString(AppString.mmToken);
     var response = await DioUtil().get(Url.bookRecord,
         map: {"ledgerId": ledgerId},
         options: Options(headers: {"token": token}));
-    List<Book> list = [];
+    List<ConsumeData> list = [];
     if (response?.data["code"] == 0) {
       response?.data["data"]["list"].forEach((v) {
-        list.add(Book.fromJson(v));
+        list.add(ConsumeData.fromJson(v));
       });
     }
     return list;

@@ -23,10 +23,11 @@ class ApiConsume {
     } else {
       return null;
     }
+    print("object");
     var response = await DioUtil().get(url,
         map: date == null ? null : {"date": date},
         options: Options(headers: {"token": token}));
-    if (response?.data["code"] == 200) {
+    if (response?.data["code"] == 0) {
       return response?.data["data"]["balance"];
     }
     return null;
@@ -50,7 +51,11 @@ class ApiConsume {
     var response = await DioUtil().get(url,
         map: date == null ? null : {"date": date},
         options: Options(headers: {"token": token}));
-    if (response?.data["code"] == 200) {
+
+    print("object");
+    print(response?.data["data"]);
+
+    if (response?.data["code"] == 0) {
       return response?.data["data"]["sum"];
     }
     return null;
@@ -74,9 +79,12 @@ class ApiConsume {
     var response = await DioUtil().get(url,
         map: date == null ? null : {"date": date},
         options: Options(headers: {"token": token}));
-    if (response?.data["code"] == 200) {
+    print("getIn");
+    print(response?.data["data"]);
+    if (response?.data["code"] == 0) {
       return response?.data["data"]["sum"];
     }
+
     return null;
   }
 
@@ -85,7 +93,7 @@ class ApiConsume {
     var response = await DioUtil().get(Url.yearRecord,
         map: {"date": date}, options: Options(headers: {"token": token}));
     List<ConsumeData> list = [];
-    if (response?.data["code"] == 200) {
+    if (response?.data["code"] == 0) {
       for (var item in response?.data["data"]["list"]) {
         list.add(ConsumeData.fromJson(item));
       }
@@ -114,7 +122,7 @@ class ApiConsume {
         map: date == null ? null : {"date": date},
         options: Options(headers: {"token": token}));
 
-    if (response?.data["code"] == 200) {
+    if (response?.data["code"] == 0) {
       for (var item in response?.data["data"]["list"]) {
         list.add(ConsumeData.fromJson(item));
       }
@@ -128,7 +136,7 @@ class ApiConsume {
         data: cData.toJson(),
         options: Options(
             headers: {"token": token}, contentType: "application/json"));
-    if (response?.data["code"] == 200) {
+    if (response?.data["code"] == 0) {
       return true;
     }
     return false;
@@ -142,8 +150,11 @@ class ApiConsume {
 
     var response = await DioUtil().get(url,
         map: {"date": date}, options: Options(headers: {"token": token}));
-    if (response?.data["code"] == 200) {
+    print("getRecordMap");
+    if (response?.data["code"] == 0) {
+      print("getRecordMap");
       var keys = response?.data["data"].keys.toList();
+      print(keys);
       List<dynamic> values = response?.data["data"].values.toList();
       int len = keys.length;
       for (int i = 0; i < len; ++i) {
@@ -170,8 +181,10 @@ class ApiConsume {
     var response = await DioUtil().get(url,
         map: {"start": start, "end": end},
         options: Options(headers: {"token": token}));
-    if (response?.data["code"] == 200) {
+    print("getRangeRecordMap");
+    if (response?.data["code"] == 0) {
       var keys = response?.data["data"].keys.toList();
+      print(keys);
       List<dynamic> values = response?.data["data"].values.toList();
       int len = keys.length;
       for (int i = 0; i < len; ++i) {
@@ -196,8 +209,9 @@ class ApiConsume {
     var response = await DioUtil().get(url,
         map: {"start": start, "end": end},
         options: Options(headers: {"token": token}));
-    if (response?.data["code"] == 200) {
-      return response?.data["data"]["sum"] ?? 0.0;
+    if (response?.data["code"] == 0) {
+      var result = double.parse(response!.data["data"]["sum"].toString());
+      return result;
     }
     return null;
   }
@@ -206,12 +220,12 @@ class ApiConsume {
       {required String start, required String end}) async {
     String token = MMKVUtil.getString(AppString.mmToken);
     String url = Url.rangeIn;
-
     var response = await DioUtil().get(url,
         map: {"start": start, "end": end},
         options: Options(headers: {"token": token}));
-    if (response?.data["code"] == 200) {
-      return response?.data["data"]["sum"] ?? 0.0;
+    if (response?.data["code"] == 0) {
+      var result = double.parse(response!.data["data"]["sum"].toString());
+      return result;
     }
     return null;
   }
@@ -221,10 +235,10 @@ class ApiConsume {
     String token = MMKVUtil.getString(AppString.mmToken);
     List<Map<String, double>> list = [];
     String url = Url.monthType;
-
+    print("getMonthTypePercent");
     var response = await DioUtil().get(url,
         map: {"date": date}, options: Options(headers: {"token": token}));
-    if (response?.data["code"] == 200) {
+    if (response?.data["code"] == 0) {
       var keys = response?.data["data"].keys.toList();
       List<dynamic> values = response?.data["data"].values.toList();
 
@@ -247,7 +261,7 @@ class ApiConsume {
 
     var response = await DioUtil().get(url,
         map: {"date": date}, options: Options(headers: {"token": token}));
-    if (response?.data["code"] == 200) {
+    if (response?.data["code"] == 0) {
       List<dynamic> data = response?.data["data"]["money"].toList();
       for (double e in data) {
         list.add(e.abs());

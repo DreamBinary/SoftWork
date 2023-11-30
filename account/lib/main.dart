@@ -1,4 +1,5 @@
 import 'package:account/app/component/version_ctrl.dart';
+import 'package:account/app/data/net/api_consume.dart';
 import 'package:account/app/modules/all_entry/login/login_binding.dart';
 import 'package:account/app/theme/app_string.dart';
 import 'package:account/app/theme/app_text_theme.dart';

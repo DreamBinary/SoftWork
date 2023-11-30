@@ -189,6 +189,10 @@ class _DreamPageState extends State<DreamPage> with TickerProviderStateMixin {
                               onCancel: () {
                                 Navigator.pop(context);
                               },
+                              onDelete: () async {
+                                await logic.deleteGoal();
+                                Get.back();
+                              },
                               onConfirm: (goalName, date, money) async {
                                 if (state.goal == null) {
                                   await logic.addGoal(goalName, date, money);
@@ -226,10 +230,12 @@ class _DreamPageState extends State<DreamPage> with TickerProviderStateMixin {
 class GoalContain extends StatefulWidget {
   final Goal? goal;
   final VoidCallback? onCancel;
+  final VoidCallback? onDelete;
   final Function(String, DateTime, num)? onConfirm;
 
   const GoalContain({
     this.goal,
+    required this.onDelete,
     required this.onCancel,
     required this.onConfirm,
     super.key,
@@ -272,7 +278,9 @@ class _GoalContainState extends State<GoalContain> {
               child: IconButton(
                 padding: const EdgeInsets.all(5),
                 icon: const Icon(Icons.delete),
-                onPressed: () {},
+                onPressed: () {
+                  widget.onDelete?.call();
+                },
               ),
             ).paddingOnly(right: 10.w),
           ],
