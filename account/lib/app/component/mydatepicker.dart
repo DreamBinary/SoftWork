@@ -40,86 +40,89 @@ class _MyDatePickerState extends State<MyDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (!widget.isSingleMonth && !widget.isSingleDay)
-          Align(
-            alignment: Alignment.centerRight,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 15.0),
-              child: MaterialButton(
-                onPressed: () {
-                  setState(() {
-                    isMonth = !isMonth;
-                  });
-                },
-                visualDensity: VisualDensity.compact,
-                shape: const StadiumBorder(),
-                child: Text(
-                  isMonth ? "选择日期" : "选择月份",
-                  style: AppTS.small,
+    return SizedBox(
+      height: 400.h,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (!widget.isSingleMonth && !widget.isSingleDay)
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 15.0),
+                child: MaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      isMonth = !isMonth;
+                    });
+                  },
+                  visualDensity: VisualDensity.compact,
+                  shape: const StadiumBorder(),
+                  child: Text(
+                    isMonth ? "选择日期" : "选择月份",
+                    style: AppTS.small,
+                  ),
                 ),
               ),
             ),
-          ),
-        Expanded(
-          child: isMonth
-              ? MonthPicker(
-            onTimeChanged: (value) {
-              startTime = value;
-              endTime = value;
-            },
-          )
-              : DatePicker(
-            isSingleDay: widget.isSingleDay,
-            onStarTimeChanged: (value) {
-              startTime = value;
-            },
-            onEndTimeChanged: (value) {
-              endTime = value;
-            },
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            MaterialButton(
-              shape: const StadiumBorder(),
-              onPressed: () {
-                Get.back();
+          Expanded(
+            child: isMonth
+                ? MonthPicker(
+              onTimeChanged: (value) {
+                startTime = value;
+                endTime = value;
               },
-              child: Text(
-                "取消",
-                style: AppTS.small,
-              ),
+            )
+                : DatePicker(
+              isSingleDay: widget.isSingleDay,
+              onStarTimeChanged: (value) {
+                startTime = value;
+              },
+              onEndTimeChanged: (value) {
+                endTime = value;
+              },
             ),
-            MaterialButton(
-              shape: const StadiumBorder(),
-              onPressed: () {
-                // isMonth
-                //     ? widget.changeTime("$startTime-01 00:00:00", "$startTime-01 00:00:00")
-                //     : widget.changeTime("$startTime 00:00:00", "$endTime 00:00:00");
-                if (startTime == null) {
-                  if (isMonth) {
-                    startTime = "2023-01";
-                    endTime = startTime;
-                  } else {
-                    startTime = DateUtil.getNowFormattedDate();
-                    endTime = startTime;
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              MaterialButton(
+                shape: const StadiumBorder(),
+                onPressed: () {
+                  Get.back();
+                },
+                child: Text(
+                  "取消",
+                  style: AppTS.small,
+                ),
+              ),
+              MaterialButton(
+                shape: const StadiumBorder(),
+                onPressed: () {
+                  // isMonth
+                  //     ? widget.changeTime("$startTime-01 00:00:00", "$startTime-01 00:00:00")
+                  //     : widget.changeTime("$startTime 00:00:00", "$endTime 00:00:00");
+                  if (startTime == null) {
+                    if (isMonth) {
+                      startTime = "2023-01";
+                      endTime = startTime;
+                    } else {
+                      startTime = DateUtil.getNowFormattedDate();
+                      endTime = startTime;
+                    }
                   }
-                }
-                widget.changeTime(startTime!, endTime!, isMonth);
-                Get.back();
-              },
-              child: Text(
-                "确定",
-                style: AppTS.small,
+                  widget.changeTime(startTime!, endTime!, isMonth);
+                  Get.back();
+                },
+                child: Text(
+                  "确定",
+                  style: AppTS.small,
+                ),
               ),
-            ),
-          ],
-        )
-      ],
+            ],
+          )
+        ],
+      ),
     );
   }
 }

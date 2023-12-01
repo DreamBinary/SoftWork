@@ -17,4 +17,6 @@ abstract class Routes {
   static const person = "/person";
   static const setting = "/setting";
   static const budget = "/budget";
+  static const record = "/record";
+  static const multiBook = "/multiBook";
 }

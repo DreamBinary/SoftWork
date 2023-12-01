@@ -9,7 +9,7 @@ class LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
+        body: FutureBuilder(
         future: future,
         builder: (context, snapshot) {
           if (snapshot.hasData) {

@@ -1,9 +1,11 @@
 import 'dart:math';
 
+import 'package:account/app/data/net/api_consume.dart';
 import 'package:account/app/data/net/api_goal.dart';
 import 'package:account/app/utils/date_util.dart';
 import 'package:get/get.dart';
 
+import '../../data/entity/consume.dart';
 import 'dream_state.dart';
 
 class DreamLogic extends GetxController {
@@ -52,7 +54,7 @@ class DreamLogic extends GetxController {
   int getGapMoneyPercent() {
     final goal = state.goal;
     if (goal != null) {
-      return min(100 - (goal.savedMoney / goal.money * 100).floor(), 100);
+      return ((1 - getSavedPercent()) * 100).toInt();
     }
     return 0;
   }
@@ -60,16 +62,26 @@ class DreamLogic extends GetxController {
   double getSavedPercent() {
     final goal = state.goal;
     if (goal != null) {
-      return (goal.savedMoney / goal.money * 100);
+      return min(max(goal.savedMoney, 0) / goal.money, 1);
     }
     return 0;
   }
 
   saveMoney(int money) async {
     state.goal?.savedMoney += money;
-    final goal = state.goal;
-    if (goal != null) {
-      await ApiGoal.updateGoal(goal);
+    if (state.goal != null) {
+      await ApiConsume.addConsume(
+        ConsumeData(
+          consumptionName: "存钱",
+          description: "存钱",
+          amount: money,
+          typeId: 15,
+          store: "存钱",
+          consumeTime: DateUtil.getNowFormattedDate(),
+          consumeDate: DateUtil.getNowFormattedDate(),
+          credential: "",
+        ),
+      );
     }
   }
 }

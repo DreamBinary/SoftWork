@@ -15,8 +15,9 @@ Future<void> myShowBottomSheet(
     context: context,
     builder: (context) => SingleChildScrollView(
       child: Container(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         child: builder(context),
       ),
     ),

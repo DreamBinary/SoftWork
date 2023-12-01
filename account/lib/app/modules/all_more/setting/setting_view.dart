@@ -1,6 +1,5 @@
 import 'package:account/app/component/mytopbar.dart';
 import 'package:account/app/component/version_ctrl.dart';
-import 'package:account/app/modules/all_more/setting/multi_person/member.dart';
 import 'package:account/app/modules/all_more/setting/person/person_view.dart';
 import 'package:account/app/routes/app_pages.dart';
 import 'package:account/app/theme/app_colors.dart';

@@ -1,10 +1,12 @@
 import 'package:account/app/component/loading_page.dart';
 import 'package:account/app/component/mycard.dart';
 import 'package:account/app/component/mydialog.dart';
+import 'package:account/app/component/myshowbottomsheet.dart';
 import 'package:account/app/component/mytopbar.dart';
-import 'package:account/app/data/entity/book.dart';
-import 'package:account/app/data/net/api_book.dart';
-import 'package:account/app/modules/all_more/setting/multi_book/multi_book_view.dart';
+import 'package:account/app/data/entity/multi_book.dart';
+import 'package:account/app/data/net/api_multi.dart';
+import 'package:account/app/modules/all_more/setting/multi_book/member.dart';
+import 'package:account/app/modules/all_more/setting/multi_book/multi_book_logic.dart';
 import 'package:account/app/theme/app_text_theme.dart';
 import 'package:account/app/utils/toast.dart';
 import 'package:account/res/assets_res.dart';
@@ -12,25 +14,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../component/multi_column_row.dart';
-import '../../../component/myiconbtn.dart';
-import '../../../component/myshowbottomsheet.dart';
-import '../../../component/swipe_book.dart';
-import '../../../component/version_ctrl.dart';
-import '../../../routes/app_pages.dart';
-import '../../../theme/app_colors.dart';
-import '../../../theme/app_string.dart';
-import '../../../utils/mmkv.dart';
-import 'my_book_logic.dart';
+import '../../../../component/myelevatedbtn.dart';
+import '../../../../component/myiconbtn.dart';
+import '../../../../component/swipe_book.dart';
+import '../../../../component/version_ctrl.dart';
+import '../../../../theme/app_colors.dart';
+import '../../../../theme/app_string.dart';
+import '../../../../utils/mmkv.dart';
 
-class MyBookPage extends StatefulWidget {
-  const MyBookPage({Key? key}) : super(key: key);
+class MultiBookPage extends StatefulWidget {
+  const MultiBookPage({Key? key}) : super(key: key);
 
   @override
-  State<MyBookPage> createState() => _MyBookPageState();
+  State<MultiBookPage> createState() => _MultiBookPageState();
 }
 
-class _MyBookPageState extends State<MyBookPage> {
+class _MultiBookPageState extends State<MultiBookPage> {
   @override
   Widget build(BuildContext context) {
     if (VersionCtrl.of(context)?.version != 0) {
@@ -231,16 +230,17 @@ class _MMyBookPage extends StatefulWidget {
 }
 
 class _MMyBookPageState extends State<_MMyBookPage> {
-  late List<Book> data;
-  final logic = Get.find<MyBookLogic>();
+  final logic = Get.find<MultiBookLogic>();
+  final state = Get.find<MultiBookLogic>().state;
 
+  late List<MultiBook> data;
   var currentIndex = 0;
   late StateSetter mState;
 
   @override
   void initState() {
     super.initState();
-    data = Get.arguments as List<Book>;
+    data = Get.arguments as List<MultiBook>;
     if (MMKVUtil.getBool(AppString.mmOpenLock)) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         _showLock(context);
@@ -253,15 +253,15 @@ class _MMyBookPageState extends State<_MMyBookPage> {
       context: context,
       builder: (context) {
         return AddBook(
-          hasDescription: false,
+          hasDescription: true,
           onCancel: () {
             Get.back();
           },
           onConfirm: (name, description) async {
-            var result = await ApiBook.addBook(name);
+            var result = await ApiMultiBook.addMultiBook(name, description);
             if (result) {
               ToastUtil.showToast("添加成功");
-              data = await ApiBook.getBook();
+              data = await ApiMultiBook.getMultiBook();
               setState(() {});
             } else {
               ToastUtil.showToast("添加失败");
@@ -278,7 +278,7 @@ class _MMyBookPageState extends State<_MMyBookPage> {
     return Scaffold(
       backgroundColor: AppColors.whiteBg,
       appBar: MyTopBar(
-        middle: Text("我的账本", style: AppTS.normal),
+        middle: Text("多人账本", style: AppTS.normal),
         trailing: MyIconBtn(
           onPressed: addBook,
           imgPath: AssetsRes.BUDGET_TOP_ICON,
@@ -293,11 +293,19 @@ class _MMyBookPageState extends State<_MMyBookPage> {
                 SwiperBook(
                   num: data.length,
                   onTapBook: () {
-                    Get.to(LoadingPage(
-                            future: logic
-                                .getBookRecord(data[currentIndex].ledgerId)))
-                        ?.then(
-                      (value) => Get.toNamed(Routes.record, arguments: value),
+                    Get.to(
+                      LoadingPage(
+                        future: ApiMultiBook.getMultiBookUser(
+                          data[currentIndex].multiLedgerId,
+                        ),
+                      ),
+                    )?.then(
+                      (value) => Get.to(
+                        () => MemberPage(
+                          multiLedgerId: data[currentIndex].multiLedgerId,
+                        ),
+                        arguments: value,
+                      ),
                     );
                   },
                   onIndexChanged: (index) {
@@ -309,10 +317,9 @@ class _MMyBookPageState extends State<_MMyBookPage> {
                   builder: (_, aState) {
                     mState = aState;
                     return _DetailPart(
-                      bookName: data[currentIndex].ledgerName,
-                      values: ["1", "2", "3"],
-                      createTime: data[currentIndex].createTime,
-                      updateTime: data[currentIndex].updateTime,
+                      bookName: data[currentIndex].multiLedgerName,
+                      description: data[currentIndex].description,
+                      time: data[currentIndex].modifyTime,
                     );
                   },
                 ),
@@ -323,40 +330,128 @@ class _MMyBookPageState extends State<_MMyBookPage> {
 }
 
 class _DetailPart extends StatelessWidget {
-  final String createTime;
-  final String updateTime;
+  final String time;
   final String bookName;
-  final List<String>? values;
+  final String description;
 
   const _DetailPart({
     required this.bookName,
-    required this.values,
-    required this.createTime,
-    required this.updateTime,
+    required this.description,
+    required this.time,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      child: Column(
+        children: [
+          Text(bookName, style: AppTS.big),
+          SizedBox(height: 10.h),
+          Text("修改于 $time", style: AppTS.small),
+          SizedBox(height: 30.h),
+          Text(
+            description + description,
+            style: AppTS.normal.copyWith(
+              letterSpacing: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            maxLines: 6,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AddBook extends StatefulWidget {
+  final bool hasDescription;
+  final VoidCallback? onCancel;
+  final Function(String, String)? onConfirm;
+
+  const AddBook({
+    required this.onCancel,
+    required this.onConfirm,
+    this.hasDescription = false,
+    super.key,
+  });
+
+  @override
+  State<AddBook> createState() => _AddBookState();
+}
+
+class _AddBookState extends State<AddBook> {
+  final _nameCtrl = TextEditingController();
+  final _descriptionCtrl = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Text(bookName, style: AppTS.big),
+        Text(
+          "添加账本",
+          textAlign: TextAlign.center,
+          style: AppTS.normal,
+        ).paddingSymmetric(vertical: 20.h),
+        TextField(
+          controller: _nameCtrl,
+          textAlign: TextAlign.center,
+          decoration: const InputDecoration(
+            hintText: "账本名称",
+          ),
+        ).paddingSymmetric(horizontal: 20.w),
+        if (widget.hasDescription) SizedBox(height: 20.h),
+        if (widget.hasDescription)
+          TextField(
+            controller: _descriptionCtrl,
+            textAlign: TextAlign.center,
+            decoration: const InputDecoration(
+              hintText: "账本描述",
+            ),
+          ).paddingSymmetric(horizontal: 20.w),
         SizedBox(height: 20.h),
-        Text("$createTime 创建", style: AppTS.small),
-        SizedBox(height: 5.h),
-        Text("修改于 $updateTime", style: AppTS.small),
-        SizedBox(height: 30.h),
-        // MultiColumnRow(
-        //   titles: const [
-        //     "总收入",
-        //     "总支出",
-        //     "总余额",
-        //   ],
-        //   subTitles: values,
-        //   decTextStyle: AppTS.big,
-        //   hasDivider: true,
-        //   crossAxisAlignment: CrossAxisAlignment.center,
-        // ).paddingSymmetric(horizontal: 30.w),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            MyElevatedBtn(
+              color: AppColors.color_list.first,
+              onPressed: () {
+                widget.onCancel?.call();
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  "取消",
+                  style: AppTS.small.copyWith(
+                    color: AppColors.textColor(AppColors.color_list.first),
+                  ),
+                ),
+              ),
+            ),
+            MyElevatedBtn(
+              color: AppColors.color_list.last,
+              onPressed: () {
+                widget.onConfirm?.call(
+                  _nameCtrl.text,
+                  _descriptionCtrl.text,
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  "确定",
+                  style: AppTS.small.copyWith(
+                    color: AppColors.textColor(AppColors.color_list.last),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 20.h),
       ],
     );
   }

@@ -6,7 +6,7 @@ class Url {
   // static String baseUrl = "http://43.136.122.18:8087";
   // static String baseUrl2 = "";
 
-  // user
+  // user1
   static String signUp = "/auth/register/pwd";
   static String login = "/auth/login/pwd";
 
@@ -26,7 +26,7 @@ class Url {
   // consumption
   static String addRecord = "/api/consumption";
 
-  static String dayRemain = "/api/consumption/balance/day"; // 日余
+  static String dayRemain = "/api/consumption/day/balance"; // 日余
   static String dayOut = "/api/consumption/day/out"; // 日支出
   static String dayIn = "/api/consumption/day/in"; // 日收入
   static String dayRecord = "/api/consumption/day"; // 日记录
@@ -58,10 +58,16 @@ class Url {
   static String thirtyOutMoney = "/api/consumption/last/month/analysis";
 
   // book
-  static String book = "/api/ledger"; // get ->
+  static String book = "/api/ledger";
   static String bookRecord = "/api/ledger/consumption";
 
   // goal
   static String goal = "/api/goal";
   static String goalRecord = "/api/goal/record";
+
+  // multi_book
+  static String multiBook = "/api/multiLedger";
+  static String multiBookRecord = "/api/multiLedger/consumption";
+  static String multiBookUser = "/api/multiLedger/user";
+  static String multiBookBalance = "/api/multiLedger/balance";
 }

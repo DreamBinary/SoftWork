@@ -55,7 +55,6 @@ class ApiBook {
   }
 
   // getBookRecord
-  // todo
   static Future<List<ConsumeData>> getBookRecord(num ledgerId) async {
     String token = MMKVUtil.getString(AppString.mmToken);
     var response = await DioUtil().get(Url.bookRecord,
@@ -64,9 +63,14 @@ class ApiBook {
     List<ConsumeData> list = [];
     if (response?.data["code"] == 0) {
       response?.data["data"]["list"].forEach((v) {
-        list.add(ConsumeData.fromJson(v));
+        print(v);
+       var  c = ConsumeData.fromJson(v);
+        list.add(c);
+        print(list.length);
       });
     }
+    print("getBookRecord");
+    print(list);
     return list;
   }
 }

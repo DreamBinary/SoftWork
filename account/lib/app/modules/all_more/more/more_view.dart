@@ -1,15 +1,18 @@
+import 'package:account/app/data/net/api_book.dart';
+import 'package:account/app/data/net/api_consume.dart';
+import 'package:account/app/data/net/api_multi.dart';
 import 'package:account/app/routes/app_pages.dart';
 import 'package:account/app/utils/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../component/loading_page.dart';
 import '../../../component/my_header/header_view.dart';
 import '../../../component/mycard.dart';
 import '../../../component/version_ctrl.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_text_theme.dart';
-import '../setting/multi_person/member.dart';
 
 class MorePage extends StatelessWidget {
   const MorePage({super.key});
@@ -101,7 +104,7 @@ class _SMorePage extends StatelessWidget {
                         AppColors.color_list[0],
                         height: 2 * h + 10.h,
                         onPressed: () {
-                          Get.to(const MemberPage());
+                          Get.toNamed(Routes.multiBook);
                         },
                         child: Text(
                           "多\n人\n记\n账",
@@ -167,7 +170,6 @@ class _SMorePage extends StatelessWidget {
 
 class _MMorePage extends StatelessWidget {
   const _MMorePage({Key? key}) : super(key: key);
-  final remain = 1940.00;
 
   @override
   Widget build(BuildContext context) {
@@ -188,13 +190,13 @@ class _MMorePage extends StatelessWidget {
                   style: AppTS.normal,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "手机号: 10086",
-                  style: AppTS.small,
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Text(
+              //     "手机号: 10086",
+              //     style: AppTS.small,
+              //   ),
+              // ),
               SizedBox(height: 10.h),
               LayoutBuilder(
                 builder: (context, constraint) {
@@ -208,7 +210,10 @@ class _MMorePage extends StatelessWidget {
                           child: MyCard(
                             AppColors.color_list[1],
                             onPressed: () {
-                              Get.toNamed(Routes.myBook);
+                              Get.to(
+                                LoadingPage(future: ApiBook.getBook()),
+                              )?.then((value) =>
+                                  Get.toNamed(Routes.myBook, arguments: value));
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -224,12 +229,27 @@ class _MMorePage extends StatelessWidget {
                                         color: AppColors.textColor(
                                             AppColors.color_list[1]))),
                                 SizedBox(height: 5.h),
-                                Text(
-                                  remain.moneyFormatZero,
-                                  style: AppTS.big.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.textColor(
-                                          AppColors.color_list[1])),
+                                FutureBuilder(
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      double? remain = snapshot.data;
+                                      return Text(
+                                        (remain ?? 0.0).moneyFormatZero,
+                                        style: AppTS.big.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: AppColors.textColor(
+                                                AppColors.color_list[1])),
+                                      );
+                                    } else {
+                                      return Text(
+                                        "0.00",
+                                        style: AppTS.big.copyWith(
+                                            color: AppColors.textColor(
+                                                AppColors.color_list[1])),
+                                      );
+                                    }
+                                  },
+                                  future: ApiConsume.getRemain(type: "all"),
                                 ),
                               ],
                             ),
@@ -306,7 +326,10 @@ class _MMorePage extends StatelessWidget {
                         AppColors.color_list[5],
                         height: constraint.constrainWidth() * 10 / 31,
                         onPressed: () {
-                          Get.to(const MemberPage());
+                          Get.to(
+                            LoadingPage(future: ApiMultiBook.getMultiBook()),
+                          )?.then((value) =>
+                              Get.toNamed(Routes.multiBook, arguments: value));
                         },
                         child: Text(
                           "多人记账",

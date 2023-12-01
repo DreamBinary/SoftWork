@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:account/app/component/croping_page.dart';
-import 'package:account/app/component/lines_text.dart';
 import 'package:account/app/component/mybottombar.dart';
 import 'package:account/app/component/mycard.dart';
 import 'package:account/app/component/mydatepicker.dart';
@@ -25,7 +24,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:screen_capture_event/screen_capture_event.dart';
 
-import '../../component/myiconbtn.dart';
+import '../../component/dayrecord.dart';
 import '../../component/myshimmer.dart';
 import '../../component/picchoicebtn.dart';
 import '../../component/sound_page.dart';
@@ -59,15 +58,6 @@ class _MHomePageState extends State<_MHomePage> {
   late String showTime =
       isMonth ? start : (start == end ? start : "$start -> $end");
   late bool isMonth = state.isMonth;
-
-  List<String> bookImgPath = [
-    AssetsRes.BOOK0,
-    AssetsRes.BOOK1,
-    AssetsRes.BOOK2
-  ];
-  List<String> bookName = ["我的日常", "家人们", "舍友们"];
-
-  var _currentBook = 0;
 
   final ScreenCaptureEvent screenListener = ScreenCaptureEvent();
 
@@ -109,43 +99,51 @@ class _MHomePageState extends State<_MHomePage> {
               expandedHeight: 250.h,
               pinned: true,
               centerTitle: true,
-              title: Text(bookName[_currentBook], style: AppTS.big),
-              leading: Padding(
-                padding: EdgeInsets.only(left: 10.w),
-                child: MyIconBtn(
-                  onPressed: () async {
-                    showMenu(
-                      context: context,
-                      position: const RelativeRect.fromLTRB(0, 100, 0, 0),
-                      items: List.generate(
-                        bookImgPath.length,
-                        (index) => PopupMenuItem(
-                          value: index,
-                          onTap: () {
-                            setState(() {
-                              _currentBook = index;
-                            });
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const SizedBox(width: 10),
-                              CircleAvatar(
-                                  radius: 15,
-                                  backgroundImage:
-                                      AssetImage(bookImgPath[index])),
-                              const SizedBox(width: 15),
-                              Text(bookName[index], style: AppTS.small)
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  color: AppColors.color_list[5],
-                  imgPath: AssetsRes.CHANGE_BOOK,
-                ),
+              title: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text("碎记", style: AppTS.big),
+                  SizedBox(width: 2.w),
+                  Text("随手记", style: AppTS.small)
+                ],
               ),
+              // leading: Padding(
+              //   padding: EdgeInsets.only(left: 10.w),
+              //   child: MyIconBtn(
+              //     onPressed: () async {
+              //       showMenu(
+              //         context: context,
+              //         position: const RelativeRect.fromLTRB(0, 100, 0, 0),
+              //         items: List.generate(
+              //           bookImgPath.length,
+              //           (index) => PopupMenuItem(
+              //             value: index,
+              //             onTap: () {
+              //               setState(() {
+              //                 _currentBook = index;
+              //               });
+              //             },
+              //             child: Row(
+              //               mainAxisSize: MainAxisSize.min,
+              //               children: [
+              //                 const SizedBox(width: 10),
+              //                 CircleAvatar(
+              //                     radius: 15,
+              //                     backgroundImage:
+              //                         AssetImage(bookImgPath[index])),
+              //                 const SizedBox(width: 15),
+              //                 Text(bookName[index], style: AppTS.small)
+              //               ],
+              //             ),
+              //           ),
+              //         ),
+              //       );
+              //     },
+              //     color: AppColors.color_list[5],
+              //     imgPath: AssetsRes.CHANGE_BOOK,
+              //   ),
+              // ),
               leadingWidth: 65.w,
               flexibleSpace: FlexibleSpaceBar(
                 background: Align(
@@ -627,137 +625,6 @@ class _HomeTopPart extends StatelessWidget {
               ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class DayRecord extends StatefulWidget {
-  final Color colorBg;
-  final Map<String, List<ConsumeData>> data;
-  final bool isOld;
-
-  const DayRecord(
-      {Key? key, required this.colorBg, required this.data, this.isOld = false})
-      : super(key: key);
-
-  @override
-  State<DayRecord> createState() => _DayRecordState();
-}
-
-class _DayRecordState extends State<DayRecord> {
-  @override
-  Widget build(BuildContext context) {
-    var time = widget.data.keys.first;
-    var typeId = List.generate(widget.data.values.first.length,
-        (i) => widget.data.values.first[i].typeId);
-    var titles = List.generate(
-      widget.data.values.first.length,
-      (i) => widget.data.values.first[i].consumptionName,
-    );
-    var subTitles = List.generate(
-      widget.data.values.first.length,
-      (i) => widget.data.values.first[i].store,
-    );
-    var contents = List.generate(
-      widget.data.values.first.length,
-      (i) => widget.data.values.first[i].amount.moneyFormatZero,
-    );
-    var colors = AppColors.randomColor(num: titles.length);
-    return Container(
-      color: widget.colorBg,
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            decoration: widget.isOld
-                ? BoxDecoration(
-                    border: Border.all(
-                        color: Colors.white,
-                        width: 2,
-                        strokeAlign: BorderSide.strokeAlignOutside),
-                    borderRadius: BorderRadius.circular(20),
-                  )
-                : null,
-            margin: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Chip(
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                label: Text(
-                  time,
-                  style: AppTS.small
-                      .copyWith(color: AppColors.textColor(colors[0])),
-                ),
-                backgroundColor: colors[0]),
-          ),
-          ...List.generate(
-            titles.length,
-            (index) {
-              Color textColor = AppColors.textColor(colors[index]);
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6.0),
-                child: Container(
-                  decoration: widget.isOld
-                      ? BoxDecoration(
-                          border: Border.all(
-                              color: Colors.white,
-                              width: 2,
-                              strokeAlign: BorderSide.strokeAlignOutside),
-                          borderRadius: BorderRadius.circular(20),
-                        )
-                      : null,
-                  child: MyCard(
-                    colors[index],
-                    height: 80.h,
-                    elevation: 8,
-                    onPressed: () {
-                      Get.toNamed(
-                        Routes.add,
-                        arguments: widget.data.values.first[index],
-                      );
-                    },
-                    child: Row(
-                      children: [
-                        SizedBox(width: 15.w),
-                        if (!widget.isOld) ...[
-                          CircleAvatar(
-                            backgroundColor: AppColors.whiteBg,
-                            child: Image.asset(
-                              ConsumeData.paths[typeId[index]],
-                              height: 25,
-                              width: 25,
-                            ),
-                          ),
-                          SizedBox(width: 15.w),
-                        ],
-                        Expanded(
-                          child: LinesTextItem(
-                            texts: widget.isOld
-                                ? [titles[index]]
-                                : [titles[index], subTitles[index]],
-                            styles: widget.isOld
-                                ? [
-                                    AppTS.normal.copyWith(color: textColor),
-                                  ]
-                                : [
-                                    AppTS.normal.copyWith(color: textColor),
-                                    AppTS.small.copyWith(color: textColor)
-                                  ],
-                            textAlign: CrossAxisAlignment.start,
-                            textColor: textColor,
-                          ),
-                        ),
-                        Text(contents[index],
-                            style: AppTS.normal.copyWith(color: textColor)),
-                        SizedBox(width: 15.w),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
       ),
     );
   }

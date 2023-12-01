@@ -9,47 +9,28 @@ class HomeLogic extends GetxController {
 
   Future<List<Map<String, List<ConsumeData>>>> getRecord(
       {required String start, String? end, bool isMonth = false}) async {
-    // todo
-    // if (isMonth) {
-    //   // if (state.start == null ||
-    //   //     state.start != start ||
-    //   //     state.isMonth != isMonth) {
-    //   state.start = start;
-    //   state.isMonth = isMonth;
-    //   state.record = await ApiConsume.getRecordMap(
-    //       date: "${start.split(" ")[0]}-01 00:00:00");
-    //   // }
-    // } else {
-    //   // if (state.start == null ||
-    //   //     state.start != start ||
-    //   //     state.end != end ||
-    //   //     state.isMonth != isMonth) {
-    //   state.start = start;
-    //   state.isMonth = isMonth;
-    //   state.record = await ApiConsume.getRangeRecordMap(
-    //       start: "${start.split(" ")[0]} 00:00:00",
-    //       end: "${end?.split(" ")[0]} 23:59:59");
+    if (isMonth) {
+      // if (state.start == null ||
+      //     state.start != start ||
+      //     state.isMonth != isMonth) {
+      state.start = start;
+      state.isMonth = isMonth;
+      state.record = await ApiConsume.getRecordMap(
+          date: "${start.split(" ")[0]}-01 00:00:00");
+      // }
+    } else {
+      // if (state.start == null ||
+      //     state.start != start ||
+      //     state.end != end ||
+      //     state.isMonth != isMonth) {
+      state.start = start;
+      state.isMonth = isMonth;
+      state.record = await ApiConsume.getRangeRecordMap(
+          start: "${start.split(" ")[0]} 00:00:00",
+          end: "${end?.split(" ")[0]} 23:59:59");
+    }
     // }
-    // // }
-    // return state.record!;
-
-    // mock data
-    return [
-      {
-        "Fdasfasd": [
-          ConsumeData(
-            consumeDate: "2021-08-01 00:00:00",
-            consumptionName: "吃饭",
-            typeId: 1,
-            amount: 100.0,
-            description: "吃饭",
-            store: "吃饭",
-            consumeTime: "00:00:00",
-            credential: "default",
-          ),
-        ]
-      }
-    ];
+    return state.record!;
   }
 
   clear() {
@@ -88,7 +69,6 @@ class HomeLogic extends GetxController {
           0.0;
       // }
     }
-    print("state.outM ${state.outM}");
     return state.outM;
   }
 

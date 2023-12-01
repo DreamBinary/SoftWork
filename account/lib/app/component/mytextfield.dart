@@ -18,7 +18,8 @@ class PasswordTextField extends StatelessWidget {
   final FocusNode focusNode = FocusNode();
   late final Rx<bool> focus = false.obs;
 
-  PasswordTextField(this.ctrl, {
+  PasswordTextField(
+    this.ctrl, {
     super.key,
     required this.hint,
     required this.prefixIcon,
@@ -34,46 +35,43 @@ class PasswordTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() =>
-        TextField(
-            controller: ctrl,
-            focusNode: focusNode,
-            decoration: InputDecoration(
-                hintText: hint,
-                prefixIcon: Icon(prefixIcon),
-                suffix: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Visibility(
-                        visible: focus.value && clearVisible.value,
-                        child: InkWell(
-                          borderRadius: const BorderRadius.all(
-                              Radius.circular(20)),
-                          onTap: () => {onClear(), clearVisible.value = false},
-                          child: const Icon(Icons.clear, size: 15),
-                        )),
-                    Visibility(
-                        visible: focus.value && clearVisible.value,
-                        child: InkWell(
-                          borderRadius: const BorderRadius.all(
-                              Radius.circular(20)),
-                          onTap: () =>
-                          {passwordVisible.value = !passwordVisible.value},
-                          child:
-                          const Icon(Icons.remove_red_eye_outlined, size: 15),
-                        )),
-                  ],
-                )),
-            obscureText: !focus.value || !passwordVisible.value,
-            textInputAction: textInputAction,
-            maxLength: 10,
-            keyboardType: TextInputType.visiblePassword,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]|[0-9]"))
+    return Obx(() => TextField(
+        controller: ctrl,
+        focusNode: focusNode,
+        decoration: InputDecoration(
+          hintText: hint,
+          prefixIcon: Icon(prefixIcon),
+          suffix: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Visibility(
+                  visible: focus.value && clearVisible.value,
+                  child: InkWell(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    onTap: () => {onClear(), clearVisible.value = false},
+                    child: const Icon(Icons.clear, size: 15),
+                  )),
+              Visibility(
+                  visible: focus.value && clearVisible.value,
+                  child: InkWell(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    onTap: () =>
+                        {passwordVisible.value = !passwordVisible.value},
+                    child: const Icon(Icons.remove_red_eye_outlined, size: 15),
+                  )),
             ],
-            onChanged: (str) => {clearVisible.value = str.isNotEmpty},
-            onSubmitted: onSubmitted));
+          ),
+        ),
+        obscureText: !focus.value || !passwordVisible.value,
+        textInputAction: textInputAction,
+        maxLength: 10,
+        keyboardType: TextInputType.visiblePassword,
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]|[0-9]"))
+        ],
+        onChanged: (str) => {clearVisible.value = str.isNotEmpty},
+        onSubmitted: onSubmitted));
   }
 }
 
@@ -84,7 +82,8 @@ class UsernameTextField extends StatelessWidget {
   final FocusNode focusNode = FocusNode();
   late final Rx<bool> focus = false.obs;
 
-  UsernameTextField(this.ctrl, {
+  UsernameTextField(
+    this.ctrl, {
     super.key,
     required this.onClear,
   }) {
@@ -96,8 +95,7 @@ class UsernameTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() =>
-        TextField(
+    return Obx(() => TextField(
           controller: ctrl,
           focusNode: focusNode,
           decoration: InputDecoration(
@@ -126,7 +124,8 @@ class VerifyTextField extends StatelessWidget {
   final Function() onSend;
   final ValueChanged<String>? onSubmitted;
 
-  const VerifyTextField(this.ctrl, {
+  const VerifyTextField(
+    this.ctrl, {
     super.key,
     required this.onSend,
     this.onSubmitted,
@@ -172,7 +171,8 @@ class PasswordTextFieldIOS extends StatelessWidget {
   final FocusNode focusNode = FocusNode();
   late final Rx<bool> focus = false.obs;
 
-  PasswordTextFieldIOS(this.ctrl, {
+  PasswordTextFieldIOS(
+    this.ctrl, {
     super.key,
     required this.hint,
     required this.prefixIcon,
@@ -186,40 +186,40 @@ class PasswordTextFieldIOS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() =>
-        CupertinoTextField(
-            controller: ctrl,
-            focusNode: focusNode,
-            placeholder: hint,
-            prefix: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Icon(prefixIcon),
-            ),
-            suffix: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                onTap: () => {passwordVisible.value = !passwordVisible.value},
-                child: const Icon(Icons.remove_red_eye_rounded,
-                    color: Colors.grey, size: 15),
-              ),
-            ),
-            suffixMode: OverlayVisibilityMode.editing,
-            obscureText: !focus.value || !passwordVisible.value,
-            textInputAction: textInputAction,
-            maxLength: 10,
-            keyboardType: TextInputType.visiblePassword,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]|[0-9]"))
-            ],
-            onSubmitted: onSubmitted));
+    return Obx(() => CupertinoTextField(
+        controller: ctrl,
+        focusNode: focusNode,
+        placeholder: hint,
+        prefix: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Icon(prefixIcon),
+        ),
+        suffix: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: InkWell(
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            onTap: () => {passwordVisible.value = !passwordVisible.value},
+            child: const Icon(Icons.remove_red_eye_rounded,
+                color: Colors.grey, size: 15),
+          ),
+        ),
+        suffixMode: OverlayVisibilityMode.editing,
+        obscureText: !focus.value || !passwordVisible.value,
+        textInputAction: textInputAction,
+        maxLength: 10,
+        keyboardType: TextInputType.visiblePassword,
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]|[0-9]"))
+        ],
+        onSubmitted: onSubmitted));
   }
 }
 
 class UsernameTextFieldIOS extends StatelessWidget {
   final TextEditingController ctrl;
 
-  const UsernameTextFieldIOS(this.ctrl, {
+  const UsernameTextFieldIOS(
+    this.ctrl, {
     super.key,
   });
 
@@ -246,7 +246,8 @@ class VerifyTextFieldIOS extends StatelessWidget {
   final Function() onSend;
   final ValueChanged<String>? onSubmitted;
 
-  const VerifyTextFieldIOS(this.ctrl, {
+  const VerifyTextFieldIOS(
+    this.ctrl, {
     super.key,
     required this.onSend,
     this.onSubmitted,

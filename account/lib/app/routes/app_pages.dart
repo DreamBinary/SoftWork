@@ -4,6 +4,8 @@ import 'package:account/app/modules/all_entry/login/login_binding.dart';
 import 'package:account/app/modules/all_entry/login/login_view.dart';
 import 'package:account/app/modules/all_entry/register/register_binding.dart';
 import 'package:account/app/modules/all_entry/register/register_view.dart';
+import 'package:account/app/modules/all_more/setting/multi_book/multi_book_binding.dart';
+import 'package:account/app/modules/all_more/setting/multi_book/multi_book_view.dart';
 import 'package:account/app/modules/analyse/analyse_binding.dart';
 import 'package:account/app/modules/analyse/analyse_view.dart';
 import 'package:account/app/modules/budget/budget_view.dart';
@@ -25,6 +27,8 @@ import '../modules/dream/dream_binding.dart';
 import '../modules/image_analyse/image_analyse_binding.dart';
 import '../modules/image_analyse/image_analyse_view.dart';
 import '../modules/intro/intro.dart';
+import '../modules/record/record_binding.dart';
+import '../modules/record/record_view.dart';
 import '../modules/table_analyse/table_analyse_binding.dart';
 import '../modules/table_analyse/table_analyse_view.dart';
 
@@ -32,6 +36,16 @@ part './app_routes.dart';
 
 abstract class AppPages {
   static final pages = [
+    GetPage(
+      name: Routes.multiBook,
+      page: () => const MultiBookPage(),
+      binding: MultiBookBinding(),
+    ),
+    GetPage(
+      name: Routes.record,
+      page: () => const RecordPage(),
+      binding: RecordBinding(),
+    ),
     GetPage(name: Routes.intro, page: () => const IntroPage()),
     GetPage(
       name: Routes.route,

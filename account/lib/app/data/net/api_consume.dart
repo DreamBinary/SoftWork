@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../theme/app_string.dart';
@@ -23,12 +24,12 @@ class ApiConsume {
     } else {
       return null;
     }
-    print("object");
+    debugPrint("getRemain");
     var response = await DioUtil().get(url,
         map: date == null ? null : {"date": date},
         options: Options(headers: {"token": token}));
     if (response?.data["code"] == 0) {
-      return response?.data["data"]["balance"];
+      return response?.data["data"]["sum"];
     }
     return null;
   }
@@ -51,7 +52,7 @@ class ApiConsume {
     var response = await DioUtil().get(url,
         map: date == null ? null : {"date": date},
         options: Options(headers: {"token": token}));
-
+    print(url);
     print("object");
     print(response?.data["data"]);
 
@@ -150,11 +151,8 @@ class ApiConsume {
 
     var response = await DioUtil().get(url,
         map: {"date": date}, options: Options(headers: {"token": token}));
-    print("getRecordMap");
     if (response?.data["code"] == 0) {
-      print("getRecordMap");
       var keys = response?.data["data"].keys.toList();
-      print(keys);
       List<dynamic> values = response?.data["data"].values.toList();
       int len = keys.length;
       for (int i = 0; i < len; ++i) {
