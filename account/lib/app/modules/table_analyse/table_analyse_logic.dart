@@ -10,8 +10,17 @@ class TableAnalyseLogic extends GetxController {
   Future<List<ConsumeData>> getRecord(String date) async {
     if (state.date == null) {
       state.date = date;
-      state.record =
-      await ApiConsume.getRecord(type: "month", date: "$date 00:00:00");
+      List<Map<String, List<ConsumeData>>> record =
+          await ApiConsume.getRecordMap(date: "$date 00:00:00");
+
+      for (var element in record) {
+        element.forEach((key, value) {
+          state.record.addAll(value);
+        });
+      }
+      print(state.record);
+      // state.record =
+      // await ApiConsume.getRecord(type: "month", date: "$date 00:00:00");
     }
     return state.record;
   }

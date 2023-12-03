@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:account/app/component/croping_page.dart';
@@ -6,7 +7,6 @@ import 'package:account/app/component/mycard.dart';
 import 'package:account/app/component/mydatepicker.dart';
 import 'package:account/app/component/myshowbottomsheet.dart';
 import 'package:account/app/component/refresh_indicator.dart';
-import 'package:account/app/data/net/api_img.dart';
 import 'package:account/app/modules/home/home_logic.dart';
 import 'package:account/app/routes/app_pages.dart';
 import 'package:account/app/theme/app_colors.dart';
@@ -16,12 +16,14 @@ import 'package:account/app/utils/date_util.dart';
 import 'package:account/app/utils/extension.dart';
 import 'package:account/app/utils/floating_util.dart';
 import 'package:account/res/assets_res.dart';
+import 'package:app_to_foreground/app_to_foreground.dart';
 import 'package:circular_menu/circular_menu.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:screen_capture_event/screen_capture_event.dart';
 
 import '../../component/dayrecord.dart';
@@ -67,13 +69,30 @@ class _MHomePageState extends State<_MHomePage> {
     screenListener.addScreenShotListener(
       (filePath) async {
         FloatingUtil.end();
-        await Future.delayed(const Duration(milliseconds: 100));
-        var urls = await ApiImg.upImg(imgPaths: [filePath]);
-        Get.to(CroppingPage(
-            fileName: urls[0].split('/').last, isScreenShot: true));
-        screenListener.dispose();
+        await Future.delayed(Duration(milliseconds: 500));
+        AppToForeground.appToForeground();
+        print("filepath: $filePath");
+        var tmp = await getExternalStorageDirectory();
+        print(tmp);
+        // // write filepath
+        // var tempDir = await getTemporaryDirectory();
+        // var file = await File(
+        //         '${tempDir.path}/image_${DateTime.now().millisecondsSinceEpoch}.png')
+        //     .create();
+        // // write filepath file to file
+        // var oldFile = File(filePath);
+        // await oldFile.copy(file.path);
+        // // getExternalStorageDirectory
+        //
+
+        // var newFilepath = file.path;
+        // print("filepath: $newFilepath");
+        // await Future.delayed(const Duration(milliseconds: 1000));
+        // var urls = await ApiImg.upImg(imgPaths: [filePath]);
+        Get.to(CroppingPage(filepath: filePath, isScreenShot: true));
       },
     );
+    screenListener.watch();
   }
 
   @override
@@ -344,8 +363,9 @@ class _MHomePageState extends State<_MHomePage> {
               if (image == null) {
                 return;
               }
-              List<String> urls = await CameraUtil.upImg(image);
-              Get.to(CroppingPage(fileName: urls[0].split('/').last));
+              Get.to(CroppingPage(filepath: image.path));
+              // List<String> urls = await CameraUtil.upImg(image);
+              // Get.to(CroppingPage(fileName: urls[0].split('/').last));
             },
           ),
           SizedBox(height: 10.h),
@@ -356,8 +376,9 @@ class _MHomePageState extends State<_MHomePage> {
               if (image == null) {
                 return;
               }
-              List<String> urls = await CameraUtil.upImg(image);
-              Get.to(CroppingPage(fileName: urls[0].split('/').last));
+              Get.to(CroppingPage(filepath: image.path));
+              // List<String> urls = await CameraUtil.upImg(image);
+              // Get.to(CroppingPage(fileName: urls[0].split('/').last));
             },
           ),
           SizedBox(height: 20.h),
@@ -620,7 +641,7 @@ class _HomeTopPart extends StatelessWidget {
             const SizedBox(height: 5),
             if (!isOld)
               Text(
-                "总支出 ${allExpense.moneyFormatZero}  总收入 ${allIncome.moneyFormatZero}",
+                "总支出 ${allExpense.moneyFormatZero}",
                 style: isOld ? AppTS.big : AppTS.normal,
               ),
           ],

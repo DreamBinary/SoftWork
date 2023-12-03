@@ -64,7 +64,7 @@ class ApiBook {
     if (response?.data["code"] == 0) {
       response?.data["data"]["list"].forEach((v) {
         print(v);
-       var  c = ConsumeData.fromJson(v);
+        var c = ConsumeData.fromJson(v);
         list.add(c);
         print(list.length);
       });
@@ -72,5 +72,22 @@ class ApiBook {
     print("getBookRecord");
     print(list);
     return list;
+  }
+
+  // addBookRecord
+  static Future<bool> addBookRecord(num ledgerId, num consumptionId) async {
+    String token = MMKVUtil.getString(AppString.mmToken);
+    var response = await DioUtil().post(
+      Url.bookRecord,
+      query: {"ledgerId": ledgerId, "consumptionId": consumptionId},
+      options:
+          Options(headers: {"token": token}, contentType: "application/json"),
+    );
+    print("addBookRecord");
+    print(response?.data);
+    if (response?.data["code"] == 0) {
+      return true;
+    }
+    return false;
   }
 }

@@ -13,7 +13,6 @@ import '../../component/croping_page.dart';
 import '../../component/myshowbottomsheet.dart';
 import '../../component/picchoicebtn.dart';
 import '../../component/sound_page.dart';
-import '../../data/net/api_img.dart';
 import '../../theme/app_colors.dart';
 import '../../utils/camera_util.dart';
 import '../../utils/floating_util.dart';
@@ -25,9 +24,7 @@ class RoutePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (VersionCtrl
-        .of(context)
-        ?.version != 0) {
+    if (VersionCtrl.of(context)?.version != 0) {
       return const _SRoutePage();
     }
     return const _MRoutePage();
@@ -101,7 +98,7 @@ class _MRoutePageState extends State<_MRoutePage> {
         ],
         onTap: (index) {
           setState(
-                () {
+            () {
               ctrl.animateToPage(
                 index,
                 duration: const Duration(milliseconds: 300),
@@ -125,7 +122,7 @@ class _SRoutePage extends StatefulWidget {
 class _SRoutePageState extends State<_SRoutePage>
     with TickerProviderStateMixin {
   late TabController ctrl =
-  TabController(initialIndex: 0, length: 2, vsync: this);
+      TabController(initialIndex: 0, length: 2, vsync: this);
 
   final pages = const [
     HomePage(),
@@ -140,15 +137,15 @@ class _SRoutePageState extends State<_SRoutePage>
   void initState() {
     super.initState();
     screenListener.addScreenShotListener(
-          (filePath) async {
-        // print(filePath);
+      (filePath) async {
         FloatingUtil.end();
         await Future.delayed(const Duration(milliseconds: 100));
-        var urls = await ApiImg.upImg(imgPaths: [filePath]);
-        Get.to(CroppingPage(
-            fileName: urls[0]
-                .split('/')
-                .last, isScreenShot: true));
+        Get.to(CroppingPage(filepath: filePath));
+        // var urls = await ApiImg.upImg(imgPaths: [filePath]);
+        // Get.to(CroppingPage(
+        //     fileName: urls[0]
+        //         .split('/')
+        //         .last, isScreenShot: true));
         screenListener.dispose();
       },
     );
@@ -247,49 +244,50 @@ class _SRoutePageState extends State<_SRoutePage>
   void _getCameraChoice() {
     myShowBottomSheet(
       context: context,
-      builder: (context) =>
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(height: 20.h),
-              PicChoiceBtn(
-                title: "截屏",
-                onPressed: () async {
-                  screenListener.watch();
-                  await FloatingUtil.start();
-                },
-              ),
-              SizedBox(height: 10.h),
-              PicChoiceBtn(
-                title: "拍照",
-                onPressed: () async {
-                  XFile? image = await CameraUtil.getCamera();
-                  if (image == null) {
-                    return;
-                  }
-                  List<String> urls = await CameraUtil.upImg(image);
-                  Get.to(CroppingPage(fileName: urls[0]
-                      .split('/')
-                      .last));
-                },
-              ),
-              SizedBox(height: 10.h),
-              PicChoiceBtn(
-                title: "相册",
-                onPressed: () async {
-                  XFile? image = await CameraUtil.getGallery();
-                  if (image == null) {
-                    return;
-                  }
-                  List<String> urls = await CameraUtil.upImg(image);
-                  Get.to(CroppingPage(fileName: urls[0]
-                      .split('/')
-                      .last));
-                },
-              ),
-              SizedBox(height: 20.h),
-            ],
+      builder: (context) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: 20.h),
+          PicChoiceBtn(
+            title: "截屏",
+            onPressed: () async {
+              screenListener.watch();
+              await FloatingUtil.start();
+            },
           ),
+          SizedBox(height: 10.h),
+          PicChoiceBtn(
+            title: "拍照",
+            onPressed: () async {
+              XFile? image = await CameraUtil.getCamera();
+              if (image == null) {
+                return;
+              }
+              Get.to(CroppingPage(filepath: image.path));
+              // List<String> urls = await CameraUtil.upImg(image);
+              // Get.to(CroppingPage(fileName: urls[0]
+              //     .split('/')
+              //     .last));
+            },
+          ),
+          SizedBox(height: 10.h),
+          PicChoiceBtn(
+            title: "相册",
+            onPressed: () async {
+              XFile? image = await CameraUtil.getGallery();
+              if (image == null) {
+                return;
+              }
+              Get.to(CroppingPage(filepath: image.path));
+              // List<String> urls = await CameraUtil.upImg(image);
+              // Get.to(CroppingPage(fileName: urls[0]
+              //     .split('/')
+              //     .last));
+            },
+          ),
+          SizedBox(height: 20.h),
+        ],
+      ),
     );
   }
 }

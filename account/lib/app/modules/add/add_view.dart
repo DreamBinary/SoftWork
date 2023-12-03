@@ -216,77 +216,77 @@ class _ExpendPageState extends State<ExpendPage> {
               ),
             ),
             AddItem("分类", _ClassSelect(initvalue: state.typeId)),
-            GestureDetector(
-              onTap: () {
-                myShowBottomSheet(
-                  context: context,
-                  builder: (context) => Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SizedBox(height: 20.h),
-                      PicChoiceBtn(
-                        title: "拍照",
-                        onPressed: () async {
-                          XFile? image = await CameraUtil.getCamera();
-                          if (image == null) {
-                            return;
-                          }
-                          List<String> urls = await CameraUtil.upImg(image);
-                          setState(() {
-                            state.imgUrl = urls[0];
-                          });
-                        },
-                      ),
-                      SizedBox(height: 10.h),
-                      PicChoiceBtn(
-                        title: "相册",
-                        onPressed: () async {
-                          XFile? image = await CameraUtil.getGallery();
-                          if (image == null) {
-                            return;
-                          }
-                          List<String> urls = await CameraUtil.upImg(image);
-                          setState(() {
-                            state.imgUrl = urls[0];
-                          });
-                        },
-                      ),
-                      SizedBox(height: 20.h),
-                    ],
-                  ),
-                );
-              },
-              child: DottedBorder(
-                borderType: BorderType.RRect,
-                radius: Radius.circular(30.r),
-                child: Container(
-                    width: 270.w,
-                    height: 350.h,
-                    margin: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40.r),
-                      image: state.imgUrl == null
-                          ? null
-                          : DecorationImage(
-                              image: NetworkImage(
-                                state.imgUrl!,
-                                headers: {
-                                  "token": MMKVUtil.getString(AppString.mmToken)
-                                },
-                              ),
-                              fit: BoxFit.contain,
-                            ),
-                    ),
-                    child: state.imgUrl == null
-                        ? Center(
-                            child: Text(
-                              "点击添加图片",
-                              style: AppTS.normal,
-                            ),
-                          )
-                        : null),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     myShowBottomSheet(
+            //       context: context,
+            //       builder: (context) => Column(
+            //         mainAxisSize: MainAxisSize.min,
+            //         children: [
+            //           SizedBox(height: 20.h),
+            //           PicChoiceBtn(
+            //             title: "拍照",
+            //             onPressed: () async {
+            //               XFile? image = await CameraUtil.getCamera();
+            //               if (image == null) {
+            //                 return;
+            //               }
+            //               List<String> urls = await CameraUtil.upImg(image);
+            //               setState(() {
+            //                 state.imgUrl = urls[0];
+            //               });
+            //             },
+            //           ),
+            //           SizedBox(height: 10.h),
+            //           PicChoiceBtn(
+            //             title: "相册",
+            //             onPressed: () async {
+            //               XFile? image = await CameraUtil.getGallery();
+            //               if (image == null) {
+            //                 return;
+            //               }
+            //               List<String> urls = await CameraUtil.upImg(image);
+            //               setState(() {
+            //                 state.imgUrl = urls[0];
+            //               });
+            //             },
+            //           ),
+            //           SizedBox(height: 20.h),
+            //         ],
+            //       ),
+            //     );
+            //   },
+            //   child: DottedBorder(
+            //     borderType: BorderType.RRect,
+            //     radius: Radius.circular(30.r),
+            //     child: Container(
+            //         width: 270.w,
+            //         height: 350.h,
+            //         margin: const EdgeInsets.all(5),
+            //         decoration: BoxDecoration(
+            //           borderRadius: BorderRadius.circular(40.r),
+            //           image: state.imgUrl == null
+            //               ? null
+            //               : DecorationImage(
+            //                   image: NetworkImage(
+            //                     state.imgUrl!,
+            //                     headers: {
+            //                       "token": MMKVUtil.getString(AppString.mmToken)
+            //                     },
+            //                   ),
+            //                   fit: BoxFit.contain,
+            //                 ),
+            //         ),
+            //         child: state.imgUrl == null
+            //             ? Center(
+            //                 child: Text(
+            //                   "点击添加图片",
+            //                   style: AppTS.normal,
+            //                 ),
+            //               )
+            //             : null),
+            //   ),
+            // ),
           ],
         ),
       ),

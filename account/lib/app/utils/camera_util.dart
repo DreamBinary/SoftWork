@@ -31,13 +31,13 @@ class CameraUtil {
     }
   }
 
-  static Future<List<String>> upImg(XFile xFile) async {
-    String path = xFile.path;
-    File file = File(path);
-    List<String> urls = await ApiImg.upImg(imgPaths: [file.path]);
-    file.deleteSync(recursive: true);
-    return urls;
-  }
+  // static Future<List<String>> upImg(XFile xFile) async {
+  //   String path = xFile.path;
+  //   File file = File(path);
+  //   List<String> urls = await ApiImg.upImg(imgPaths: [file.path]);
+  //   file.deleteSync(recursive: true);
+  //   return urls;
+  // }
 
   static Future<Image> crop(XFile xFile) async {
     Uint8List initBytes = await xFile.readAsBytes();

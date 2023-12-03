@@ -1,4 +1,5 @@
 import 'package:account/app/data/entity/consume.dart';
+import 'package:account/app/data/net/api_book.dart';
 import 'package:account/app/data/net/api_consume.dart';
 import 'package:get/get.dart';
 
@@ -33,7 +34,11 @@ class AddLogic extends GetxController {
       consumeDate: state.dateCtrl.text,
       credential: state.imgUrl ?? "",
     );
-    var res = await ApiConsume.addConsume(cData);
+    num? id = await ApiConsume.addConsume(cData);
+    if (id == null) {
+      return false;
+    }
+    var res = await ApiBook.addBookRecord(124, id);
     if (res) {
       clear();
     }

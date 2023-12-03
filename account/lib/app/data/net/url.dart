@@ -15,10 +15,10 @@ class Url {
   static String logout = "/user/logout";
 
   // img
-  static String uploadImg = "/api/file";
-  static String modify = "/api/dewarp";
-  static String recognizeImg = "/api/common_receipt";
-  static String recognizeImg2 = "/api/shop_receipt";
+  // static String uploadImg = "/api/file";
+  // static String modify = "/api/dewarp";
+  // static String recognizeImg = "/api/common_receipt";
+  static String recognizeImg = "/api/shop_receipt";
 
   // guardian
   static String code = "/api/guardianship/code";
@@ -41,7 +41,7 @@ class Url {
   static String yearIn = "/api/consumption/in/year/sum";
   static String yearRecord = "/api/consumption/year";
 
-  static String allRemain = "/api/consumption/balance";
+  static String allRemain = "/api/consumption/sum/balance";
   static String allOut = "/api/consumption/out/sum";
   static String allIn = "/api/consumption/in/sum";
   static String allRecord = "/api/consumption";
@@ -50,12 +50,11 @@ class Url {
   static String rangeRecordMap = "/api/consumption/range/map";
   static String rangeOut = "/api/consumption/range/out";
   static String rangeIn = "/api/consumption/range/in";
-
   static String upSound = "/api/speech_recog";
 
-  static String monthType = "/api/type/analysis/month";
+  // static String monthType = "/api/type/analysis/month";
 
-  static String thirtyOutMoney = "/api/consumption/last/month/analysis";
+  // static String thirtyOutMoney = "/api/consumption/last/month/analysis";
 
   // book
   static String book = "/api/ledger";

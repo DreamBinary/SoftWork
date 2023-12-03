@@ -82,48 +82,48 @@ class _ImageAnalysePageState extends State<ImageAnalysePage> {
               ),
               child: _PiePart(date: date),
             ),
-            Text("类型占比柱状图", style: AppTS.small)
-                .paddingSymmetric(vertical: 15.h, horizontal: 20.w),
-            Container(
-                height: 200.h,
-                padding: EdgeInsets.only(right: 15.w),
-                child: FutureBuilder(
-                    future: logic.getTypeAll(date),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        List<double> percentage =
-                            snapshot.data!.map((e) => e.values.first).toList();
-                        List<String> type =
-                            snapshot.data!.map((e) => e.keys.first).toList();
-                        if (percentage.isNotEmpty) {
-                          return MyBarChart(y: percentage, x: type);
-                        } else {
-                          return Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "无记录",
-                              style: AppTS.small,
-                            ),
-                          );
-                        }
-                      } else {
-                        return Center(
-                          child: ShimmerEffect(
-                            child: Container(
-                              width: 300.h,
-                              height: 175.h,
-                              decoration: BoxDecoration(
-                                color: AppColors.color_list[1].withAlpha(150),
-                                image: const DecorationImage(
-                                  image: AssetImage(AssetsRes.COVER_LINE),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                    })),
+            // Text("类型占比柱状图", style: AppTS.small)
+            //     .paddingSymmetric(vertical: 15.h, horizontal: 20.w),
+            // Container(
+            //     height: 200.h,
+            //     padding: EdgeInsets.only(right: 15.w),
+            //     child: FutureBuilder(
+            //         future: logic.getTypeAll(date),
+            //         builder: (context, snapshot) {
+            //           if (snapshot.hasData) {
+            //             List<double> percentage =
+            //                 snapshot.data!.map((e) => e.values.first).toList();
+            //             List<String> type =
+            //                 snapshot.data!.map((e) => e.keys.first).toList();
+            //             if (percentage.isNotEmpty) {
+            //               return MyBarChart(y: percentage, x: type);
+            //             } else {
+            //               return Container(
+            //                 alignment: Alignment.center,
+            //                 child: Text(
+            //                   "无记录",
+            //                   style: AppTS.small,
+            //                 ),
+            //               );
+            //             }
+            //           } else {
+            //             return Center(
+            //               child: ShimmerEffect(
+            //                 child: Container(
+            //                   width: 300.h,
+            //                   height: 175.h,
+            //                   decoration: BoxDecoration(
+            //                     color: AppColors.color_list[1].withAlpha(150),
+            //                     image: const DecorationImage(
+            //                       image: AssetImage(AssetsRes.COVER_LINE),
+            //                       fit: BoxFit.cover,
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //             );
+            //           }
+            //         })),
             Text("收支记录折线图", style: AppTS.small)
                 .paddingSymmetric(vertical: 15.h, horizontal: 20.w),
             Container(

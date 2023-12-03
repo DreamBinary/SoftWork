@@ -96,16 +96,22 @@ class HomeLogic extends GetxController {
           start: "${start.split(" ")[0]} 00:00:00",
           end: "${end?.split(" ")[0]} 23:59:59");
       state.inM = inM?.abs() ?? 0.0;
+      print(state.inM);
     }
     // }
+    print("getIn");
+    print(state.inM);
     return state.inM;
   }
 
   Future<List<double>> getOutIn(
       {required String start, String? end, bool isMonth = false}) async {
+    var out = await _getOut(start: start, end: end, isMonth: isMonth);
+    var inM = await _getIn(start: start, end: end, isMonth: isMonth);
+    return [out, inM];
     return Future.wait([
+      _getIn(start: start, end: end, isMonth: isMonth),
       _getOut(start: start, end: end, isMonth: isMonth),
-      _getIn(start: start, end: end, isMonth: isMonth)
     ]);
   }
 }
